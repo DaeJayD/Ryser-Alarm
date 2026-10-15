@@ -1,0 +1,70 @@
+import 'package:ryser/features/adaptive_wake/domain/wake_protocol.dart';
+import 'package:ryser/features/adaptive_wake/domain/wake_session_analyzer.dart';
+
+WakeProtocol protocol({
+  int volume = 50,
+  int wakeCheckDelay = 10,
+  bool missionRequired = false,
+  String missionConfiguration = '{}',
+}) => WakeProtocol(
+  id: 'protocol-1',
+  alarmId: 'alarm-1',
+  version: 1,
+  source: WakeProtocolSource.defaultValue,
+  status: WakeProtocolStatus.active,
+  initialSoundId: 'sound-1',
+  initialSoundFamily: 'PULSE',
+  ringtoneUri: 'content://sound/1',
+  initialVolumePercent: volume,
+  maxVolumePercent: 90,
+  volumeEscalationEnabled: true,
+  volumeEscalationStepPercent: 10,
+  volumeEscalationIntervalSeconds: 20,
+  vibrationEnabled: true,
+  vibrationPattern: VibrationPattern.standard,
+  vibrationEscalationEnabled: false,
+  missionRequired: missionRequired,
+  missionType: missionRequired ? 'movement' : null,
+  missionDifficulty: missionRequired ? 'normal' : null,
+  missionConfigurationJson: missionConfiguration,
+  wakeCheckRequired: missionRequired,
+  wakeCheckDelayMinutes: wakeCheckDelay,
+  wakeCheckHoldMilliseconds: 2000,
+  maxWakeCheckFailures: 2,
+  reactivationSoundPolicy: ReactivationSoundPolicy.alternateSound,
+  intensity: WakeIntensity.standard,
+  reasonCode: AdaptiveReasonCode.v2Migration,
+  technicalExplanation: 'fixture',
+  userExplanation: 'fixture',
+  basedOnSessionId: null,
+  supersedesProtocolId: null,
+  createdAt: DateTime(2026),
+  effectiveFrom: DateTime(2026),
+);
+
+const adaptivePolicy = AlarmAdaptationPolicy(
+  enabled: true,
+  sound: AdaptiveMode.adaptive,
+  volume: AdaptiveMode.adaptive,
+  vibration: AdaptiveMode.adaptive,
+  wakeCheck: AdaptiveMode.adaptive,
+  mission: AdaptiveMode.fixed,
+  userMaxVolumePercent: 90,
+);
+
+WakeSessionAnalysis analysis({
+  WakeFailureMode failure = WakeFailureMode.none,
+  ResponseLatencyClassification response = ResponseLatencyClassification.fast,
+  SnoozeClassification snoozes = SnoozeClassification.none,
+  bool confirmedWake = true,
+}) => WakeSessionAnalysis(
+  sessionId: 'session-${failure.name}-${response.name}',
+  primaryFailureMode: failure,
+  secondaryFailureModes: const [],
+  response: response,
+  snoozes: snoozes,
+  dataSufficiency: DataSufficiency.limited,
+  validForAdaptation: true,
+  confirmedWake: confirmedWake,
+  notes: const [],
+);
