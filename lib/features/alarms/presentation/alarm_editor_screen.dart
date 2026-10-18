@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ryser/app/theme/ryser_colors.dart';
 import 'package:ryser/app/theme/ryser_spacing.dart';
+import 'package:ryser/core/widgets/ryser_panel.dart';
 import 'package:ryser/features/alarms/domain/alarm.dart';
 import 'package:ryser/features/adaptive_wake/domain/wake_protocol.dart';
 import 'package:ryser/features/adaptive_wake/presentation/adaptive_explanation_screen.dart';
@@ -466,25 +467,33 @@ class _AlarmEditorScreenState extends ConsumerState<AlarmEditorScreen> {
               label: 'Alarm time ${_time.format(context)}',
               child: InkWell(
                 onTap: _pickTime,
-                borderRadius: BorderRadius.circular(4),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: RyserSpacing.md,
-                    vertical: RyserSpacing.lg,
-                  ),
-                  decoration: BoxDecoration(
-                    color: RyserColors.surface,
-                    border: Border.all(color: RyserColors.muted),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text(
-                    _time.format(context),
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                      color: RyserColors.primary,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 2,
-                    ),
+                borderRadius: BorderRadius.circular(18),
+                child: RyserPanel(
+                  highlighted: true,
+                  child: Column(
+                    children: [
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          _time.format(context),
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.displayMedium
+                              ?.copyWith(
+                                color: RyserColors.primary,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 2,
+                              ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'Tap to set your wake time',
+                        style: TextStyle(
+                          color: RyserColors.textSecondary,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -497,6 +506,9 @@ class _AlarmEditorScreenState extends ConsumerState<AlarmEditorScreen> {
             ),
             const SizedBox(height: RyserSpacing.lg),
             DropdownButtonFormField<AlarmRecurrenceType>(
+              isExpanded: true,
+              isDense: false,
+              itemHeight: null,
               initialValue: _recurrenceType,
               decoration: const InputDecoration(labelText: 'REPEAT'),
               items: const [
@@ -561,6 +573,9 @@ class _AlarmEditorScreenState extends ConsumerState<AlarmEditorScreen> {
               )
             else
               DropdownButtonFormField<String>(
+                isExpanded: true,
+                isDense: false,
+                itemHeight: null,
                 initialValue: _ringtoneUri,
                 decoration: const InputDecoration(labelText: 'RINGTONE'),
                 items: [
@@ -641,9 +656,9 @@ class _AlarmEditorScreenState extends ConsumerState<AlarmEditorScreen> {
             const Divider(color: RyserColors.muted),
             SwitchListTile.adaptive(
               contentPadding: EdgeInsets.zero,
-              title: const Text('ADAPTIVE WAKE'),
+              title: const Text('AUTOMATIC ALARM ADJUSTMENTS'),
               subtitle: const Text(
-                'Use your valid wake history to adjust future alarms',
+                'Let Ryser adjust future alarms based on how you respond. Choose what it may change below.',
               ),
               value: _adaptiveWakeEnabled,
               onChanged: (value) =>
@@ -652,23 +667,33 @@ class _AlarmEditorScreenState extends ConsumerState<AlarmEditorScreen> {
             if (_adaptiveWakeEnabled) ...[
               CheckboxListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('ADAPT SOUND'),
+                title: const Text('Let Ryser change the sound'),
+                subtitle: const Text(
+                  'Try another sound when recent alarms are harder to wake up to.',
+                ),
                 value: _adaptSound,
                 onChanged: (value) =>
                     setState(() => _adaptSound = value ?? false),
               ),
               CheckboxListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('ADAPT VOLUME'),
+                title: const Text('Let Ryser adjust the volume'),
+                subtitle: const Text(
+                  'Adjust the starting level and volume rise within your limit.',
+                ),
                 value: _adaptVolume,
                 onChanged: (value) =>
                     setState(() => _adaptVolume = value ?? false),
               ),
               if (_adaptVolume)
                 DropdownButtonFormField<int>(
+                  isExpanded: true,
+                  isDense: false,
+                  itemHeight: null,
                   initialValue: _userMaxVolumePercent,
                   decoration: const InputDecoration(
-                    labelText: 'MAXIMUM PLAYBACK LEVEL',
+                    labelText: 'VOLUME LIMIT',
+                    helperText: 'Percentage of your phone\'s alarm volume. This does not change the phone volume setting.',
                   ),
                   items: const [
                     DropdownMenuItem(value: 70, child: Text('70%')),
@@ -684,22 +709,30 @@ class _AlarmEditorScreenState extends ConsumerState<AlarmEditorScreen> {
                 ),
               CheckboxListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('ADAPT VIBRATION'),
+                title: const Text('Let Ryser change vibration'),
+                subtitle: const Text(
+                  'Adjust the vibration pattern for future alarms.',
+                ),
                 value: _adaptVibration,
                 onChanged: (value) =>
                     setState(() => _adaptVibration = value ?? false),
               ),
               CheckboxListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('ADAPT WAKE CHECK'),
+                title: const Text('Let Ryser adjust follow-up checks'),
+                subtitle: const Text(
+                  'Adjust when and how Ryser asks if you are still awake after dismissal.',
+                ),
                 value: _adaptWakeCheck,
                 onChanged: (value) =>
                     setState(() => _adaptWakeCheck = value ?? false),
               ),
               CheckboxListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('ADAPT MISSION'),
-                subtitle: const Text('Off by default'),
+                title: const Text('Let Ryser adjust the wake-up task'),
+                subtitle: const Text(
+                  'Off by default. Allow changes to the task needed to stop the alarm.',
+                ),
                 value: _adaptMission,
                 onChanged: (value) =>
                     setState(() => _adaptMission = value ?? false),
@@ -707,38 +740,46 @@ class _AlarmEditorScreenState extends ConsumerState<AlarmEditorScreen> {
               if (_activeProtocol != null)
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: Text('WAKE PROTOCOL V${_activeProtocol!.version}'),
-                  subtitle: WakeProtocolPreview(
-                    protocol: _activeProtocol!,
-                    policy: AlarmAdaptationPolicy(
-                      enabled: _adaptiveWakeEnabled,
-                      sound: _adaptSound
-                          ? AdaptiveMode.adaptive
-                          : AdaptiveMode.fixed,
-                      volume: _adaptVolume
-                          ? AdaptiveMode.adaptive
-                          : AdaptiveMode.fixed,
-                      vibration: _adaptVibration
-                          ? AdaptiveMode.adaptive
-                          : AdaptiveMode.fixed,
-                      wakeCheck: _adaptWakeCheck
-                          ? AdaptiveMode.adaptive
-                          : AdaptiveMode.fixed,
-                      mission: _adaptMission
-                          ? AdaptiveMode.adaptive
-                          : AdaptiveMode.fixed,
-                      userMaxVolumePercent: _userMaxVolumePercent,
-                    ),
+                  title: Text(
+                    'YOUR WAKE-UP PLAN · UPDATE ${_activeProtocol!.version}',
                   ),
-                  trailing: TextButton(
-                    onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute<void>(
-                        builder: (_) => AdaptiveExplanationScreen(
-                          alarmId: widget.alarm!.id,
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 10),
+                      WakeProtocolPreview(
+                        protocol: _activeProtocol!,
+                        policy: AlarmAdaptationPolicy(
+                          enabled: _adaptiveWakeEnabled,
+                          sound: _adaptSound
+                              ? AdaptiveMode.adaptive
+                              : AdaptiveMode.fixed,
+                          volume: _adaptVolume
+                              ? AdaptiveMode.adaptive
+                              : AdaptiveMode.fixed,
+                          vibration: _adaptVibration
+                              ? AdaptiveMode.adaptive
+                              : AdaptiveMode.fixed,
+                          wakeCheck: _adaptWakeCheck
+                              ? AdaptiveMode.adaptive
+                              : AdaptiveMode.fixed,
+                          mission: _adaptMission
+                              ? AdaptiveMode.adaptive
+                              : AdaptiveMode.fixed,
+                          userMaxVolumePercent: _userMaxVolumePercent,
                         ),
                       ),
-                    ),
-                    child: const Text('WHY?'),
+                      TextButton(
+                        onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                            builder: (_) => AdaptiveExplanationScreen(
+                              alarmId: widget.alarm!.id,
+                            ),
+                          ),
+                        ),
+                        child: const Text('DETAILS'),
+                      ),
+                    ],
                   ),
                 ),
               if (_activeProtocol != null)
@@ -749,9 +790,9 @@ class _AlarmEditorScreenState extends ConsumerState<AlarmEditorScreen> {
                           final confirmed = await showDialog<bool>(
                             context: context,
                             builder: (dialogContext) => AlertDialog(
-                              title: const Text('Reset Adaptive Learning?'),
+                              title: const Text('Reset automatic adjustments?'),
                               content: const Text(
-                                'This pauses Adaptive Wake and restores the current alarm settings as a new protocol. Wake history and earlier protocols are kept. Any unsaved edits on this screen will be saved too.',
+                                'This turns off automatic adjustments and uses your current alarm settings again. Your wake-up history and earlier plans are kept. Unsaved edits on this screen will also be saved.',
                               ),
                               actions: [
                                 TextButton(
@@ -774,7 +815,7 @@ class _AlarmEditorScreenState extends ConsumerState<AlarmEditorScreen> {
                           });
                           await _save();
                         },
-                  child: const Text('RESET ADAPTIVE LEARNING'),
+                  child: const Text('RESET AUTOMATIC ADJUSTMENTS'),
                 ),
             ],
             const Divider(color: RyserColors.muted),
@@ -785,11 +826,13 @@ class _AlarmEditorScreenState extends ConsumerState<AlarmEditorScreen> {
               value: _wakeEnforcementEnabled,
               onChanged: (value) {
                 setState(() => _wakeEnforcementEnabled = value);
-                if (value && _qrPayloadHash == null) _registerQr();
               },
             ),
             if (_wakeEnforcementEnabled) ...[
               DropdownButtonFormField<MissionType>(
+                isExpanded: true,
+                isDense: false,
+                itemHeight: null,
                 initialValue: _missionType,
                 decoration: const InputDecoration(labelText: 'MISSION'),
                 items: const [
@@ -829,6 +872,9 @@ class _AlarmEditorScreenState extends ConsumerState<AlarmEditorScreen> {
               ] else if (_missionType == MissionType.movement) ...[
                 const SizedBox(height: RyserSpacing.md),
                 DropdownButtonFormField<int>(
+                  isExpanded: true,
+                  isDense: false,
+                  itemHeight: null,
                   initialValue: _movementSteps,
                   decoration: const InputDecoration(
                     labelText: 'REQUIRED STEPS',
@@ -845,6 +891,9 @@ class _AlarmEditorScreenState extends ConsumerState<AlarmEditorScreen> {
               ] else ...[
                 const SizedBox(height: RyserSpacing.md),
                 DropdownButtonFormField<int>(
+                  isExpanded: true,
+                  isDense: false,
+                  itemHeight: null,
                   initialValue: _requiredJumps,
                   decoration: const InputDecoration(
                     labelText: 'REQUIRED JUMPS',
@@ -861,6 +910,9 @@ class _AlarmEditorScreenState extends ConsumerState<AlarmEditorScreen> {
               ],
               const SizedBox(height: RyserSpacing.md),
               DropdownButtonFormField<int>(
+                isExpanded: true,
+                isDense: false,
+                itemHeight: null,
                 initialValue: _wakeCheckDelayMinutes,
                 decoration: const InputDecoration(
                   labelText: 'WAKE CHECK DELAY',

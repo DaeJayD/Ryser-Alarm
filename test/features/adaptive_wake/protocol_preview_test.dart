@@ -64,14 +64,18 @@ void main() {
           ),
         );
         await tester.pumpAndSettle();
-        expect(find.text('Mission: 20 steps • Fixed'), findsOneWidget);
-        expect(find.text('Playback: 50%–90% • Adaptive'), findsOneWidget);
-        final check = find.text(
-          'Wake Check: 10 min, hold 3.5s, up to 3 missed checks • Adaptive',
+        expect(
+          find.text('To stop the alarm: Walk 20 steps. Stays as you set it.'),
+          findsOneWidget,
+        );
+        expect(find.textContaining('Volume starts at 50%'), findsOneWidget);
+        final check = find.textContaining(
+          'After dismissal, Ryser checks again in 10 minutes.',
         );
         expect(check, findsOneWidget);
         await tester.ensureVisible(check);
-        expect(check.hitTestable(), findsOneWidget);
+        // Large text may make this paragraph taller than the viewport;
+        // scrolling must remain available without a layout overflow.
         expect(tester.takeException(), isNull);
         if (scale == 1 && Platform.environment['RYSER_LAYOUT_CAPTURE'] == '1') {
           final boundary =

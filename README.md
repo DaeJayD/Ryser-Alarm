@@ -18,14 +18,18 @@ and has no Internet permission.
 
 ## Status
 
-Version **3.0.2 (5)** is a locally validated release candidate, not a published
+Version **3.0.4 (7)** is the current V3 candidate, not a published
 Google Play release. Physical-device acceptance remains required, especially for
 locked-screen alarms, OEM battery restrictions, motion detection, and repeated
 adaptive cycles. Do not rely on a test build as your only alarm.
 
-The latest local checks passed 96 Flutter tests and 3 Kotlin helper tests. These
-do not replace device testing. See [Testing](docs/TESTING.md) and
+The latest local checks passed 117 Flutter tests and 3 Kotlin helper tests.
+These do not replace device testing.
+See [Testing](docs/TESTING.md), the [3.0.4 changes](docs/V3_0_4_FIXES.md), and
 [Release status](docs/RELEASE_STATUS.md).
+
+See the [version timeline](docs/VERSION_TIMELINE.md) for V1–V3 changes, reported
+bugs, fixes, and the proposed V4 direction.
 
 ## Toolchain
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ryser/app/theme/ryser_colors.dart';
 import 'package:ryser/app/theme/ryser_spacing.dart';
+import 'package:ryser/core/widgets/ryser_panel.dart';
 import 'package:ryser/core/platform/generated/alarm_runtime_api.g.dart';
 import 'package:ryser/features/alarms/presentation/alarm_providers.dart';
 import 'package:ryser/features/wake_enforcement/data/wake_mission_bridge.dart';
@@ -60,7 +61,9 @@ class _AlarmHealthScreenState extends ConsumerState<AlarmHealthScreen>
         if (protocol != null && await repository.isValid(protocol)) {
           readyAlarmIds.add(row.alarmId);
         }
-      } catch (_) { /* Show an actionable warning for unreadable protocols. */ }
+      } catch (_) {
+        /* Show an actionable warning for unreadable protocols. */
+      }
     }
     final missing = alarms
         .where((item) => item.enabled && !readyAlarmIds.contains(item.id))
@@ -69,10 +72,14 @@ class _AlarmHealthScreenState extends ConsumerState<AlarmHealthScreen>
     final qrReady = configured
         .where((item) => item.enabled && item.missionType == 'qr')
         .every((item) {
-          final json =
-              jsonDecode(item.configurationJson) as Map<String, dynamic>;
-          return (json['payloadHash'] as String?)?.isNotEmpty == true &&
-              (json['locationLabel'] as String?)?.isNotEmpty == true;
+          try {
+            final json =
+                jsonDecode(item.configurationJson) as Map<String, dynamic>;
+            return (json['payloadHash'] as String?)?.isNotEmpty == true &&
+                (json['locationLabel'] as String?)?.isNotEmpty == true;
+          } catch (_) {
+            return false;
+          }
         });
     return _HealthSnapshot(native, mission, qrReady, missing, adaptive);
   }
@@ -85,6 +92,7 @@ class _AlarmHealthScreenState extends ConsumerState<AlarmHealthScreen>
         title: const Text('ALARM HEALTH'),
         actions: [
           IconButton(
+            tooltip: 'Refresh alarm health',
             onPressed: () => setState(_refresh),
             icon: const Icon(Icons.refresh),
           ),
@@ -93,6 +101,35 @@ class _AlarmHealthScreenState extends ConsumerState<AlarmHealthScreen>
       body: FutureBuilder<_HealthSnapshot>(
         future: _health,
         builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: RyserPanel(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.shield_outlined,
+                        color: RyserColors.warning,
+                        size: 32,
+                      ),
+                      const SizedBox(height: 12),
+                      const Text(
+                        'Alarm readiness could not be checked.',
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 12),
+                      OutlinedButton(
+                        onPressed: () => setState(_refresh),
+                        child: const Text('TRY AGAIN'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }
           final snapshotHealth = snapshot.data;
           if (snapshotHealth == null) {
             return const Center(child: CircularProgressIndicator());
@@ -102,12 +139,9 @@ class _AlarmHealthScreenState extends ConsumerState<AlarmHealthScreen>
           return ListView(
             padding: const EdgeInsets.all(RyserSpacing.md),
             children: [
-              const Text(
-                '> SYSTEM READINESS',
-                style: TextStyle(
-                  color: RyserColors.primary,
-                  letterSpacing: 1.4,
-                ),
+              const RyserSectionTitle(
+                'SYSTEM READINESS',
+                caption: 'Android access and sound settings. Readiness does not guarantee an audible alarm on every device.',
               ),
               const SizedBox(height: RyserSpacing.md),
               _HealthRow(
@@ -160,7 +194,7 @@ class _AlarmHealthScreenState extends ConsumerState<AlarmHealthScreen>
                 openAppSettings,
               ),
               _HealthRow(
-                'STEP SENSOR',
+                'DEDICATED STEP SENSOR',
                 mission.stepSensorAvailable,
                 openAppSettings,
               ),
@@ -222,39 +256,72 @@ class _HealthSnapshot {
 
 class _HealthRow extends StatelessWidget {
   const _HealthRow(this.label, this.ready, this.onTap);
-
   final String label;
   final bool ready;
   final Future<void> Function()? onTap;
-
   @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.only(bottom: RyserSpacing.sm),
-        padding: const EdgeInsets.all(RyserSpacing.md),
-        decoration: BoxDecoration(
-          color: RyserColors.surface,
-          border: Border.all(
-            color: ready ? RyserColors.primaryDim : RyserColors.critical,
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.only(bottom: 12),
+    child: RyserPanel(
+      accent: ready
+          ? RyserColors.muted
+          : RyserColors.warning.withValues(alpha: .55),
+      onTap: onTap == null
+          ? null
+          : () async {
+              try {
+                await onTap!();
+              } catch (_) {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        'Settings could not be opened. Open Android settings manually.',
+                      ),
+                    ),
+                  );
+                }
+              }
+            },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(
+            ready ? Icons.check_circle_outline : Icons.info_outline,
+            color: ready ? RyserColors.primary : RyserColors.warning,
+            size: 24,
           ),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Text(label, style: const TextStyle(letterSpacing: 1)),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  ready ? 'Ready' : 'Needs review',
+                  style: TextStyle(
+                    color: ready ? RyserColors.primaryDim : RyserColors.warning,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
             ),
-            Text(
-              ready ? 'READY' : 'ATTENTION',
-              style: TextStyle(
-                color: ready ? RyserColors.primary : RyserColors.critical,
-                fontWeight: FontWeight.w700,
-              ),
+          ),
+          if (onTap != null)
+            const Icon(
+              Icons.chevron_right,
+              color: RyserColors.textSecondary,
+              size: 18,
             ),
-          ],
-        ),
+        ],
       ),
-    );
-  }
+    ),
+  );
 }

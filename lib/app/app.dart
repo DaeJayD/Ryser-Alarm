@@ -4,6 +4,7 @@ import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ryser/app/theme/ryser_theme.dart';
+import 'package:ryser/core/widgets/ryser_panel.dart';
 import 'package:ryser/features/alarms/presentation/alarm_providers.dart';
 import 'package:ryser/features/alarms/presentation/home_screen.dart';
 import 'package:ryser/features/missions/domain/mission.dart';
@@ -260,6 +261,7 @@ class _RyserAppState extends ConsumerState<RyserApp>
       title: 'Ryser',
       debugShowCheckedModeBanner: false,
       theme: RyserTheme.dark,
+      builder: (context, child) => RyserBackdrop(child: child!),
       home: const HomeScreen(),
     );
   }

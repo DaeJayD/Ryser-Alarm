@@ -3,81 +3,77 @@ package com.ryser.ryser.alarm
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.Gravity
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.TextView
 import com.ryser.ryser.service.AlarmPlaybackService
 import com.ryser.ryser.MainActivity
 import com.ryser.ryser.runtime.RuntimeEventStore
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import android.widget.ScrollView
+import android.widget.TextClock
+import android.util.TypedValue
+import androidx.core.widget.TextViewCompat
+import com.ryser.ryser.ui.WakeScreenStyle
 
 class AlarmRingingActivity : Activity() {
+    private var actionTaken = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setShowWhenLocked(true)
-        setTurnScreenOn(true)
-        window.addFlags(
-            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
-                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
-        )
+        WakeScreenStyle(this).prepareWindow()
         setContentView(buildContent())
     }
 
-    private fun buildContent(): LinearLayout {
-        val green = Color.rgb(0, 255, 65)
-        val pale = Color.rgb(232, 255, 232)
-        val muted = Color.rgb(140, 168, 140)
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        // singleTask/SINGLE_TOP reuses this activity for subsequent alarms.
+        // Refresh both the visible content and the session used by its buttons.
+        setIntent(intent)
+        actionTaken = false
+        setContentView(buildContent())
+    }
+
+    private fun buildContent(): ScrollView {
+        val style = WakeScreenStyle(this)
         val label = intent.getStringExtra(EXTRA_LABEL).orEmpty()
-
-        return LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            gravity = Gravity.CENTER
-            setPadding(dp(28), dp(48), dp(28), dp(48))
-            setBackgroundColor(Color.BLACK)
-
-            addView(text("RYSER  //  ALARM ACTIVE", 16f, green).apply {
-                letterSpacing = 0.12f
-            })
-            addView(spacer(56))
-            addView(text(SimpleDateFormat("hh:mm", Locale.getDefault()).format(Date()), 88f, green).apply {
-                typeface = Typeface.MONOSPACE
-                setShadowLayer(18f, 0f, 0f, green)
-            })
-            addView(text(SimpleDateFormat("a", Locale.getDefault()).format(Date()), 22f, green))
-            addView(spacer(32))
-            addView(text(if (label.isBlank()) "GET UP" else label.uppercase(), 28f, pale).apply {
-                letterSpacing = 0.1f
-            })
-            addView(spacer(12))
-            addView(text("ALARM IS RINGING", 14f, muted).apply { letterSpacing = 0.12f })
-            addView(spacer(72))
+        return style.screen("Time to wake up") {
+            addView(style.panel().apply {
+                addView(TextClock(this@AlarmRingingActivity).apply {
+                    format12Hour = "h:mm"
+                    format24Hour = "HH:mm"
+                    textSize = 72f
+                    setTextColor(style.green)
+                    typeface = Typeface.MONOSPACE
+                    gravity = Gravity.CENTER
+                    TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(this, 32, 72, 2, TypedValue.COMPLEX_UNIT_SP)
+                }, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, style.dp(112)))
+                addView(TextClock(this@AlarmRingingActivity).apply {
+                    format12Hour = "a"
+                    format24Hour = "'24-hour time'"
+                    textSize = 16f
+                    setTextColor(style.muted)
+                    gravity = Gravity.CENTER
+                })
+                addView(style.space(24))
+                addView(style.label(if (label == "WAKE CHECK FAILED") "Let's try waking up again" else label.ifBlank { "Your alarm" }, 26f))
+                addView(style.space(12))
+                addView(style.label(if (label == "WAKE CHECK FAILED")
+                    "You missed the follow-up check. Finish your wake-up task to stop the alarm."
+                    else "Your alarm is ringing. Start your wake-up routine when you are ready.", 16f, style.muted))
+            }, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+            addView(style.space(24))
             if (intent.getBooleanExtra(EXTRA_SNOOZE_ENABLED, true)) {
-                addView(Button(this@AlarmRingingActivity).apply {
-                    text = "SNOOZE  ${intent.getIntExtra(EXTRA_SNOOZE_DURATION, 5)} MIN"
-                    textSize = 18f
-                    setTextColor(green)
-                    setBackgroundColor(Color.rgb(8, 11, 8))
-                    minHeight = dp(64)
-                    setOnClickListener { snoozeAlarm() }
-                }, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(72)))
-                addView(spacer(16))
+                addView(style.button("Snooze ${intent.getIntExtra(EXTRA_SNOOZE_DURATION, 5)} minutes", false).apply {
+                    setOnClickListener { if (!actionTaken) { actionTaken = true; snoozeAlarm() } }
+                })
+                addView(style.space(12))
             }
-            addView(Button(this@AlarmRingingActivity).apply {
-                text = "DISMISS"
-                textSize = 20f
-                setTextColor(Color.BLACK)
-                setBackgroundColor(green)
-                minHeight = dp(64)
-                setOnClickListener { dismissAlarm() }
-            }, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(72)))
+            addView(style.button("I'm up · Continue", true).apply {
+                setOnClickListener { if (!actionTaken) { actionTaken = true; dismissAlarm() } }
+            })
+            addView(style.space(12))
+            addView(style.label("If a wake-up task is set, it opens next. Otherwise, the alarm stops.", 14f, style.muted))
         }
     }
 
@@ -136,20 +132,6 @@ class AlarmRingingActivity : Activity() {
         })
         finish()
     }
-
-    private fun text(value: String, size: Float, color: Int) = TextView(this).apply {
-        text = value
-        textSize = size
-        setTextColor(color)
-        gravity = Gravity.CENTER
-        typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
-    }
-
-    private fun spacer(height: Int) = TextView(this).apply {
-        layoutParams = LinearLayout.LayoutParams(1, dp(height))
-    }
-
-    private fun dp(value: Int): Int = (value * resources.displayMetrics.density).toInt()
 
     companion object {
         private const val EXTRA_ALARM_ID = "alarm_id"

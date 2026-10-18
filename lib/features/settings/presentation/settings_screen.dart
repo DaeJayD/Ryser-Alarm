@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ryser/app/theme/ryser_colors.dart';
 import 'package:ryser/app/theme/ryser_spacing.dart';
+import 'package:ryser/core/widgets/ryser_panel.dart';
 import 'package:ryser/features/alarm_health/presentation/alarm_health_screen.dart';
 import 'package:ryser/features/alarms/presentation/alarm_providers.dart';
 import 'package:ryser/features/settings/data/app_defaults_repository.dart';
@@ -48,20 +49,30 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       _saving = true;
       _error = null;
     });
-    await ref
-        .read(appDefaultsRepositoryProvider)
-        .save(
-          AppDefaults(
-            snoozeDurationMinutes: snooze,
-            vibrationEnabled: _vibration,
-            adaptiveSoundRotation: _rotation,
-          ),
-        );
-    ref.invalidate(appDefaultsProvider);
-    if (mounted) {
-      setState(() => _saving = false);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Ryser defaults saved.')));
+    try {
+      await ref
+          .read(appDefaultsRepositoryProvider)
+          .save(
+            AppDefaults(
+              snoozeDurationMinutes: snooze,
+              vibrationEnabled: _vibration,
+              adaptiveSoundRotation: _rotation,
+            ),
+          );
+      ref.invalidate(appDefaultsProvider);
+      if (mounted) {
+        setState(() => _saving = false);
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Ryser defaults saved.')));
+      }
+    } catch (_) {
+      if (mounted) {
+        setState(() {
+          _saving = false;
+          _error = 'Defaults could not be saved. Your changes are still here; try again.';
+        });
+      }
     }
   }
 
@@ -79,12 +90,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             return ListView(
               padding: const EdgeInsets.all(RyserSpacing.md),
               children: [
-                const Text(
-                  '> NEW ALARM DEFAULTS',
-                  style: TextStyle(
-                    color: RyserColors.primary,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 1.2,
+                const RyserPanel(
+                  child: RyserSectionTitle(
+                    'NEW ALARM DEFAULTS',
+                    caption: 'Starting settings for new alarms. Existing alarms keep their own configuration.',
                   ),
                 ),
                 const SizedBox(height: RyserSpacing.md),
@@ -154,7 +163,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 const Text(
                   'RYSER V3 // DETERMINISTIC ADAPTATION\nLOCAL-FIRST. NO ACCOUNT.',
                   style: TextStyle(
-                    color: RyserColors.muted,
+                    color: RyserColors.textSecondary,
                     fontSize: 10,
                     height: 1.6,
                     letterSpacing: 1,
@@ -182,12 +191,24 @@ class _SettingsLink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      title: Text(label, style: const TextStyle(color: RyserColors.primary)),
-      subtitle: Text(subtitle),
-      trailing: const Icon(Icons.chevron_right, color: RyserColors.primaryDim),
-      onTap: onTap,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: RyserPanel(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        onTap: onTap,
+        child: ListTile(
+          contentPadding: EdgeInsets.zero,
+          title: Text(
+            label,
+            style: const TextStyle(color: RyserColors.primary),
+          ),
+          subtitle: Text(subtitle),
+          trailing: const Icon(
+            Icons.chevron_right,
+            color: RyserColors.primaryDim,
+          ),
+        ),
+      ),
     );
   }
 }

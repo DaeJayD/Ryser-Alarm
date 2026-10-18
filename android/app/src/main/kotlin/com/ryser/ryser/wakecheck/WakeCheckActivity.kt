@@ -3,28 +3,26 @@ package com.ryser.ryser.wakecheck
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.Gravity
 import android.view.MotionEvent
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.ryser.ryser.alarm.AlarmRingingActivity
 import com.ryser.ryser.runtime.RuntimeEventStore
 import com.ryser.ryser.service.AlarmPlaybackService
 import com.ryser.ryser.runtime.SoundRotationSelector
 import org.json.JSONObject
+import com.ryser.ryser.ui.WakeScreenStyle
 
 class WakeCheckActivity : Activity() {
     private var holdTimer: CountDownTimer? = null
     private var responseTimer: CountDownTimer? = null
     private var responseDeadlineAtMs: Long = 0L
     private var resolved = false
+    private var holdButton: Button? = null
     private val sessionProtocol: JSONObject
         get() = try { JSONObject(intent.getStringExtra(EXTRA_PROTOCOL_SNAPSHOT) ?: "{}") }
             catch (_: Exception) { JSONObject() }
@@ -36,9 +34,7 @@ class WakeCheckActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setShowWhenLocked(true)
-        setTurnScreenOn(true)
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        WakeScreenStyle(this).prepareWindow()
         responseDeadlineAtMs = savedInstanceState?.getLong(STATE_RESPONSE_DEADLINE)
             ?.takeIf { it > 0L }
             ?: (System.currentTimeMillis() + RESPONSE_TIMEOUT_MS)
@@ -67,45 +63,44 @@ class WakeCheckActivity : Activity() {
         failAndReactivate("WAKE_CHECK_FAILED")
     }
 
-    private fun content() = LinearLayout(this).apply {
-        orientation = LinearLayout.VERTICAL
-        gravity = Gravity.CENTER
-        setPadding(dp(28), dp(48), dp(28), dp(48))
-        setBackgroundColor(Color.BLACK)
-        addView(TextView(this@WakeCheckActivity).apply {
-            text = "STILL AWAKE?"
-            textSize = 34f
-            gravity = Gravity.CENTER
-            setTextColor(Color.rgb(0, 255, 65))
-        })
-        addView(TextView(this@WakeCheckActivity).apply {
-            text = "Hold for ${holdMilliseconds / 1000.0} seconds to confirm"
-            textSize = 17f
-            gravity = Gravity.CENTER
-            setTextColor(Color.rgb(232, 255, 232))
-        })
-        addView(Button(this@WakeCheckActivity).apply {
-            text = "I'M UP"
-            textSize = 24f
-            setTextColor(Color.BLACK)
-            setBackgroundColor(Color.rgb(0, 255, 65))
-            setOnTouchListener { _, event ->
-                when (event.action) {
-                    MotionEvent.ACTION_DOWN -> beginHold()
-                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> holdTimer?.cancel()
+    private fun content(): android.widget.ScrollView {
+        val style = WakeScreenStyle(this)
+        return style.screen("Follow-up wake check") {
+            addView(style.panel().apply {
+                addView(style.label("Still awake?", 32f, style.green))
+                addView(style.space(16))
+                addView(style.label("Hold the button for ${holdMilliseconds / 1000.0} seconds to confirm you are awake."))
+                addView(style.space(12))
+                addView(style.label("If you do not respond within one minute of this check, your alarm rings again.", 15f, style.muted))
+            }, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+            addView(style.space(24))
+            addView(style.button("Hold · I'm awake", true).apply {
+                holdButton = this
+                setOnTouchListener { view, event ->
+                    when (event.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            view.parent.requestDisallowInterceptTouchEvent(true)
+                            beginHold()
+                        }
+                        MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                            holdTimer?.cancel()
+                            text = "Hold · I'm awake"
+                            view.parent.requestDisallowInterceptTouchEvent(false)
+                        }
+                    }
+                    true
                 }
-                true
-            }
-        }, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(88)).apply {
-            topMargin = dp(64)
-        })
+            })
+        }
     }
 
     private fun beginHold() {
         record("WAKE_CHECK_INTERACTION")
         holdTimer?.cancel()
         holdTimer = object : CountDownTimer(holdMilliseconds, 50L) {
-            override fun onTick(remaining: Long) = Unit
+            override fun onTick(remaining: Long) {
+                holdButton?.text = "Keep holding · ${String.format(java.util.Locale.getDefault(), "%.1f", remaining / 1000.0)} s"
+            }
             override fun onFinish() {
                 if (resolved) return
                 resolved = true
@@ -187,8 +182,6 @@ class WakeCheckActivity : Activity() {
             protocolSnapshotJson = intent.getStringExtra(EXTRA_PROTOCOL_SNAPSHOT).orEmpty().ifBlank { "{}" },
         )
     }
-
-    private fun dp(value: Int) = (value * resources.displayMetrics.density).toInt()
 
     companion object {
         private const val RESPONSE_TIMEOUT_MS = 60_000L

@@ -34,13 +34,22 @@ class ProtocolEvidenceView extends ConsumerWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(evidence['userExplanation'] as String? ?? row.evaluationNotes),
             Text(
-              'Evidence: $count comparable wakes${through is int ? ' through ${DateTime.fromMillisecondsSinceEpoch(through).toLocal()}' : ''}.',
+              'Based on $count similar wake-ups${through is int ? ' recorded up to ${MaterialLocalizations.of(context).formatMediumDate(DateTime.fromMillisecondsSinceEpoch(through).toLocal())}' : ''}.',
             ),
             if (evidence.containsKey('responseLatencyMs'))
               Text(
-                'This wake: ${evidence['responseLatencyMs'] == null ? 'no recorded response' : '${(evidence['responseLatencyMs'] as num) / 1000}s response'}, ${evidence['snoozeCount']} snoozes, ${evidence['missionFailureCount']} mission failures, ${evidence['wakeCheckFailureCount']} missed Wake Checks.',
+                'For this alarm: ${evidence['responseLatencyMs'] is num ? 'your first response was after ${((evidence['responseLatencyMs'] as num) / 1000).round()} seconds' : 'no response time was recorded'}.',
+              ),
+            if (evidence['snoozeCount'] is num)
+              Text('Times snoozed: ${evidence['snoozeCount']}.'),
+            if (evidence['missionFailureCount'] is num)
+              Text(
+                'Unsuccessful task attempts: ${evidence['missionFailureCount']}.',
+              ),
+            if (evidence['wakeCheckFailureCount'] is num)
+              Text(
+                'Missed follow-up checks: ${evidence['wakeCheckFailureCount']}.',
               ),
           ],
         );

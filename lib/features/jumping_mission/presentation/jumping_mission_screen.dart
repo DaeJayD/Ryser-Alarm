@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:ryser/core/widgets/emergency_hold_surface.dart';
 import 'package:ryser/app/theme/ryser_colors.dart';
 import 'package:ryser/features/jumping_mission/domain/jump_motion_detector.dart';
 import 'package:sensors_plus/sensors_plus.dart';
@@ -107,16 +108,7 @@ class _JumpingMissionScreenState extends State<JumpingMissionScreen> {
                   onLongPressStart: (_) => _startBypass(),
                   onLongPressEnd: (_) => _cancelBypass(),
                   onLongPressCancel: _cancelBypass,
-                  child: SizedBox(
-                    width: 280,
-                    height: 56,
-                    child: LinearProgressIndicator(
-                      value: _progress,
-                      minHeight: 56,
-                      color: RyserColors.critical,
-                      backgroundColor: RyserColors.surface,
-                    ),
-                  ),
+                  child: EmergencyHoldSurface(progress: _progress),
                 ),
               ],
             ),

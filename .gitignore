@@ -73,11 +73,16 @@ __pycache__/
 *.key
 
 # Local development workflows and editor state
-/.planning/
-/.gsd/
-/.agents/
-/.claude/
-/.codex/
-/AGENTS.md
-/CLAUDE.md
+.planning/
+.gsd/
+.agents/
+.claude/
+.codex/
+.codex-remote-attachments/
+AGENTS.md
+CLAUDE.md
+.aider*
+.cursor/
+.windsurf/
+.github/copilot-instructions.md
 /.vscode/

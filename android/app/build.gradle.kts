@@ -28,6 +28,7 @@ android {
         targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
         if (uploadReady) {
@@ -54,4 +55,6 @@ flutter { source = "../.." }
 dependencies {
     implementation("androidx.core:core:1.18.0")
     testImplementation("junit:junit:4.12")
+    androidTestImplementation("androidx.test:runner:1.7.0")
+    androidTestImplementation("junit:junit:4.13.2")
 }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ryser/app/theme/ryser_colors.dart';
 import 'package:ryser/app/theme/ryser_spacing.dart';
+import 'package:ryser/core/widgets/ryser_panel.dart';
 import 'package:ryser/database/app_database.dart';
 import 'package:ryser/features/alarms/presentation/alarm_providers.dart';
 import 'package:ryser/features/adaptive_wake/presentation/protocol_evidence_view.dart';
@@ -63,125 +64,87 @@ class WakeHistoryScreen extends ConsumerWidget {
 
 class _SessionModule extends StatelessWidget {
   const _SessionModule(this.session, {required this.onTap});
-
   final WakeSession session;
   final VoidCallback onTap;
-
   @override
   Widget build(BuildContext context) {
     final triggered = DateTime.fromMillisecondsSinceEpoch(
       session.triggeredAtMs,
     );
-    final latency = session.responseLatencyMs;
-    return InkWell(
+    final confirmed = session.outcome == 'wakeConfirmed';
+    final outcome = switch (session.outcome) {
+      'wakeConfirmed' => 'Wake confirmed',
+      'bypassed' => 'Emergency bypass',
+      'active' => 'In progress',
+      'noResponse' => 'No response',
+      'manualTermination' => 'Ended manually',
+      _ => session.outcome,
+    };
+    return RyserPanel(
       onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(RyserSpacing.md),
-        decoration: BoxDecoration(
-          color: RyserColors.surface,
-          border: Border.all(color: RyserColors.muted),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              _formatDate(triggered),
-              style: const TextStyle(
-                color: RyserColors.primaryDim,
-                fontSize: 10,
-                letterSpacing: 1.2,
-              ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            _formatDate(triggered),
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 12,
+              letterSpacing: 1,
+              color: RyserColors.textSecondary,
             ),
-            if (latency != null) ...[
-              const SizedBox(height: RyserSpacing.xs),
+          ),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 16,
+            runSpacing: 8,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
               Text(
-                'SNOOZES: ${session.snoozeCount}  //  SOUND CHANGES: ${session.soundChangeCount}',
+                _formatTime(triggered),
                 style: const TextStyle(
-                  color: RyserColors.primaryDim,
-                  fontSize: 9,
-                  letterSpacing: 0.7,
+                  fontFamily: 'monospace',
+                  fontSize: 30,
+                  fontWeight: FontWeight.w600,
+                  color: RyserColors.primary,
+                ),
+              ),
+              Text(
+                outcome,
+                style: TextStyle(
+                  color: confirmed
+                      ? RyserColors.primary
+                      : RyserColors.textSecondary,
                 ),
               ),
             ],
-            const SizedBox(height: RyserSpacing.xs),
-            Text(
-              'Alarm: ${_formatTime(DateTime.fromMillisecondsSinceEpoch(session.scheduledTimeMs))}',
-            ),
-            Text('Final result: ${session.outcome}'),
-            Text(
-              'Mission: ${session.missionType ?? 'not required'} • ${session.missionAttemptCount} attempts',
-            ),
-            Text(
-              'Wake Check: ${session.wakeCheckAttemptCount} attempts • ${session.wakeCheckFailureCount} missed',
-            ),
-            Text(
-              'Awake confirmed: ${session.confirmedAwakeAtMs == null ? 'not recorded' : _formatTime(DateTime.fromMillisecondsSinceEpoch(session.confirmedAwakeAtMs!))}',
-            ),
-            Text(
-              _formatTime(triggered),
-              style: const TextStyle(
-                color: RyserColors.primary,
-                fontSize: 34,
-                fontWeight: FontWeight.w900,
-                shadows: [Shadow(color: RyserColors.primary, blurRadius: 10)],
-              ),
-            ),
-            const SizedBox(height: RyserSpacing.sm),
-            Text(
-              'OUTCOME: ${session.outcome.toUpperCase()}',
-              style: const TextStyle(
-                color: RyserColors.textSecondary,
-                fontSize: 10,
-                letterSpacing: 0.8,
-              ),
-            ),
-            if (session.protocolVersion != null)
-              Text(
-                'WAKE PROTOCOL V${session.protocolVersion}',
+          ),
+          const SizedBox(height: 14),
+          Text(
+            'First response: ${session.responseLatencyMs == null ? 'not recorded' : _formatLatency(session.responseLatencyMs!)}',
+          ),
+          Text(
+            'Snoozes: ${session.snoozeCount}  ·  Sound changes: ${session.soundChangeCount}',
+          ),
+          Text(
+            'Mission: ${session.missionType ?? 'not required'}  ·  ${session.missionAttemptCount} attempts',
+          ),
+          Text(
+            'Wake Checks: ${session.wakeCheckAttemptCount}  ·  ${session.wakeCheckFailureCount} missed',
+          ),
+          if (session.protocolVersion != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 12),
+              child: Text(
+                'PROTOCOL V${session.protocolVersion}  /  VIEW MORNING REPORT',
                 style: const TextStyle(
-                  color: RyserColors.primaryDim,
+                  fontFamily: 'monospace',
                   fontSize: 10,
-                ),
-              ),
-            if (session.wakeEnforcementEnabled) ...[
-              const SizedBox(height: RyserSpacing.xs),
-              Text(
-                'MISSION: ${(session.missionType ?? 'UNKNOWN').toUpperCase()}  //  '
-                'ATTEMPTS: ${session.missionAttemptCount}  //  '
-                'FAILURES: ${session.missionFailureCount}',
-                style: const TextStyle(
                   color: RyserColors.primaryDim,
-                  fontSize: 9,
                 ),
               ),
-              Text(
-                'WAKE CHECKS: ${session.wakeCheckAttemptCount}  //  '
-                'FAILED: ${session.wakeCheckFailureCount}  //  '
-                'REACTIVATIONS: ${session.escalationCount}',
-                style: const TextStyle(
-                  color: RyserColors.primaryDim,
-                  fontSize: 9,
-                ),
-              ),
-              if (session.confirmedAwakeAtMs != null)
-                Text(
-                  'AWAKE CONFIRMED: ${_formatTime(DateTime.fromMillisecondsSinceEpoch(session.confirmedAwakeAtMs!))}',
-                  style: const TextStyle(
-                    color: RyserColors.primary,
-                    fontSize: 10,
-                  ),
-                ),
-            ],
-            if (latency != null)
-              Text(
-                'INITIAL RESPONSE: ${_formatLatency(latency)}',
-                style: const TextStyle(
-                  color: RyserColors.textSecondary,
-                  fontSize: 9,
-                ),
-              ),
-          ],
-        ),
+            ),
+        ],
       ),
     );
   }

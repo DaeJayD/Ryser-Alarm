@@ -15,7 +15,7 @@ explicit test-signing override for local candidates. The upload format is an
 Android App Bundle (`.aab`). Google approval, identity verification, closed-test
 requirements, and physical-device acceptance cannot be completed by a local build.
 
-The app uses package `com.ryser.ryser`, version 3.0.2 (5), and targets API 36.
+The app uses package `com.ryser.ryser`, version 3.0.4 (7), and targets API 36.
 Confirm the final package before the first Play upload; its identity persists.
 The debug-installed phone copy will not normally upgrade to a different signer.
 Keep that copy/history until upgrade/migration testing is done; do not uninstall

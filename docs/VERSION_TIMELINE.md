@@ -4,6 +4,9 @@ V1 to V3 and the proposed V4 direction
 
 Project record through 15 October 2026
 
+The subsequent 3.0.3 UI refresh is documented in [V3 UI refresh](UI_REFRESH_V3.md).
+The timeline below preserves the earlier 3.0.2 checkpoint and its V4 proposal.
+
 ## 1 Overview
 
 Ryser grew from a native Android alarm into a wake-enforcement system and then
@@ -326,8 +329,8 @@ needs both correct code and evidence that its physical wake actions work.
 ### Source register
 
 - [1] Ryser Product Roadmap Loop Engineering, page 17: original V3/V4/V5 scope.
-- [2] Ryser Phase 2 Master Development Prompt: wake enforcement specification.
-- [3] Ryser Phase 3 Master Development Prompt and Adaptive Wake Plan: V3 scope
+- [2] Ryser Phase 2 requirements: wake enforcement specification.
+- [3] Ryser Phase 3 requirements and Adaptive Wake Plan: V3 scope
   and stages 3A to 3J.
 - [4] Archived early development records: V1 checks and initial V2 checkpoint.
   These are historical records, not fresh hardware measurements.

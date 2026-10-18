@@ -17,8 +17,16 @@ Android instrumentation or physical-device proof.
 For Kotlin helper tests, run `./gradlew :app:testDebugUnitTest` from `android`
 (`.\gradlew.bat :app:testDebugUnitTest` on Windows).
 
-The 3.0.2 baseline passed 96 Flutter tests and 3 Kotlin helper tests. Repeat the
+The 3.0.4 baseline passed 117 Flutter tests and 3 Kotlin helper tests. Repeat
 checks after changes rather than treating those counts as a guarantee.
+
+Native screen instrumentation is in `android/app/src/androidTest`. With a test
+emulator connected, run `./gradlew :app:connectedDebugAndroidTest` from `android`.
+This uses the standard unshrunk debug instrumentation variant; it is not proof
+of the release artifact. The tests check cold-start layouts, saved hold instructions
+and reused ringing-session intents. It does not validate audible alarms or
+physical motion detection. Use an isolated emulator because tests record fixture
+Wake Check events. See [3.0.4 validation notes](V3_0_4_FIXES.md).
 
 ## Device acceptance
 

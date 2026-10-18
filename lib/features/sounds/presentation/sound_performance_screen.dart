@@ -52,6 +52,7 @@ class _PerformanceCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: RyserColors.surface,
         border: Border.all(color: RyserColors.muted),
+        borderRadius: BorderRadius.circular(18),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

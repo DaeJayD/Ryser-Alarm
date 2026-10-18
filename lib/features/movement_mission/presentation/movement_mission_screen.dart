@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:ryser/core/widgets/emergency_hold_surface.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -233,16 +234,7 @@ class _MovementMissionScreenState extends State<MovementMissionScreen> {
                     onLongPressStart: (_) => _startBypass(),
                     onLongPressEnd: (_) => _cancelBypass(),
                     onLongPressCancel: _cancelBypass,
-                    child: SizedBox(
-                      width: 280,
-                      height: 56,
-                      child: LinearProgressIndicator(
-                        value: _bypassProgress,
-                        minHeight: 56,
-                        color: RyserColors.critical,
-                        backgroundColor: RyserColors.surface,
-                      ),
-                    ),
+                    child: EmergencyHoldSurface(progress: _bypassProgress),
                   ),
                 ],
               ),
