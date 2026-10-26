@@ -5,6 +5,8 @@ import 'package:ryser/database/app_database.dart' as db;
 import 'package:ryser/features/adaptive_wake/domain/wake_protocol.dart';
 import 'package:ryser/features/adaptive_wake/domain/protocol_validator.dart';
 import 'package:ryser/features/sounds/domain/bundled_sound_catalog.dart';
+import 'package:ryser/features/adaptive_wake/domain/wake_protocol_codec.dart';
+import 'package:ryser/features/wake_experiments/domain/experiment_safety_policy.dart';
 import 'package:uuid/uuid.dart';
 
 class WakeProtocolRepository {
@@ -301,6 +303,30 @@ class WakeProtocolRepository {
             ),
           );
     });
+  }
+
+  /// Make a candidate resolvable by session ID without activating it globally.
+  Future<void> registerExperimentVariant(WakeProtocol protocol) async {
+    if (!await isValid(protocol)) {
+      throw StateError('Experiment variant is not executable.');
+    }
+    final existing = await findById(protocol.id);
+    if (existing != null) {
+      if (existing.alarmId != protocol.alarmId ||
+          existing.version != protocol.version ||
+          !sameExperimentSettings(
+            encodeWakeProtocolSnapshot(existing),
+            encodeWakeProtocolSnapshot(protocol),
+          )) {
+        throw StateError('Protocol identity has different immutable settings.');
+      }
+      return;
+    }
+    await _database
+        .into(_database.wakeProtocols)
+        .insert(
+          _toCompanion(protocol.copyWith(status: WakeProtocolStatus.archived)),
+        );
   }
 
   Future<List<WakeProtocol>> historyForAlarm(String alarmId) async {

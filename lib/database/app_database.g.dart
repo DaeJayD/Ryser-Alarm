@@ -9265,6 +9265,2789 @@ class AlarmAdaptationSettingsCompanion
   }
 }
 
+class $WakeExperimentsTable extends WakeExperiments
+    with TableInfo<$WakeExperimentsTable, WakeExperimentRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $WakeExperimentsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _alarmIdMeta = const VerificationMeta(
+    'alarmId',
+  );
+  @override
+  late final GeneratedColumn<String> alarmId = GeneratedColumn<String>(
+    'alarm_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _hypothesisMeta = const VerificationMeta(
+    'hypothesis',
+  );
+  @override
+  late final GeneratedColumn<String> hypothesis = GeneratedColumn<String>(
+    'hypothesis',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+    'status',
+    aliasedName,
+    false,
+    check: () => const CustomExpression(
+      "status IN ('draft','ready','running','paused','completed','cancelled','invalidated')",
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _dimensionMeta = const VerificationMeta(
+    'dimension',
+  );
+  @override
+  late final GeneratedColumn<String> dimension = GeneratedColumn<String>(
+    'dimension',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _controlProtocolIdMeta = const VerificationMeta(
+    'controlProtocolId',
+  );
+  @override
+  late final GeneratedColumn<String> controlProtocolId =
+      GeneratedColumn<String>(
+        'control_protocol_id',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _controlProtocolVersionMeta =
+      const VerificationMeta('controlProtocolVersion');
+  @override
+  late final GeneratedColumn<int> controlProtocolVersion = GeneratedColumn<int>(
+    'control_protocol_version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _controlSnapshotJsonMeta =
+      const VerificationMeta('controlSnapshotJson');
+  @override
+  late final GeneratedColumn<String> controlSnapshotJson =
+      GeneratedColumn<String>(
+        'control_snapshot_json',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _candidateProtocolIdMeta =
+      const VerificationMeta('candidateProtocolId');
+  @override
+  late final GeneratedColumn<String> candidateProtocolId =
+      GeneratedColumn<String>(
+        'candidate_protocol_id',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _candidateProtocolVersionMeta =
+      const VerificationMeta('candidateProtocolVersion');
+  @override
+  late final GeneratedColumn<int> candidateProtocolVersion =
+      GeneratedColumn<int>(
+        'candidate_protocol_version',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _candidateSnapshotJsonMeta =
+      const VerificationMeta('candidateSnapshotJson');
+  @override
+  late final GeneratedColumn<String> candidateSnapshotJson =
+      GeneratedColumn<String>(
+        'candidate_snapshot_json',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _contextKeyMeta = const VerificationMeta(
+    'contextKey',
+  );
+  @override
+  late final GeneratedColumn<String> contextKey = GeneratedColumn<String>(
+    'context_key',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _minimumSessionsPerVariantMeta =
+      const VerificationMeta('minimumSessionsPerVariant');
+  @override
+  late final GeneratedColumn<int> minimumSessionsPerVariant =
+      GeneratedColumn<int>(
+        'minimum_sessions_per_variant',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _preferredSessionsPerVariantMeta =
+      const VerificationMeta('preferredSessionsPerVariant');
+  @override
+  late final GeneratedColumn<int> preferredSessionsPerVariant =
+      GeneratedColumn<int>(
+        'preferred_sessions_per_variant',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _maximumSessionsPerVariantMeta =
+      const VerificationMeta('maximumSessionsPerVariant');
+  @override
+  late final GeneratedColumn<int> maximumSessionsPerVariant =
+      GeneratedColumn<int>(
+        'maximum_sessions_per_variant',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _resultMeta = const VerificationMeta('result');
+  @override
+  late final GeneratedColumn<String> result = GeneratedColumn<String>(
+    'result',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('insufficientData'),
+  );
+  static const VerificationMeta _confidenceMeta = const VerificationMeta(
+    'confidence',
+  );
+  @override
+  late final GeneratedColumn<String> confidence = GeneratedColumn<String>(
+    'confidence',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('insufficient'),
+  );
+  static const VerificationMeta _winnerProtocolIdMeta = const VerificationMeta(
+    'winnerProtocolId',
+  );
+  @override
+  late final GeneratedColumn<String> winnerProtocolId = GeneratedColumn<String>(
+    'winner_protocol_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _invalidReasonMeta = const VerificationMeta(
+    'invalidReason',
+  );
+  @override
+  late final GeneratedColumn<String> invalidReason = GeneratedColumn<String>(
+    'invalid_reason',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _startedAtMsMeta = const VerificationMeta(
+    'startedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> startedAtMs = GeneratedColumn<int>(
+    'started_at_ms',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _completedAtMsMeta = const VerificationMeta(
+    'completedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> completedAtMs = GeneratedColumn<int>(
+    'completed_at_ms',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMsMeta = const VerificationMeta(
+    'createdAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> createdAtMs = GeneratedColumn<int>(
+    'created_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMsMeta = const VerificationMeta(
+    'updatedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAtMs = GeneratedColumn<int>(
+    'updated_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    alarmId,
+    name,
+    hypothesis,
+    status,
+    dimension,
+    controlProtocolId,
+    controlProtocolVersion,
+    controlSnapshotJson,
+    candidateProtocolId,
+    candidateProtocolVersion,
+    candidateSnapshotJson,
+    contextKey,
+    minimumSessionsPerVariant,
+    preferredSessionsPerVariant,
+    maximumSessionsPerVariant,
+    result,
+    confidence,
+    winnerProtocolId,
+    invalidReason,
+    startedAtMs,
+    completedAtMs,
+    createdAtMs,
+    updatedAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'wake_experiments';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<WakeExperimentRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('alarm_id')) {
+      context.handle(
+        _alarmIdMeta,
+        alarmId.isAcceptableOrUnknown(data['alarm_id']!, _alarmIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_alarmIdMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('hypothesis')) {
+      context.handle(
+        _hypothesisMeta,
+        hypothesis.isAcceptableOrUnknown(data['hypothesis']!, _hypothesisMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_hypothesisMeta);
+    }
+    if (data.containsKey('status')) {
+      context.handle(
+        _statusMeta,
+        status.isAcceptableOrUnknown(data['status']!, _statusMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_statusMeta);
+    }
+    if (data.containsKey('dimension')) {
+      context.handle(
+        _dimensionMeta,
+        dimension.isAcceptableOrUnknown(data['dimension']!, _dimensionMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_dimensionMeta);
+    }
+    if (data.containsKey('control_protocol_id')) {
+      context.handle(
+        _controlProtocolIdMeta,
+        controlProtocolId.isAcceptableOrUnknown(
+          data['control_protocol_id']!,
+          _controlProtocolIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_controlProtocolIdMeta);
+    }
+    if (data.containsKey('control_protocol_version')) {
+      context.handle(
+        _controlProtocolVersionMeta,
+        controlProtocolVersion.isAcceptableOrUnknown(
+          data['control_protocol_version']!,
+          _controlProtocolVersionMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_controlProtocolVersionMeta);
+    }
+    if (data.containsKey('control_snapshot_json')) {
+      context.handle(
+        _controlSnapshotJsonMeta,
+        controlSnapshotJson.isAcceptableOrUnknown(
+          data['control_snapshot_json']!,
+          _controlSnapshotJsonMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_controlSnapshotJsonMeta);
+    }
+    if (data.containsKey('candidate_protocol_id')) {
+      context.handle(
+        _candidateProtocolIdMeta,
+        candidateProtocolId.isAcceptableOrUnknown(
+          data['candidate_protocol_id']!,
+          _candidateProtocolIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_candidateProtocolIdMeta);
+    }
+    if (data.containsKey('candidate_protocol_version')) {
+      context.handle(
+        _candidateProtocolVersionMeta,
+        candidateProtocolVersion.isAcceptableOrUnknown(
+          data['candidate_protocol_version']!,
+          _candidateProtocolVersionMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_candidateProtocolVersionMeta);
+    }
+    if (data.containsKey('candidate_snapshot_json')) {
+      context.handle(
+        _candidateSnapshotJsonMeta,
+        candidateSnapshotJson.isAcceptableOrUnknown(
+          data['candidate_snapshot_json']!,
+          _candidateSnapshotJsonMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_candidateSnapshotJsonMeta);
+    }
+    if (data.containsKey('context_key')) {
+      context.handle(
+        _contextKeyMeta,
+        contextKey.isAcceptableOrUnknown(data['context_key']!, _contextKeyMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_contextKeyMeta);
+    }
+    if (data.containsKey('minimum_sessions_per_variant')) {
+      context.handle(
+        _minimumSessionsPerVariantMeta,
+        minimumSessionsPerVariant.isAcceptableOrUnknown(
+          data['minimum_sessions_per_variant']!,
+          _minimumSessionsPerVariantMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_minimumSessionsPerVariantMeta);
+    }
+    if (data.containsKey('preferred_sessions_per_variant')) {
+      context.handle(
+        _preferredSessionsPerVariantMeta,
+        preferredSessionsPerVariant.isAcceptableOrUnknown(
+          data['preferred_sessions_per_variant']!,
+          _preferredSessionsPerVariantMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_preferredSessionsPerVariantMeta);
+    }
+    if (data.containsKey('maximum_sessions_per_variant')) {
+      context.handle(
+        _maximumSessionsPerVariantMeta,
+        maximumSessionsPerVariant.isAcceptableOrUnknown(
+          data['maximum_sessions_per_variant']!,
+          _maximumSessionsPerVariantMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_maximumSessionsPerVariantMeta);
+    }
+    if (data.containsKey('result')) {
+      context.handle(
+        _resultMeta,
+        result.isAcceptableOrUnknown(data['result']!, _resultMeta),
+      );
+    }
+    if (data.containsKey('confidence')) {
+      context.handle(
+        _confidenceMeta,
+        confidence.isAcceptableOrUnknown(data['confidence']!, _confidenceMeta),
+      );
+    }
+    if (data.containsKey('winner_protocol_id')) {
+      context.handle(
+        _winnerProtocolIdMeta,
+        winnerProtocolId.isAcceptableOrUnknown(
+          data['winner_protocol_id']!,
+          _winnerProtocolIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('invalid_reason')) {
+      context.handle(
+        _invalidReasonMeta,
+        invalidReason.isAcceptableOrUnknown(
+          data['invalid_reason']!,
+          _invalidReasonMeta,
+        ),
+      );
+    }
+    if (data.containsKey('started_at_ms')) {
+      context.handle(
+        _startedAtMsMeta,
+        startedAtMs.isAcceptableOrUnknown(
+          data['started_at_ms']!,
+          _startedAtMsMeta,
+        ),
+      );
+    }
+    if (data.containsKey('completed_at_ms')) {
+      context.handle(
+        _completedAtMsMeta,
+        completedAtMs.isAcceptableOrUnknown(
+          data['completed_at_ms']!,
+          _completedAtMsMeta,
+        ),
+      );
+    }
+    if (data.containsKey('created_at_ms')) {
+      context.handle(
+        _createdAtMsMeta,
+        createdAtMs.isAcceptableOrUnknown(
+          data['created_at_ms']!,
+          _createdAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMsMeta);
+    }
+    if (data.containsKey('updated_at_ms')) {
+      context.handle(
+        _updatedAtMsMeta,
+        updatedAtMs.isAcceptableOrUnknown(
+          data['updated_at_ms']!,
+          _updatedAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  WakeExperimentRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return WakeExperimentRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      alarmId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}alarm_id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      hypothesis: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}hypothesis'],
+      )!,
+      status: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}status'],
+      )!,
+      dimension: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}dimension'],
+      )!,
+      controlProtocolId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}control_protocol_id'],
+      )!,
+      controlProtocolVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}control_protocol_version'],
+      )!,
+      controlSnapshotJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}control_snapshot_json'],
+      )!,
+      candidateProtocolId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}candidate_protocol_id'],
+      )!,
+      candidateProtocolVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}candidate_protocol_version'],
+      )!,
+      candidateSnapshotJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}candidate_snapshot_json'],
+      )!,
+      contextKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}context_key'],
+      )!,
+      minimumSessionsPerVariant: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}minimum_sessions_per_variant'],
+      )!,
+      preferredSessionsPerVariant: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}preferred_sessions_per_variant'],
+      )!,
+      maximumSessionsPerVariant: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}maximum_sessions_per_variant'],
+      )!,
+      result: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}result'],
+      )!,
+      confidence: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}confidence'],
+      )!,
+      winnerProtocolId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}winner_protocol_id'],
+      ),
+      invalidReason: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}invalid_reason'],
+      ),
+      startedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}started_at_ms'],
+      ),
+      completedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}completed_at_ms'],
+      ),
+      createdAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at_ms'],
+      )!,
+      updatedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at_ms'],
+      )!,
+    );
+  }
+
+  @override
+  $WakeExperimentsTable createAlias(String alias) {
+    return $WakeExperimentsTable(attachedDatabase, alias);
+  }
+}
+
+class WakeExperimentRow extends DataClass
+    implements Insertable<WakeExperimentRow> {
+  final String id;
+  final String alarmId;
+  final String name;
+  final String hypothesis;
+  final String status;
+  final String dimension;
+  final String controlProtocolId;
+  final int controlProtocolVersion;
+  final String controlSnapshotJson;
+  final String candidateProtocolId;
+  final int candidateProtocolVersion;
+  final String candidateSnapshotJson;
+  final String contextKey;
+  final int minimumSessionsPerVariant;
+  final int preferredSessionsPerVariant;
+  final int maximumSessionsPerVariant;
+  final String result;
+  final String confidence;
+  final String? winnerProtocolId;
+  final String? invalidReason;
+  final int? startedAtMs;
+  final int? completedAtMs;
+  final int createdAtMs;
+  final int updatedAtMs;
+  const WakeExperimentRow({
+    required this.id,
+    required this.alarmId,
+    required this.name,
+    required this.hypothesis,
+    required this.status,
+    required this.dimension,
+    required this.controlProtocolId,
+    required this.controlProtocolVersion,
+    required this.controlSnapshotJson,
+    required this.candidateProtocolId,
+    required this.candidateProtocolVersion,
+    required this.candidateSnapshotJson,
+    required this.contextKey,
+    required this.minimumSessionsPerVariant,
+    required this.preferredSessionsPerVariant,
+    required this.maximumSessionsPerVariant,
+    required this.result,
+    required this.confidence,
+    this.winnerProtocolId,
+    this.invalidReason,
+    this.startedAtMs,
+    this.completedAtMs,
+    required this.createdAtMs,
+    required this.updatedAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['alarm_id'] = Variable<String>(alarmId);
+    map['name'] = Variable<String>(name);
+    map['hypothesis'] = Variable<String>(hypothesis);
+    map['status'] = Variable<String>(status);
+    map['dimension'] = Variable<String>(dimension);
+    map['control_protocol_id'] = Variable<String>(controlProtocolId);
+    map['control_protocol_version'] = Variable<int>(controlProtocolVersion);
+    map['control_snapshot_json'] = Variable<String>(controlSnapshotJson);
+    map['candidate_protocol_id'] = Variable<String>(candidateProtocolId);
+    map['candidate_protocol_version'] = Variable<int>(candidateProtocolVersion);
+    map['candidate_snapshot_json'] = Variable<String>(candidateSnapshotJson);
+    map['context_key'] = Variable<String>(contextKey);
+    map['minimum_sessions_per_variant'] = Variable<int>(
+      minimumSessionsPerVariant,
+    );
+    map['preferred_sessions_per_variant'] = Variable<int>(
+      preferredSessionsPerVariant,
+    );
+    map['maximum_sessions_per_variant'] = Variable<int>(
+      maximumSessionsPerVariant,
+    );
+    map['result'] = Variable<String>(result);
+    map['confidence'] = Variable<String>(confidence);
+    if (!nullToAbsent || winnerProtocolId != null) {
+      map['winner_protocol_id'] = Variable<String>(winnerProtocolId);
+    }
+    if (!nullToAbsent || invalidReason != null) {
+      map['invalid_reason'] = Variable<String>(invalidReason);
+    }
+    if (!nullToAbsent || startedAtMs != null) {
+      map['started_at_ms'] = Variable<int>(startedAtMs);
+    }
+    if (!nullToAbsent || completedAtMs != null) {
+      map['completed_at_ms'] = Variable<int>(completedAtMs);
+    }
+    map['created_at_ms'] = Variable<int>(createdAtMs);
+    map['updated_at_ms'] = Variable<int>(updatedAtMs);
+    return map;
+  }
+
+  WakeExperimentsCompanion toCompanion(bool nullToAbsent) {
+    return WakeExperimentsCompanion(
+      id: Value(id),
+      alarmId: Value(alarmId),
+      name: Value(name),
+      hypothesis: Value(hypothesis),
+      status: Value(status),
+      dimension: Value(dimension),
+      controlProtocolId: Value(controlProtocolId),
+      controlProtocolVersion: Value(controlProtocolVersion),
+      controlSnapshotJson: Value(controlSnapshotJson),
+      candidateProtocolId: Value(candidateProtocolId),
+      candidateProtocolVersion: Value(candidateProtocolVersion),
+      candidateSnapshotJson: Value(candidateSnapshotJson),
+      contextKey: Value(contextKey),
+      minimumSessionsPerVariant: Value(minimumSessionsPerVariant),
+      preferredSessionsPerVariant: Value(preferredSessionsPerVariant),
+      maximumSessionsPerVariant: Value(maximumSessionsPerVariant),
+      result: Value(result),
+      confidence: Value(confidence),
+      winnerProtocolId: winnerProtocolId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(winnerProtocolId),
+      invalidReason: invalidReason == null && nullToAbsent
+          ? const Value.absent()
+          : Value(invalidReason),
+      startedAtMs: startedAtMs == null && nullToAbsent
+          ? const Value.absent()
+          : Value(startedAtMs),
+      completedAtMs: completedAtMs == null && nullToAbsent
+          ? const Value.absent()
+          : Value(completedAtMs),
+      createdAtMs: Value(createdAtMs),
+      updatedAtMs: Value(updatedAtMs),
+    );
+  }
+
+  factory WakeExperimentRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return WakeExperimentRow(
+      id: serializer.fromJson<String>(json['id']),
+      alarmId: serializer.fromJson<String>(json['alarmId']),
+      name: serializer.fromJson<String>(json['name']),
+      hypothesis: serializer.fromJson<String>(json['hypothesis']),
+      status: serializer.fromJson<String>(json['status']),
+      dimension: serializer.fromJson<String>(json['dimension']),
+      controlProtocolId: serializer.fromJson<String>(json['controlProtocolId']),
+      controlProtocolVersion: serializer.fromJson<int>(
+        json['controlProtocolVersion'],
+      ),
+      controlSnapshotJson: serializer.fromJson<String>(
+        json['controlSnapshotJson'],
+      ),
+      candidateProtocolId: serializer.fromJson<String>(
+        json['candidateProtocolId'],
+      ),
+      candidateProtocolVersion: serializer.fromJson<int>(
+        json['candidateProtocolVersion'],
+      ),
+      candidateSnapshotJson: serializer.fromJson<String>(
+        json['candidateSnapshotJson'],
+      ),
+      contextKey: serializer.fromJson<String>(json['contextKey']),
+      minimumSessionsPerVariant: serializer.fromJson<int>(
+        json['minimumSessionsPerVariant'],
+      ),
+      preferredSessionsPerVariant: serializer.fromJson<int>(
+        json['preferredSessionsPerVariant'],
+      ),
+      maximumSessionsPerVariant: serializer.fromJson<int>(
+        json['maximumSessionsPerVariant'],
+      ),
+      result: serializer.fromJson<String>(json['result']),
+      confidence: serializer.fromJson<String>(json['confidence']),
+      winnerProtocolId: serializer.fromJson<String?>(json['winnerProtocolId']),
+      invalidReason: serializer.fromJson<String?>(json['invalidReason']),
+      startedAtMs: serializer.fromJson<int?>(json['startedAtMs']),
+      completedAtMs: serializer.fromJson<int?>(json['completedAtMs']),
+      createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
+      updatedAtMs: serializer.fromJson<int>(json['updatedAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'alarmId': serializer.toJson<String>(alarmId),
+      'name': serializer.toJson<String>(name),
+      'hypothesis': serializer.toJson<String>(hypothesis),
+      'status': serializer.toJson<String>(status),
+      'dimension': serializer.toJson<String>(dimension),
+      'controlProtocolId': serializer.toJson<String>(controlProtocolId),
+      'controlProtocolVersion': serializer.toJson<int>(controlProtocolVersion),
+      'controlSnapshotJson': serializer.toJson<String>(controlSnapshotJson),
+      'candidateProtocolId': serializer.toJson<String>(candidateProtocolId),
+      'candidateProtocolVersion': serializer.toJson<int>(
+        candidateProtocolVersion,
+      ),
+      'candidateSnapshotJson': serializer.toJson<String>(candidateSnapshotJson),
+      'contextKey': serializer.toJson<String>(contextKey),
+      'minimumSessionsPerVariant': serializer.toJson<int>(
+        minimumSessionsPerVariant,
+      ),
+      'preferredSessionsPerVariant': serializer.toJson<int>(
+        preferredSessionsPerVariant,
+      ),
+      'maximumSessionsPerVariant': serializer.toJson<int>(
+        maximumSessionsPerVariant,
+      ),
+      'result': serializer.toJson<String>(result),
+      'confidence': serializer.toJson<String>(confidence),
+      'winnerProtocolId': serializer.toJson<String?>(winnerProtocolId),
+      'invalidReason': serializer.toJson<String?>(invalidReason),
+      'startedAtMs': serializer.toJson<int?>(startedAtMs),
+      'completedAtMs': serializer.toJson<int?>(completedAtMs),
+      'createdAtMs': serializer.toJson<int>(createdAtMs),
+      'updatedAtMs': serializer.toJson<int>(updatedAtMs),
+    };
+  }
+
+  WakeExperimentRow copyWith({
+    String? id,
+    String? alarmId,
+    String? name,
+    String? hypothesis,
+    String? status,
+    String? dimension,
+    String? controlProtocolId,
+    int? controlProtocolVersion,
+    String? controlSnapshotJson,
+    String? candidateProtocolId,
+    int? candidateProtocolVersion,
+    String? candidateSnapshotJson,
+    String? contextKey,
+    int? minimumSessionsPerVariant,
+    int? preferredSessionsPerVariant,
+    int? maximumSessionsPerVariant,
+    String? result,
+    String? confidence,
+    Value<String?> winnerProtocolId = const Value.absent(),
+    Value<String?> invalidReason = const Value.absent(),
+    Value<int?> startedAtMs = const Value.absent(),
+    Value<int?> completedAtMs = const Value.absent(),
+    int? createdAtMs,
+    int? updatedAtMs,
+  }) => WakeExperimentRow(
+    id: id ?? this.id,
+    alarmId: alarmId ?? this.alarmId,
+    name: name ?? this.name,
+    hypothesis: hypothesis ?? this.hypothesis,
+    status: status ?? this.status,
+    dimension: dimension ?? this.dimension,
+    controlProtocolId: controlProtocolId ?? this.controlProtocolId,
+    controlProtocolVersion:
+        controlProtocolVersion ?? this.controlProtocolVersion,
+    controlSnapshotJson: controlSnapshotJson ?? this.controlSnapshotJson,
+    candidateProtocolId: candidateProtocolId ?? this.candidateProtocolId,
+    candidateProtocolVersion:
+        candidateProtocolVersion ?? this.candidateProtocolVersion,
+    candidateSnapshotJson: candidateSnapshotJson ?? this.candidateSnapshotJson,
+    contextKey: contextKey ?? this.contextKey,
+    minimumSessionsPerVariant:
+        minimumSessionsPerVariant ?? this.minimumSessionsPerVariant,
+    preferredSessionsPerVariant:
+        preferredSessionsPerVariant ?? this.preferredSessionsPerVariant,
+    maximumSessionsPerVariant:
+        maximumSessionsPerVariant ?? this.maximumSessionsPerVariant,
+    result: result ?? this.result,
+    confidence: confidence ?? this.confidence,
+    winnerProtocolId: winnerProtocolId.present
+        ? winnerProtocolId.value
+        : this.winnerProtocolId,
+    invalidReason: invalidReason.present
+        ? invalidReason.value
+        : this.invalidReason,
+    startedAtMs: startedAtMs.present ? startedAtMs.value : this.startedAtMs,
+    completedAtMs: completedAtMs.present
+        ? completedAtMs.value
+        : this.completedAtMs,
+    createdAtMs: createdAtMs ?? this.createdAtMs,
+    updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+  );
+  WakeExperimentRow copyWithCompanion(WakeExperimentsCompanion data) {
+    return WakeExperimentRow(
+      id: data.id.present ? data.id.value : this.id,
+      alarmId: data.alarmId.present ? data.alarmId.value : this.alarmId,
+      name: data.name.present ? data.name.value : this.name,
+      hypothesis: data.hypothesis.present
+          ? data.hypothesis.value
+          : this.hypothesis,
+      status: data.status.present ? data.status.value : this.status,
+      dimension: data.dimension.present ? data.dimension.value : this.dimension,
+      controlProtocolId: data.controlProtocolId.present
+          ? data.controlProtocolId.value
+          : this.controlProtocolId,
+      controlProtocolVersion: data.controlProtocolVersion.present
+          ? data.controlProtocolVersion.value
+          : this.controlProtocolVersion,
+      controlSnapshotJson: data.controlSnapshotJson.present
+          ? data.controlSnapshotJson.value
+          : this.controlSnapshotJson,
+      candidateProtocolId: data.candidateProtocolId.present
+          ? data.candidateProtocolId.value
+          : this.candidateProtocolId,
+      candidateProtocolVersion: data.candidateProtocolVersion.present
+          ? data.candidateProtocolVersion.value
+          : this.candidateProtocolVersion,
+      candidateSnapshotJson: data.candidateSnapshotJson.present
+          ? data.candidateSnapshotJson.value
+          : this.candidateSnapshotJson,
+      contextKey: data.contextKey.present
+          ? data.contextKey.value
+          : this.contextKey,
+      minimumSessionsPerVariant: data.minimumSessionsPerVariant.present
+          ? data.minimumSessionsPerVariant.value
+          : this.minimumSessionsPerVariant,
+      preferredSessionsPerVariant: data.preferredSessionsPerVariant.present
+          ? data.preferredSessionsPerVariant.value
+          : this.preferredSessionsPerVariant,
+      maximumSessionsPerVariant: data.maximumSessionsPerVariant.present
+          ? data.maximumSessionsPerVariant.value
+          : this.maximumSessionsPerVariant,
+      result: data.result.present ? data.result.value : this.result,
+      confidence: data.confidence.present
+          ? data.confidence.value
+          : this.confidence,
+      winnerProtocolId: data.winnerProtocolId.present
+          ? data.winnerProtocolId.value
+          : this.winnerProtocolId,
+      invalidReason: data.invalidReason.present
+          ? data.invalidReason.value
+          : this.invalidReason,
+      startedAtMs: data.startedAtMs.present
+          ? data.startedAtMs.value
+          : this.startedAtMs,
+      completedAtMs: data.completedAtMs.present
+          ? data.completedAtMs.value
+          : this.completedAtMs,
+      createdAtMs: data.createdAtMs.present
+          ? data.createdAtMs.value
+          : this.createdAtMs,
+      updatedAtMs: data.updatedAtMs.present
+          ? data.updatedAtMs.value
+          : this.updatedAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('WakeExperimentRow(')
+          ..write('id: $id, ')
+          ..write('alarmId: $alarmId, ')
+          ..write('name: $name, ')
+          ..write('hypothesis: $hypothesis, ')
+          ..write('status: $status, ')
+          ..write('dimension: $dimension, ')
+          ..write('controlProtocolId: $controlProtocolId, ')
+          ..write('controlProtocolVersion: $controlProtocolVersion, ')
+          ..write('controlSnapshotJson: $controlSnapshotJson, ')
+          ..write('candidateProtocolId: $candidateProtocolId, ')
+          ..write('candidateProtocolVersion: $candidateProtocolVersion, ')
+          ..write('candidateSnapshotJson: $candidateSnapshotJson, ')
+          ..write('contextKey: $contextKey, ')
+          ..write('minimumSessionsPerVariant: $minimumSessionsPerVariant, ')
+          ..write('preferredSessionsPerVariant: $preferredSessionsPerVariant, ')
+          ..write('maximumSessionsPerVariant: $maximumSessionsPerVariant, ')
+          ..write('result: $result, ')
+          ..write('confidence: $confidence, ')
+          ..write('winnerProtocolId: $winnerProtocolId, ')
+          ..write('invalidReason: $invalidReason, ')
+          ..write('startedAtMs: $startedAtMs, ')
+          ..write('completedAtMs: $completedAtMs, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('updatedAtMs: $updatedAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hashAll([
+    id,
+    alarmId,
+    name,
+    hypothesis,
+    status,
+    dimension,
+    controlProtocolId,
+    controlProtocolVersion,
+    controlSnapshotJson,
+    candidateProtocolId,
+    candidateProtocolVersion,
+    candidateSnapshotJson,
+    contextKey,
+    minimumSessionsPerVariant,
+    preferredSessionsPerVariant,
+    maximumSessionsPerVariant,
+    result,
+    confidence,
+    winnerProtocolId,
+    invalidReason,
+    startedAtMs,
+    completedAtMs,
+    createdAtMs,
+    updatedAtMs,
+  ]);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is WakeExperimentRow &&
+          other.id == this.id &&
+          other.alarmId == this.alarmId &&
+          other.name == this.name &&
+          other.hypothesis == this.hypothesis &&
+          other.status == this.status &&
+          other.dimension == this.dimension &&
+          other.controlProtocolId == this.controlProtocolId &&
+          other.controlProtocolVersion == this.controlProtocolVersion &&
+          other.controlSnapshotJson == this.controlSnapshotJson &&
+          other.candidateProtocolId == this.candidateProtocolId &&
+          other.candidateProtocolVersion == this.candidateProtocolVersion &&
+          other.candidateSnapshotJson == this.candidateSnapshotJson &&
+          other.contextKey == this.contextKey &&
+          other.minimumSessionsPerVariant == this.minimumSessionsPerVariant &&
+          other.preferredSessionsPerVariant ==
+              this.preferredSessionsPerVariant &&
+          other.maximumSessionsPerVariant == this.maximumSessionsPerVariant &&
+          other.result == this.result &&
+          other.confidence == this.confidence &&
+          other.winnerProtocolId == this.winnerProtocolId &&
+          other.invalidReason == this.invalidReason &&
+          other.startedAtMs == this.startedAtMs &&
+          other.completedAtMs == this.completedAtMs &&
+          other.createdAtMs == this.createdAtMs &&
+          other.updatedAtMs == this.updatedAtMs);
+}
+
+class WakeExperimentsCompanion extends UpdateCompanion<WakeExperimentRow> {
+  final Value<String> id;
+  final Value<String> alarmId;
+  final Value<String> name;
+  final Value<String> hypothesis;
+  final Value<String> status;
+  final Value<String> dimension;
+  final Value<String> controlProtocolId;
+  final Value<int> controlProtocolVersion;
+  final Value<String> controlSnapshotJson;
+  final Value<String> candidateProtocolId;
+  final Value<int> candidateProtocolVersion;
+  final Value<String> candidateSnapshotJson;
+  final Value<String> contextKey;
+  final Value<int> minimumSessionsPerVariant;
+  final Value<int> preferredSessionsPerVariant;
+  final Value<int> maximumSessionsPerVariant;
+  final Value<String> result;
+  final Value<String> confidence;
+  final Value<String?> winnerProtocolId;
+  final Value<String?> invalidReason;
+  final Value<int?> startedAtMs;
+  final Value<int?> completedAtMs;
+  final Value<int> createdAtMs;
+  final Value<int> updatedAtMs;
+  final Value<int> rowid;
+  const WakeExperimentsCompanion({
+    this.id = const Value.absent(),
+    this.alarmId = const Value.absent(),
+    this.name = const Value.absent(),
+    this.hypothesis = const Value.absent(),
+    this.status = const Value.absent(),
+    this.dimension = const Value.absent(),
+    this.controlProtocolId = const Value.absent(),
+    this.controlProtocolVersion = const Value.absent(),
+    this.controlSnapshotJson = const Value.absent(),
+    this.candidateProtocolId = const Value.absent(),
+    this.candidateProtocolVersion = const Value.absent(),
+    this.candidateSnapshotJson = const Value.absent(),
+    this.contextKey = const Value.absent(),
+    this.minimumSessionsPerVariant = const Value.absent(),
+    this.preferredSessionsPerVariant = const Value.absent(),
+    this.maximumSessionsPerVariant = const Value.absent(),
+    this.result = const Value.absent(),
+    this.confidence = const Value.absent(),
+    this.winnerProtocolId = const Value.absent(),
+    this.invalidReason = const Value.absent(),
+    this.startedAtMs = const Value.absent(),
+    this.completedAtMs = const Value.absent(),
+    this.createdAtMs = const Value.absent(),
+    this.updatedAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  WakeExperimentsCompanion.insert({
+    required String id,
+    required String alarmId,
+    required String name,
+    required String hypothesis,
+    required String status,
+    required String dimension,
+    required String controlProtocolId,
+    required int controlProtocolVersion,
+    required String controlSnapshotJson,
+    required String candidateProtocolId,
+    required int candidateProtocolVersion,
+    required String candidateSnapshotJson,
+    required String contextKey,
+    required int minimumSessionsPerVariant,
+    required int preferredSessionsPerVariant,
+    required int maximumSessionsPerVariant,
+    this.result = const Value.absent(),
+    this.confidence = const Value.absent(),
+    this.winnerProtocolId = const Value.absent(),
+    this.invalidReason = const Value.absent(),
+    this.startedAtMs = const Value.absent(),
+    this.completedAtMs = const Value.absent(),
+    required int createdAtMs,
+    required int updatedAtMs,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       alarmId = Value(alarmId),
+       name = Value(name),
+       hypothesis = Value(hypothesis),
+       status = Value(status),
+       dimension = Value(dimension),
+       controlProtocolId = Value(controlProtocolId),
+       controlProtocolVersion = Value(controlProtocolVersion),
+       controlSnapshotJson = Value(controlSnapshotJson),
+       candidateProtocolId = Value(candidateProtocolId),
+       candidateProtocolVersion = Value(candidateProtocolVersion),
+       candidateSnapshotJson = Value(candidateSnapshotJson),
+       contextKey = Value(contextKey),
+       minimumSessionsPerVariant = Value(minimumSessionsPerVariant),
+       preferredSessionsPerVariant = Value(preferredSessionsPerVariant),
+       maximumSessionsPerVariant = Value(maximumSessionsPerVariant),
+       createdAtMs = Value(createdAtMs),
+       updatedAtMs = Value(updatedAtMs);
+  static Insertable<WakeExperimentRow> custom({
+    Expression<String>? id,
+    Expression<String>? alarmId,
+    Expression<String>? name,
+    Expression<String>? hypothesis,
+    Expression<String>? status,
+    Expression<String>? dimension,
+    Expression<String>? controlProtocolId,
+    Expression<int>? controlProtocolVersion,
+    Expression<String>? controlSnapshotJson,
+    Expression<String>? candidateProtocolId,
+    Expression<int>? candidateProtocolVersion,
+    Expression<String>? candidateSnapshotJson,
+    Expression<String>? contextKey,
+    Expression<int>? minimumSessionsPerVariant,
+    Expression<int>? preferredSessionsPerVariant,
+    Expression<int>? maximumSessionsPerVariant,
+    Expression<String>? result,
+    Expression<String>? confidence,
+    Expression<String>? winnerProtocolId,
+    Expression<String>? invalidReason,
+    Expression<int>? startedAtMs,
+    Expression<int>? completedAtMs,
+    Expression<int>? createdAtMs,
+    Expression<int>? updatedAtMs,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (alarmId != null) 'alarm_id': alarmId,
+      if (name != null) 'name': name,
+      if (hypothesis != null) 'hypothesis': hypothesis,
+      if (status != null) 'status': status,
+      if (dimension != null) 'dimension': dimension,
+      if (controlProtocolId != null) 'control_protocol_id': controlProtocolId,
+      if (controlProtocolVersion != null)
+        'control_protocol_version': controlProtocolVersion,
+      if (controlSnapshotJson != null)
+        'control_snapshot_json': controlSnapshotJson,
+      if (candidateProtocolId != null)
+        'candidate_protocol_id': candidateProtocolId,
+      if (candidateProtocolVersion != null)
+        'candidate_protocol_version': candidateProtocolVersion,
+      if (candidateSnapshotJson != null)
+        'candidate_snapshot_json': candidateSnapshotJson,
+      if (contextKey != null) 'context_key': contextKey,
+      if (minimumSessionsPerVariant != null)
+        'minimum_sessions_per_variant': minimumSessionsPerVariant,
+      if (preferredSessionsPerVariant != null)
+        'preferred_sessions_per_variant': preferredSessionsPerVariant,
+      if (maximumSessionsPerVariant != null)
+        'maximum_sessions_per_variant': maximumSessionsPerVariant,
+      if (result != null) 'result': result,
+      if (confidence != null) 'confidence': confidence,
+      if (winnerProtocolId != null) 'winner_protocol_id': winnerProtocolId,
+      if (invalidReason != null) 'invalid_reason': invalidReason,
+      if (startedAtMs != null) 'started_at_ms': startedAtMs,
+      if (completedAtMs != null) 'completed_at_ms': completedAtMs,
+      if (createdAtMs != null) 'created_at_ms': createdAtMs,
+      if (updatedAtMs != null) 'updated_at_ms': updatedAtMs,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  WakeExperimentsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? alarmId,
+    Value<String>? name,
+    Value<String>? hypothesis,
+    Value<String>? status,
+    Value<String>? dimension,
+    Value<String>? controlProtocolId,
+    Value<int>? controlProtocolVersion,
+    Value<String>? controlSnapshotJson,
+    Value<String>? candidateProtocolId,
+    Value<int>? candidateProtocolVersion,
+    Value<String>? candidateSnapshotJson,
+    Value<String>? contextKey,
+    Value<int>? minimumSessionsPerVariant,
+    Value<int>? preferredSessionsPerVariant,
+    Value<int>? maximumSessionsPerVariant,
+    Value<String>? result,
+    Value<String>? confidence,
+    Value<String?>? winnerProtocolId,
+    Value<String?>? invalidReason,
+    Value<int?>? startedAtMs,
+    Value<int?>? completedAtMs,
+    Value<int>? createdAtMs,
+    Value<int>? updatedAtMs,
+    Value<int>? rowid,
+  }) {
+    return WakeExperimentsCompanion(
+      id: id ?? this.id,
+      alarmId: alarmId ?? this.alarmId,
+      name: name ?? this.name,
+      hypothesis: hypothesis ?? this.hypothesis,
+      status: status ?? this.status,
+      dimension: dimension ?? this.dimension,
+      controlProtocolId: controlProtocolId ?? this.controlProtocolId,
+      controlProtocolVersion:
+          controlProtocolVersion ?? this.controlProtocolVersion,
+      controlSnapshotJson: controlSnapshotJson ?? this.controlSnapshotJson,
+      candidateProtocolId: candidateProtocolId ?? this.candidateProtocolId,
+      candidateProtocolVersion:
+          candidateProtocolVersion ?? this.candidateProtocolVersion,
+      candidateSnapshotJson:
+          candidateSnapshotJson ?? this.candidateSnapshotJson,
+      contextKey: contextKey ?? this.contextKey,
+      minimumSessionsPerVariant:
+          minimumSessionsPerVariant ?? this.minimumSessionsPerVariant,
+      preferredSessionsPerVariant:
+          preferredSessionsPerVariant ?? this.preferredSessionsPerVariant,
+      maximumSessionsPerVariant:
+          maximumSessionsPerVariant ?? this.maximumSessionsPerVariant,
+      result: result ?? this.result,
+      confidence: confidence ?? this.confidence,
+      winnerProtocolId: winnerProtocolId ?? this.winnerProtocolId,
+      invalidReason: invalidReason ?? this.invalidReason,
+      startedAtMs: startedAtMs ?? this.startedAtMs,
+      completedAtMs: completedAtMs ?? this.completedAtMs,
+      createdAtMs: createdAtMs ?? this.createdAtMs,
+      updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (alarmId.present) {
+      map['alarm_id'] = Variable<String>(alarmId.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (hypothesis.present) {
+      map['hypothesis'] = Variable<String>(hypothesis.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (dimension.present) {
+      map['dimension'] = Variable<String>(dimension.value);
+    }
+    if (controlProtocolId.present) {
+      map['control_protocol_id'] = Variable<String>(controlProtocolId.value);
+    }
+    if (controlProtocolVersion.present) {
+      map['control_protocol_version'] = Variable<int>(
+        controlProtocolVersion.value,
+      );
+    }
+    if (controlSnapshotJson.present) {
+      map['control_snapshot_json'] = Variable<String>(
+        controlSnapshotJson.value,
+      );
+    }
+    if (candidateProtocolId.present) {
+      map['candidate_protocol_id'] = Variable<String>(
+        candidateProtocolId.value,
+      );
+    }
+    if (candidateProtocolVersion.present) {
+      map['candidate_protocol_version'] = Variable<int>(
+        candidateProtocolVersion.value,
+      );
+    }
+    if (candidateSnapshotJson.present) {
+      map['candidate_snapshot_json'] = Variable<String>(
+        candidateSnapshotJson.value,
+      );
+    }
+    if (contextKey.present) {
+      map['context_key'] = Variable<String>(contextKey.value);
+    }
+    if (minimumSessionsPerVariant.present) {
+      map['minimum_sessions_per_variant'] = Variable<int>(
+        minimumSessionsPerVariant.value,
+      );
+    }
+    if (preferredSessionsPerVariant.present) {
+      map['preferred_sessions_per_variant'] = Variable<int>(
+        preferredSessionsPerVariant.value,
+      );
+    }
+    if (maximumSessionsPerVariant.present) {
+      map['maximum_sessions_per_variant'] = Variable<int>(
+        maximumSessionsPerVariant.value,
+      );
+    }
+    if (result.present) {
+      map['result'] = Variable<String>(result.value);
+    }
+    if (confidence.present) {
+      map['confidence'] = Variable<String>(confidence.value);
+    }
+    if (winnerProtocolId.present) {
+      map['winner_protocol_id'] = Variable<String>(winnerProtocolId.value);
+    }
+    if (invalidReason.present) {
+      map['invalid_reason'] = Variable<String>(invalidReason.value);
+    }
+    if (startedAtMs.present) {
+      map['started_at_ms'] = Variable<int>(startedAtMs.value);
+    }
+    if (completedAtMs.present) {
+      map['completed_at_ms'] = Variable<int>(completedAtMs.value);
+    }
+    if (createdAtMs.present) {
+      map['created_at_ms'] = Variable<int>(createdAtMs.value);
+    }
+    if (updatedAtMs.present) {
+      map['updated_at_ms'] = Variable<int>(updatedAtMs.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('WakeExperimentsCompanion(')
+          ..write('id: $id, ')
+          ..write('alarmId: $alarmId, ')
+          ..write('name: $name, ')
+          ..write('hypothesis: $hypothesis, ')
+          ..write('status: $status, ')
+          ..write('dimension: $dimension, ')
+          ..write('controlProtocolId: $controlProtocolId, ')
+          ..write('controlProtocolVersion: $controlProtocolVersion, ')
+          ..write('controlSnapshotJson: $controlSnapshotJson, ')
+          ..write('candidateProtocolId: $candidateProtocolId, ')
+          ..write('candidateProtocolVersion: $candidateProtocolVersion, ')
+          ..write('candidateSnapshotJson: $candidateSnapshotJson, ')
+          ..write('contextKey: $contextKey, ')
+          ..write('minimumSessionsPerVariant: $minimumSessionsPerVariant, ')
+          ..write('preferredSessionsPerVariant: $preferredSessionsPerVariant, ')
+          ..write('maximumSessionsPerVariant: $maximumSessionsPerVariant, ')
+          ..write('result: $result, ')
+          ..write('confidence: $confidence, ')
+          ..write('winnerProtocolId: $winnerProtocolId, ')
+          ..write('invalidReason: $invalidReason, ')
+          ..write('startedAtMs: $startedAtMs, ')
+          ..write('completedAtMs: $completedAtMs, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('updatedAtMs: $updatedAtMs, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ExperimentSessionsTable extends ExperimentSessions
+    with TableInfo<$ExperimentSessionsTable, ExperimentSessionRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ExperimentSessionsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _experimentIdMeta = const VerificationMeta(
+    'experimentId',
+  );
+  @override
+  late final GeneratedColumn<String> experimentId = GeneratedColumn<String>(
+    'experiment_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES wake_experiments (id)',
+    ),
+  );
+  static const VerificationMeta _alarmIdMeta = const VerificationMeta(
+    'alarmId',
+  );
+  @override
+  late final GeneratedColumn<String> alarmId = GeneratedColumn<String>(
+    'alarm_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _scheduledTimeMsMeta = const VerificationMeta(
+    'scheduledTimeMs',
+  );
+  @override
+  late final GeneratedColumn<int> scheduledTimeMs = GeneratedColumn<int>(
+    'scheduled_time_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _assignmentIndexMeta = const VerificationMeta(
+    'assignmentIndex',
+  );
+  @override
+  late final GeneratedColumn<int> assignmentIndex = GeneratedColumn<int>(
+    'assignment_index',
+    aliasedName,
+    false,
+    check: () => const CustomExpression('assignment_index >= 0'),
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _variantMeta = const VerificationMeta(
+    'variant',
+  );
+  @override
+  late final GeneratedColumn<String> variant = GeneratedColumn<String>(
+    'variant',
+    aliasedName,
+    false,
+    check: () => const CustomExpression("variant IN ('control','candidate')"),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _protocolIdMeta = const VerificationMeta(
+    'protocolId',
+  );
+  @override
+  late final GeneratedColumn<String> protocolId = GeneratedColumn<String>(
+    'protocol_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _protocolVersionMeta = const VerificationMeta(
+    'protocolVersion',
+  );
+  @override
+  late final GeneratedColumn<int> protocolVersion = GeneratedColumn<int>(
+    'protocol_version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _contextKeyMeta = const VerificationMeta(
+    'contextKey',
+  );
+  @override
+  late final GeneratedColumn<String> contextKey = GeneratedColumn<String>(
+    'context_key',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _assignedAtMsMeta = const VerificationMeta(
+    'assignedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> assignedAtMs = GeneratedColumn<int>(
+    'assigned_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _wakeSessionIdMeta = const VerificationMeta(
+    'wakeSessionId',
+  );
+  @override
+  late final GeneratedColumn<String> wakeSessionId = GeneratedColumn<String>(
+    'wake_session_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _completedAtMsMeta = const VerificationMeta(
+    'completedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> completedAtMs = GeneratedColumn<int>(
+    'completed_at_ms',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _validityMeta = const VerificationMeta(
+    'validity',
+  );
+  @override
+  late final GeneratedColumn<String> validity = GeneratedColumn<String>(
+    'validity',
+    aliasedName,
+    false,
+    check: () =>
+        const CustomExpression("validity IN ('valid','partial','invalid')"),
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('partial'),
+  );
+  static const VerificationMeta _invalidReasonMeta = const VerificationMeta(
+    'invalidReason',
+  );
+  @override
+  late final GeneratedColumn<String> invalidReason = GeneratedColumn<String>(
+    'invalid_reason',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    experimentId,
+    alarmId,
+    scheduledTimeMs,
+    assignmentIndex,
+    variant,
+    protocolId,
+    protocolVersion,
+    contextKey,
+    assignedAtMs,
+    wakeSessionId,
+    completedAtMs,
+    validity,
+    invalidReason,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'experiment_sessions';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ExperimentSessionRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('experiment_id')) {
+      context.handle(
+        _experimentIdMeta,
+        experimentId.isAcceptableOrUnknown(
+          data['experiment_id']!,
+          _experimentIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_experimentIdMeta);
+    }
+    if (data.containsKey('alarm_id')) {
+      context.handle(
+        _alarmIdMeta,
+        alarmId.isAcceptableOrUnknown(data['alarm_id']!, _alarmIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_alarmIdMeta);
+    }
+    if (data.containsKey('scheduled_time_ms')) {
+      context.handle(
+        _scheduledTimeMsMeta,
+        scheduledTimeMs.isAcceptableOrUnknown(
+          data['scheduled_time_ms']!,
+          _scheduledTimeMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_scheduledTimeMsMeta);
+    }
+    if (data.containsKey('assignment_index')) {
+      context.handle(
+        _assignmentIndexMeta,
+        assignmentIndex.isAcceptableOrUnknown(
+          data['assignment_index']!,
+          _assignmentIndexMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_assignmentIndexMeta);
+    }
+    if (data.containsKey('variant')) {
+      context.handle(
+        _variantMeta,
+        variant.isAcceptableOrUnknown(data['variant']!, _variantMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_variantMeta);
+    }
+    if (data.containsKey('protocol_id')) {
+      context.handle(
+        _protocolIdMeta,
+        protocolId.isAcceptableOrUnknown(data['protocol_id']!, _protocolIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_protocolIdMeta);
+    }
+    if (data.containsKey('protocol_version')) {
+      context.handle(
+        _protocolVersionMeta,
+        protocolVersion.isAcceptableOrUnknown(
+          data['protocol_version']!,
+          _protocolVersionMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_protocolVersionMeta);
+    }
+    if (data.containsKey('context_key')) {
+      context.handle(
+        _contextKeyMeta,
+        contextKey.isAcceptableOrUnknown(data['context_key']!, _contextKeyMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_contextKeyMeta);
+    }
+    if (data.containsKey('assigned_at_ms')) {
+      context.handle(
+        _assignedAtMsMeta,
+        assignedAtMs.isAcceptableOrUnknown(
+          data['assigned_at_ms']!,
+          _assignedAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_assignedAtMsMeta);
+    }
+    if (data.containsKey('wake_session_id')) {
+      context.handle(
+        _wakeSessionIdMeta,
+        wakeSessionId.isAcceptableOrUnknown(
+          data['wake_session_id']!,
+          _wakeSessionIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('completed_at_ms')) {
+      context.handle(
+        _completedAtMsMeta,
+        completedAtMs.isAcceptableOrUnknown(
+          data['completed_at_ms']!,
+          _completedAtMsMeta,
+        ),
+      );
+    }
+    if (data.containsKey('validity')) {
+      context.handle(
+        _validityMeta,
+        validity.isAcceptableOrUnknown(data['validity']!, _validityMeta),
+      );
+    }
+    if (data.containsKey('invalid_reason')) {
+      context.handle(
+        _invalidReasonMeta,
+        invalidReason.isAcceptableOrUnknown(
+          data['invalid_reason']!,
+          _invalidReasonMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ExperimentSessionRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ExperimentSessionRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      experimentId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}experiment_id'],
+      )!,
+      alarmId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}alarm_id'],
+      )!,
+      scheduledTimeMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}scheduled_time_ms'],
+      )!,
+      assignmentIndex: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}assignment_index'],
+      )!,
+      variant: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}variant'],
+      )!,
+      protocolId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}protocol_id'],
+      )!,
+      protocolVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}protocol_version'],
+      )!,
+      contextKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}context_key'],
+      )!,
+      assignedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}assigned_at_ms'],
+      )!,
+      wakeSessionId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}wake_session_id'],
+      ),
+      completedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}completed_at_ms'],
+      ),
+      validity: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}validity'],
+      )!,
+      invalidReason: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}invalid_reason'],
+      ),
+    );
+  }
+
+  @override
+  $ExperimentSessionsTable createAlias(String alias) {
+    return $ExperimentSessionsTable(attachedDatabase, alias);
+  }
+}
+
+class ExperimentSessionRow extends DataClass
+    implements Insertable<ExperimentSessionRow> {
+  final String id;
+  final String experimentId;
+  final String alarmId;
+  final int scheduledTimeMs;
+  final int assignmentIndex;
+  final String variant;
+  final String protocolId;
+  final int protocolVersion;
+  final String contextKey;
+  final int assignedAtMs;
+  final String? wakeSessionId;
+  final int? completedAtMs;
+  final String validity;
+  final String? invalidReason;
+  const ExperimentSessionRow({
+    required this.id,
+    required this.experimentId,
+    required this.alarmId,
+    required this.scheduledTimeMs,
+    required this.assignmentIndex,
+    required this.variant,
+    required this.protocolId,
+    required this.protocolVersion,
+    required this.contextKey,
+    required this.assignedAtMs,
+    this.wakeSessionId,
+    this.completedAtMs,
+    required this.validity,
+    this.invalidReason,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['experiment_id'] = Variable<String>(experimentId);
+    map['alarm_id'] = Variable<String>(alarmId);
+    map['scheduled_time_ms'] = Variable<int>(scheduledTimeMs);
+    map['assignment_index'] = Variable<int>(assignmentIndex);
+    map['variant'] = Variable<String>(variant);
+    map['protocol_id'] = Variable<String>(protocolId);
+    map['protocol_version'] = Variable<int>(protocolVersion);
+    map['context_key'] = Variable<String>(contextKey);
+    map['assigned_at_ms'] = Variable<int>(assignedAtMs);
+    if (!nullToAbsent || wakeSessionId != null) {
+      map['wake_session_id'] = Variable<String>(wakeSessionId);
+    }
+    if (!nullToAbsent || completedAtMs != null) {
+      map['completed_at_ms'] = Variable<int>(completedAtMs);
+    }
+    map['validity'] = Variable<String>(validity);
+    if (!nullToAbsent || invalidReason != null) {
+      map['invalid_reason'] = Variable<String>(invalidReason);
+    }
+    return map;
+  }
+
+  ExperimentSessionsCompanion toCompanion(bool nullToAbsent) {
+    return ExperimentSessionsCompanion(
+      id: Value(id),
+      experimentId: Value(experimentId),
+      alarmId: Value(alarmId),
+      scheduledTimeMs: Value(scheduledTimeMs),
+      assignmentIndex: Value(assignmentIndex),
+      variant: Value(variant),
+      protocolId: Value(protocolId),
+      protocolVersion: Value(protocolVersion),
+      contextKey: Value(contextKey),
+      assignedAtMs: Value(assignedAtMs),
+      wakeSessionId: wakeSessionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(wakeSessionId),
+      completedAtMs: completedAtMs == null && nullToAbsent
+          ? const Value.absent()
+          : Value(completedAtMs),
+      validity: Value(validity),
+      invalidReason: invalidReason == null && nullToAbsent
+          ? const Value.absent()
+          : Value(invalidReason),
+    );
+  }
+
+  factory ExperimentSessionRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ExperimentSessionRow(
+      id: serializer.fromJson<String>(json['id']),
+      experimentId: serializer.fromJson<String>(json['experimentId']),
+      alarmId: serializer.fromJson<String>(json['alarmId']),
+      scheduledTimeMs: serializer.fromJson<int>(json['scheduledTimeMs']),
+      assignmentIndex: serializer.fromJson<int>(json['assignmentIndex']),
+      variant: serializer.fromJson<String>(json['variant']),
+      protocolId: serializer.fromJson<String>(json['protocolId']),
+      protocolVersion: serializer.fromJson<int>(json['protocolVersion']),
+      contextKey: serializer.fromJson<String>(json['contextKey']),
+      assignedAtMs: serializer.fromJson<int>(json['assignedAtMs']),
+      wakeSessionId: serializer.fromJson<String?>(json['wakeSessionId']),
+      completedAtMs: serializer.fromJson<int?>(json['completedAtMs']),
+      validity: serializer.fromJson<String>(json['validity']),
+      invalidReason: serializer.fromJson<String?>(json['invalidReason']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'experimentId': serializer.toJson<String>(experimentId),
+      'alarmId': serializer.toJson<String>(alarmId),
+      'scheduledTimeMs': serializer.toJson<int>(scheduledTimeMs),
+      'assignmentIndex': serializer.toJson<int>(assignmentIndex),
+      'variant': serializer.toJson<String>(variant),
+      'protocolId': serializer.toJson<String>(protocolId),
+      'protocolVersion': serializer.toJson<int>(protocolVersion),
+      'contextKey': serializer.toJson<String>(contextKey),
+      'assignedAtMs': serializer.toJson<int>(assignedAtMs),
+      'wakeSessionId': serializer.toJson<String?>(wakeSessionId),
+      'completedAtMs': serializer.toJson<int?>(completedAtMs),
+      'validity': serializer.toJson<String>(validity),
+      'invalidReason': serializer.toJson<String?>(invalidReason),
+    };
+  }
+
+  ExperimentSessionRow copyWith({
+    String? id,
+    String? experimentId,
+    String? alarmId,
+    int? scheduledTimeMs,
+    int? assignmentIndex,
+    String? variant,
+    String? protocolId,
+    int? protocolVersion,
+    String? contextKey,
+    int? assignedAtMs,
+    Value<String?> wakeSessionId = const Value.absent(),
+    Value<int?> completedAtMs = const Value.absent(),
+    String? validity,
+    Value<String?> invalidReason = const Value.absent(),
+  }) => ExperimentSessionRow(
+    id: id ?? this.id,
+    experimentId: experimentId ?? this.experimentId,
+    alarmId: alarmId ?? this.alarmId,
+    scheduledTimeMs: scheduledTimeMs ?? this.scheduledTimeMs,
+    assignmentIndex: assignmentIndex ?? this.assignmentIndex,
+    variant: variant ?? this.variant,
+    protocolId: protocolId ?? this.protocolId,
+    protocolVersion: protocolVersion ?? this.protocolVersion,
+    contextKey: contextKey ?? this.contextKey,
+    assignedAtMs: assignedAtMs ?? this.assignedAtMs,
+    wakeSessionId: wakeSessionId.present
+        ? wakeSessionId.value
+        : this.wakeSessionId,
+    completedAtMs: completedAtMs.present
+        ? completedAtMs.value
+        : this.completedAtMs,
+    validity: validity ?? this.validity,
+    invalidReason: invalidReason.present
+        ? invalidReason.value
+        : this.invalidReason,
+  );
+  ExperimentSessionRow copyWithCompanion(ExperimentSessionsCompanion data) {
+    return ExperimentSessionRow(
+      id: data.id.present ? data.id.value : this.id,
+      experimentId: data.experimentId.present
+          ? data.experimentId.value
+          : this.experimentId,
+      alarmId: data.alarmId.present ? data.alarmId.value : this.alarmId,
+      scheduledTimeMs: data.scheduledTimeMs.present
+          ? data.scheduledTimeMs.value
+          : this.scheduledTimeMs,
+      assignmentIndex: data.assignmentIndex.present
+          ? data.assignmentIndex.value
+          : this.assignmentIndex,
+      variant: data.variant.present ? data.variant.value : this.variant,
+      protocolId: data.protocolId.present
+          ? data.protocolId.value
+          : this.protocolId,
+      protocolVersion: data.protocolVersion.present
+          ? data.protocolVersion.value
+          : this.protocolVersion,
+      contextKey: data.contextKey.present
+          ? data.contextKey.value
+          : this.contextKey,
+      assignedAtMs: data.assignedAtMs.present
+          ? data.assignedAtMs.value
+          : this.assignedAtMs,
+      wakeSessionId: data.wakeSessionId.present
+          ? data.wakeSessionId.value
+          : this.wakeSessionId,
+      completedAtMs: data.completedAtMs.present
+          ? data.completedAtMs.value
+          : this.completedAtMs,
+      validity: data.validity.present ? data.validity.value : this.validity,
+      invalidReason: data.invalidReason.present
+          ? data.invalidReason.value
+          : this.invalidReason,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ExperimentSessionRow(')
+          ..write('id: $id, ')
+          ..write('experimentId: $experimentId, ')
+          ..write('alarmId: $alarmId, ')
+          ..write('scheduledTimeMs: $scheduledTimeMs, ')
+          ..write('assignmentIndex: $assignmentIndex, ')
+          ..write('variant: $variant, ')
+          ..write('protocolId: $protocolId, ')
+          ..write('protocolVersion: $protocolVersion, ')
+          ..write('contextKey: $contextKey, ')
+          ..write('assignedAtMs: $assignedAtMs, ')
+          ..write('wakeSessionId: $wakeSessionId, ')
+          ..write('completedAtMs: $completedAtMs, ')
+          ..write('validity: $validity, ')
+          ..write('invalidReason: $invalidReason')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    experimentId,
+    alarmId,
+    scheduledTimeMs,
+    assignmentIndex,
+    variant,
+    protocolId,
+    protocolVersion,
+    contextKey,
+    assignedAtMs,
+    wakeSessionId,
+    completedAtMs,
+    validity,
+    invalidReason,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ExperimentSessionRow &&
+          other.id == this.id &&
+          other.experimentId == this.experimentId &&
+          other.alarmId == this.alarmId &&
+          other.scheduledTimeMs == this.scheduledTimeMs &&
+          other.assignmentIndex == this.assignmentIndex &&
+          other.variant == this.variant &&
+          other.protocolId == this.protocolId &&
+          other.protocolVersion == this.protocolVersion &&
+          other.contextKey == this.contextKey &&
+          other.assignedAtMs == this.assignedAtMs &&
+          other.wakeSessionId == this.wakeSessionId &&
+          other.completedAtMs == this.completedAtMs &&
+          other.validity == this.validity &&
+          other.invalidReason == this.invalidReason);
+}
+
+class ExperimentSessionsCompanion
+    extends UpdateCompanion<ExperimentSessionRow> {
+  final Value<String> id;
+  final Value<String> experimentId;
+  final Value<String> alarmId;
+  final Value<int> scheduledTimeMs;
+  final Value<int> assignmentIndex;
+  final Value<String> variant;
+  final Value<String> protocolId;
+  final Value<int> protocolVersion;
+  final Value<String> contextKey;
+  final Value<int> assignedAtMs;
+  final Value<String?> wakeSessionId;
+  final Value<int?> completedAtMs;
+  final Value<String> validity;
+  final Value<String?> invalidReason;
+  final Value<int> rowid;
+  const ExperimentSessionsCompanion({
+    this.id = const Value.absent(),
+    this.experimentId = const Value.absent(),
+    this.alarmId = const Value.absent(),
+    this.scheduledTimeMs = const Value.absent(),
+    this.assignmentIndex = const Value.absent(),
+    this.variant = const Value.absent(),
+    this.protocolId = const Value.absent(),
+    this.protocolVersion = const Value.absent(),
+    this.contextKey = const Value.absent(),
+    this.assignedAtMs = const Value.absent(),
+    this.wakeSessionId = const Value.absent(),
+    this.completedAtMs = const Value.absent(),
+    this.validity = const Value.absent(),
+    this.invalidReason = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ExperimentSessionsCompanion.insert({
+    required String id,
+    required String experimentId,
+    required String alarmId,
+    required int scheduledTimeMs,
+    required int assignmentIndex,
+    required String variant,
+    required String protocolId,
+    required int protocolVersion,
+    required String contextKey,
+    required int assignedAtMs,
+    this.wakeSessionId = const Value.absent(),
+    this.completedAtMs = const Value.absent(),
+    this.validity = const Value.absent(),
+    this.invalidReason = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       experimentId = Value(experimentId),
+       alarmId = Value(alarmId),
+       scheduledTimeMs = Value(scheduledTimeMs),
+       assignmentIndex = Value(assignmentIndex),
+       variant = Value(variant),
+       protocolId = Value(protocolId),
+       protocolVersion = Value(protocolVersion),
+       contextKey = Value(contextKey),
+       assignedAtMs = Value(assignedAtMs);
+  static Insertable<ExperimentSessionRow> custom({
+    Expression<String>? id,
+    Expression<String>? experimentId,
+    Expression<String>? alarmId,
+    Expression<int>? scheduledTimeMs,
+    Expression<int>? assignmentIndex,
+    Expression<String>? variant,
+    Expression<String>? protocolId,
+    Expression<int>? protocolVersion,
+    Expression<String>? contextKey,
+    Expression<int>? assignedAtMs,
+    Expression<String>? wakeSessionId,
+    Expression<int>? completedAtMs,
+    Expression<String>? validity,
+    Expression<String>? invalidReason,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (experimentId != null) 'experiment_id': experimentId,
+      if (alarmId != null) 'alarm_id': alarmId,
+      if (scheduledTimeMs != null) 'scheduled_time_ms': scheduledTimeMs,
+      if (assignmentIndex != null) 'assignment_index': assignmentIndex,
+      if (variant != null) 'variant': variant,
+      if (protocolId != null) 'protocol_id': protocolId,
+      if (protocolVersion != null) 'protocol_version': protocolVersion,
+      if (contextKey != null) 'context_key': contextKey,
+      if (assignedAtMs != null) 'assigned_at_ms': assignedAtMs,
+      if (wakeSessionId != null) 'wake_session_id': wakeSessionId,
+      if (completedAtMs != null) 'completed_at_ms': completedAtMs,
+      if (validity != null) 'validity': validity,
+      if (invalidReason != null) 'invalid_reason': invalidReason,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ExperimentSessionsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? experimentId,
+    Value<String>? alarmId,
+    Value<int>? scheduledTimeMs,
+    Value<int>? assignmentIndex,
+    Value<String>? variant,
+    Value<String>? protocolId,
+    Value<int>? protocolVersion,
+    Value<String>? contextKey,
+    Value<int>? assignedAtMs,
+    Value<String?>? wakeSessionId,
+    Value<int?>? completedAtMs,
+    Value<String>? validity,
+    Value<String?>? invalidReason,
+    Value<int>? rowid,
+  }) {
+    return ExperimentSessionsCompanion(
+      id: id ?? this.id,
+      experimentId: experimentId ?? this.experimentId,
+      alarmId: alarmId ?? this.alarmId,
+      scheduledTimeMs: scheduledTimeMs ?? this.scheduledTimeMs,
+      assignmentIndex: assignmentIndex ?? this.assignmentIndex,
+      variant: variant ?? this.variant,
+      protocolId: protocolId ?? this.protocolId,
+      protocolVersion: protocolVersion ?? this.protocolVersion,
+      contextKey: contextKey ?? this.contextKey,
+      assignedAtMs: assignedAtMs ?? this.assignedAtMs,
+      wakeSessionId: wakeSessionId ?? this.wakeSessionId,
+      completedAtMs: completedAtMs ?? this.completedAtMs,
+      validity: validity ?? this.validity,
+      invalidReason: invalidReason ?? this.invalidReason,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (experimentId.present) {
+      map['experiment_id'] = Variable<String>(experimentId.value);
+    }
+    if (alarmId.present) {
+      map['alarm_id'] = Variable<String>(alarmId.value);
+    }
+    if (scheduledTimeMs.present) {
+      map['scheduled_time_ms'] = Variable<int>(scheduledTimeMs.value);
+    }
+    if (assignmentIndex.present) {
+      map['assignment_index'] = Variable<int>(assignmentIndex.value);
+    }
+    if (variant.present) {
+      map['variant'] = Variable<String>(variant.value);
+    }
+    if (protocolId.present) {
+      map['protocol_id'] = Variable<String>(protocolId.value);
+    }
+    if (protocolVersion.present) {
+      map['protocol_version'] = Variable<int>(protocolVersion.value);
+    }
+    if (contextKey.present) {
+      map['context_key'] = Variable<String>(contextKey.value);
+    }
+    if (assignedAtMs.present) {
+      map['assigned_at_ms'] = Variable<int>(assignedAtMs.value);
+    }
+    if (wakeSessionId.present) {
+      map['wake_session_id'] = Variable<String>(wakeSessionId.value);
+    }
+    if (completedAtMs.present) {
+      map['completed_at_ms'] = Variable<int>(completedAtMs.value);
+    }
+    if (validity.present) {
+      map['validity'] = Variable<String>(validity.value);
+    }
+    if (invalidReason.present) {
+      map['invalid_reason'] = Variable<String>(invalidReason.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ExperimentSessionsCompanion(')
+          ..write('id: $id, ')
+          ..write('experimentId: $experimentId, ')
+          ..write('alarmId: $alarmId, ')
+          ..write('scheduledTimeMs: $scheduledTimeMs, ')
+          ..write('assignmentIndex: $assignmentIndex, ')
+          ..write('variant: $variant, ')
+          ..write('protocolId: $protocolId, ')
+          ..write('protocolVersion: $protocolVersion, ')
+          ..write('contextKey: $contextKey, ')
+          ..write('assignedAtMs: $assignedAtMs, ')
+          ..write('wakeSessionId: $wakeSessionId, ')
+          ..write('completedAtMs: $completedAtMs, ')
+          ..write('validity: $validity, ')
+          ..write('invalidReason: $invalidReason, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ExperimentAuditEventsTable extends ExperimentAuditEvents
+    with TableInfo<$ExperimentAuditEventsTable, ExperimentAuditEventRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ExperimentAuditEventsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _experimentIdMeta = const VerificationMeta(
+    'experimentId',
+  );
+  @override
+  late final GeneratedColumn<String> experimentId = GeneratedColumn<String>(
+    'experiment_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES wake_experiments (id)',
+    ),
+  );
+  static const VerificationMeta _sequenceMeta = const VerificationMeta(
+    'sequence',
+  );
+  @override
+  late final GeneratedColumn<int> sequence = GeneratedColumn<int>(
+    'sequence',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _eventTypeMeta = const VerificationMeta(
+    'eventType',
+  );
+  @override
+  late final GeneratedColumn<String> eventType = GeneratedColumn<String>(
+    'event_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _occurredAtMsMeta = const VerificationMeta(
+    'occurredAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> occurredAtMs = GeneratedColumn<int>(
+    'occurred_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _detailsJsonMeta = const VerificationMeta(
+    'detailsJson',
+  );
+  @override
+  late final GeneratedColumn<String> detailsJson = GeneratedColumn<String>(
+    'details_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _policyVersionMeta = const VerificationMeta(
+    'policyVersion',
+  );
+  @override
+  late final GeneratedColumn<int> policyVersion = GeneratedColumn<int>(
+    'policy_version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    experimentId,
+    sequence,
+    eventType,
+    occurredAtMs,
+    detailsJson,
+    policyVersion,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'experiment_audit_events';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ExperimentAuditEventRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('experiment_id')) {
+      context.handle(
+        _experimentIdMeta,
+        experimentId.isAcceptableOrUnknown(
+          data['experiment_id']!,
+          _experimentIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_experimentIdMeta);
+    }
+    if (data.containsKey('sequence')) {
+      context.handle(
+        _sequenceMeta,
+        sequence.isAcceptableOrUnknown(data['sequence']!, _sequenceMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_sequenceMeta);
+    }
+    if (data.containsKey('event_type')) {
+      context.handle(
+        _eventTypeMeta,
+        eventType.isAcceptableOrUnknown(data['event_type']!, _eventTypeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_eventTypeMeta);
+    }
+    if (data.containsKey('occurred_at_ms')) {
+      context.handle(
+        _occurredAtMsMeta,
+        occurredAtMs.isAcceptableOrUnknown(
+          data['occurred_at_ms']!,
+          _occurredAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_occurredAtMsMeta);
+    }
+    if (data.containsKey('details_json')) {
+      context.handle(
+        _detailsJsonMeta,
+        detailsJson.isAcceptableOrUnknown(
+          data['details_json']!,
+          _detailsJsonMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_detailsJsonMeta);
+    }
+    if (data.containsKey('policy_version')) {
+      context.handle(
+        _policyVersionMeta,
+        policyVersion.isAcceptableOrUnknown(
+          data['policy_version']!,
+          _policyVersionMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ExperimentAuditEventRow map(
+    Map<String, dynamic> data, {
+    String? tablePrefix,
+  }) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ExperimentAuditEventRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      experimentId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}experiment_id'],
+      )!,
+      sequence: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}sequence'],
+      )!,
+      eventType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}event_type'],
+      )!,
+      occurredAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}occurred_at_ms'],
+      )!,
+      detailsJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}details_json'],
+      )!,
+      policyVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}policy_version'],
+      )!,
+    );
+  }
+
+  @override
+  $ExperimentAuditEventsTable createAlias(String alias) {
+    return $ExperimentAuditEventsTable(attachedDatabase, alias);
+  }
+}
+
+class ExperimentAuditEventRow extends DataClass
+    implements Insertable<ExperimentAuditEventRow> {
+  final String id;
+  final String experimentId;
+  final int sequence;
+  final String eventType;
+  final int occurredAtMs;
+  final String detailsJson;
+  final int policyVersion;
+  const ExperimentAuditEventRow({
+    required this.id,
+    required this.experimentId,
+    required this.sequence,
+    required this.eventType,
+    required this.occurredAtMs,
+    required this.detailsJson,
+    required this.policyVersion,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['experiment_id'] = Variable<String>(experimentId);
+    map['sequence'] = Variable<int>(sequence);
+    map['event_type'] = Variable<String>(eventType);
+    map['occurred_at_ms'] = Variable<int>(occurredAtMs);
+    map['details_json'] = Variable<String>(detailsJson);
+    map['policy_version'] = Variable<int>(policyVersion);
+    return map;
+  }
+
+  ExperimentAuditEventsCompanion toCompanion(bool nullToAbsent) {
+    return ExperimentAuditEventsCompanion(
+      id: Value(id),
+      experimentId: Value(experimentId),
+      sequence: Value(sequence),
+      eventType: Value(eventType),
+      occurredAtMs: Value(occurredAtMs),
+      detailsJson: Value(detailsJson),
+      policyVersion: Value(policyVersion),
+    );
+  }
+
+  factory ExperimentAuditEventRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ExperimentAuditEventRow(
+      id: serializer.fromJson<String>(json['id']),
+      experimentId: serializer.fromJson<String>(json['experimentId']),
+      sequence: serializer.fromJson<int>(json['sequence']),
+      eventType: serializer.fromJson<String>(json['eventType']),
+      occurredAtMs: serializer.fromJson<int>(json['occurredAtMs']),
+      detailsJson: serializer.fromJson<String>(json['detailsJson']),
+      policyVersion: serializer.fromJson<int>(json['policyVersion']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'experimentId': serializer.toJson<String>(experimentId),
+      'sequence': serializer.toJson<int>(sequence),
+      'eventType': serializer.toJson<String>(eventType),
+      'occurredAtMs': serializer.toJson<int>(occurredAtMs),
+      'detailsJson': serializer.toJson<String>(detailsJson),
+      'policyVersion': serializer.toJson<int>(policyVersion),
+    };
+  }
+
+  ExperimentAuditEventRow copyWith({
+    String? id,
+    String? experimentId,
+    int? sequence,
+    String? eventType,
+    int? occurredAtMs,
+    String? detailsJson,
+    int? policyVersion,
+  }) => ExperimentAuditEventRow(
+    id: id ?? this.id,
+    experimentId: experimentId ?? this.experimentId,
+    sequence: sequence ?? this.sequence,
+    eventType: eventType ?? this.eventType,
+    occurredAtMs: occurredAtMs ?? this.occurredAtMs,
+    detailsJson: detailsJson ?? this.detailsJson,
+    policyVersion: policyVersion ?? this.policyVersion,
+  );
+  ExperimentAuditEventRow copyWithCompanion(
+    ExperimentAuditEventsCompanion data,
+  ) {
+    return ExperimentAuditEventRow(
+      id: data.id.present ? data.id.value : this.id,
+      experimentId: data.experimentId.present
+          ? data.experimentId.value
+          : this.experimentId,
+      sequence: data.sequence.present ? data.sequence.value : this.sequence,
+      eventType: data.eventType.present ? data.eventType.value : this.eventType,
+      occurredAtMs: data.occurredAtMs.present
+          ? data.occurredAtMs.value
+          : this.occurredAtMs,
+      detailsJson: data.detailsJson.present
+          ? data.detailsJson.value
+          : this.detailsJson,
+      policyVersion: data.policyVersion.present
+          ? data.policyVersion.value
+          : this.policyVersion,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ExperimentAuditEventRow(')
+          ..write('id: $id, ')
+          ..write('experimentId: $experimentId, ')
+          ..write('sequence: $sequence, ')
+          ..write('eventType: $eventType, ')
+          ..write('occurredAtMs: $occurredAtMs, ')
+          ..write('detailsJson: $detailsJson, ')
+          ..write('policyVersion: $policyVersion')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    experimentId,
+    sequence,
+    eventType,
+    occurredAtMs,
+    detailsJson,
+    policyVersion,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ExperimentAuditEventRow &&
+          other.id == this.id &&
+          other.experimentId == this.experimentId &&
+          other.sequence == this.sequence &&
+          other.eventType == this.eventType &&
+          other.occurredAtMs == this.occurredAtMs &&
+          other.detailsJson == this.detailsJson &&
+          other.policyVersion == this.policyVersion);
+}
+
+class ExperimentAuditEventsCompanion
+    extends UpdateCompanion<ExperimentAuditEventRow> {
+  final Value<String> id;
+  final Value<String> experimentId;
+  final Value<int> sequence;
+  final Value<String> eventType;
+  final Value<int> occurredAtMs;
+  final Value<String> detailsJson;
+  final Value<int> policyVersion;
+  final Value<int> rowid;
+  const ExperimentAuditEventsCompanion({
+    this.id = const Value.absent(),
+    this.experimentId = const Value.absent(),
+    this.sequence = const Value.absent(),
+    this.eventType = const Value.absent(),
+    this.occurredAtMs = const Value.absent(),
+    this.detailsJson = const Value.absent(),
+    this.policyVersion = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ExperimentAuditEventsCompanion.insert({
+    required String id,
+    required String experimentId,
+    required int sequence,
+    required String eventType,
+    required int occurredAtMs,
+    required String detailsJson,
+    this.policyVersion = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       experimentId = Value(experimentId),
+       sequence = Value(sequence),
+       eventType = Value(eventType),
+       occurredAtMs = Value(occurredAtMs),
+       detailsJson = Value(detailsJson);
+  static Insertable<ExperimentAuditEventRow> custom({
+    Expression<String>? id,
+    Expression<String>? experimentId,
+    Expression<int>? sequence,
+    Expression<String>? eventType,
+    Expression<int>? occurredAtMs,
+    Expression<String>? detailsJson,
+    Expression<int>? policyVersion,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (experimentId != null) 'experiment_id': experimentId,
+      if (sequence != null) 'sequence': sequence,
+      if (eventType != null) 'event_type': eventType,
+      if (occurredAtMs != null) 'occurred_at_ms': occurredAtMs,
+      if (detailsJson != null) 'details_json': detailsJson,
+      if (policyVersion != null) 'policy_version': policyVersion,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ExperimentAuditEventsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? experimentId,
+    Value<int>? sequence,
+    Value<String>? eventType,
+    Value<int>? occurredAtMs,
+    Value<String>? detailsJson,
+    Value<int>? policyVersion,
+    Value<int>? rowid,
+  }) {
+    return ExperimentAuditEventsCompanion(
+      id: id ?? this.id,
+      experimentId: experimentId ?? this.experimentId,
+      sequence: sequence ?? this.sequence,
+      eventType: eventType ?? this.eventType,
+      occurredAtMs: occurredAtMs ?? this.occurredAtMs,
+      detailsJson: detailsJson ?? this.detailsJson,
+      policyVersion: policyVersion ?? this.policyVersion,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (experimentId.present) {
+      map['experiment_id'] = Variable<String>(experimentId.value);
+    }
+    if (sequence.present) {
+      map['sequence'] = Variable<int>(sequence.value);
+    }
+    if (eventType.present) {
+      map['event_type'] = Variable<String>(eventType.value);
+    }
+    if (occurredAtMs.present) {
+      map['occurred_at_ms'] = Variable<int>(occurredAtMs.value);
+    }
+    if (detailsJson.present) {
+      map['details_json'] = Variable<String>(detailsJson.value);
+    }
+    if (policyVersion.present) {
+      map['policy_version'] = Variable<int>(policyVersion.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ExperimentAuditEventsCompanion(')
+          ..write('id: $id, ')
+          ..write('experimentId: $experimentId, ')
+          ..write('sequence: $sequence, ')
+          ..write('eventType: $eventType, ')
+          ..write('occurredAtMs: $occurredAtMs, ')
+          ..write('detailsJson: $detailsJson, ')
+          ..write('policyVersion: $policyVersion, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -9282,6 +12065,13 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $ProtocolEvaluationsTable(this);
   late final $AlarmAdaptationSettingsTable alarmAdaptationSettings =
       $AlarmAdaptationSettingsTable(this);
+  late final $WakeExperimentsTable wakeExperiments = $WakeExperimentsTable(
+    this,
+  );
+  late final $ExperimentSessionsTable experimentSessions =
+      $ExperimentSessionsTable(this);
+  late final $ExperimentAuditEventsTable experimentAuditEvents =
+      $ExperimentAuditEventsTable(this);
   late final Index wakeEventsSessionSequence = Index(
     'wake_events_session_sequence',
     'CREATE UNIQUE INDEX wake_events_session_sequence ON wake_events (wake_session_id, sequence_number)',
@@ -9310,6 +12100,26 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     'protocol_evaluations_session',
     'CREATE UNIQUE INDEX protocol_evaluations_session ON protocol_evaluations (wake_session_id)',
   );
+  late final Index wakeExperimentsOneOpen = Index(
+    'wake_experiments_one_open',
+    'CREATE UNIQUE INDEX wake_experiments_one_open ON wake_experiments (alarm_id) WHERE status IN (\'ready\', \'running\', \'paused\')',
+  );
+  late final Index experimentSessionsOccurrence = Index(
+    'experiment_sessions_occurrence',
+    'CREATE UNIQUE INDEX experiment_sessions_occurrence ON experiment_sessions (alarm_id, scheduled_time_ms)',
+  );
+  late final Index experimentSessionsWake = Index(
+    'experiment_sessions_wake',
+    'CREATE UNIQUE INDEX experiment_sessions_wake ON experiment_sessions (wake_session_id)',
+  );
+  late final Index experimentSessionsAssignment = Index(
+    'experiment_sessions_assignment',
+    'CREATE UNIQUE INDEX experiment_sessions_assignment ON experiment_sessions (experiment_id, assignment_index)',
+  );
+  late final Index experimentAuditOrder = Index(
+    'experiment_audit_order',
+    'CREATE UNIQUE INDEX experiment_audit_order ON experiment_audit_events (experiment_id, sequence)',
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -9326,6 +12136,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     wakeProtocols,
     protocolEvaluations,
     alarmAdaptationSettings,
+    wakeExperiments,
+    experimentSessions,
+    experimentAuditEvents,
     wakeEventsSessionSequence,
     missionsAlarmId,
     missionExecutionsSessionAttempt,
@@ -9333,6 +12146,11 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     wakeProtocolsAlarmVersion,
     wakeProtocolsAlarmStatus,
     protocolEvaluationsSession,
+    wakeExperimentsOneOpen,
+    experimentSessionsOccurrence,
+    experimentSessionsWake,
+    experimentSessionsAssignment,
+    experimentAuditOrder,
   ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
@@ -15282,6 +18100,1741 @@ typedef $$AlarmAdaptationSettingsTableProcessedTableManager =
       AlarmAdaptationSetting,
       PrefetchHooks Function({bool alarmId})
     >;
+typedef $$WakeExperimentsTableCreateCompanionBuilder =
+    WakeExperimentsCompanion Function({
+      required String id,
+      required String alarmId,
+      required String name,
+      required String hypothesis,
+      required String status,
+      required String dimension,
+      required String controlProtocolId,
+      required int controlProtocolVersion,
+      required String controlSnapshotJson,
+      required String candidateProtocolId,
+      required int candidateProtocolVersion,
+      required String candidateSnapshotJson,
+      required String contextKey,
+      required int minimumSessionsPerVariant,
+      required int preferredSessionsPerVariant,
+      required int maximumSessionsPerVariant,
+      Value<String> result,
+      Value<String> confidence,
+      Value<String?> winnerProtocolId,
+      Value<String?> invalidReason,
+      Value<int?> startedAtMs,
+      Value<int?> completedAtMs,
+      required int createdAtMs,
+      required int updatedAtMs,
+      Value<int> rowid,
+    });
+typedef $$WakeExperimentsTableUpdateCompanionBuilder =
+    WakeExperimentsCompanion Function({
+      Value<String> id,
+      Value<String> alarmId,
+      Value<String> name,
+      Value<String> hypothesis,
+      Value<String> status,
+      Value<String> dimension,
+      Value<String> controlProtocolId,
+      Value<int> controlProtocolVersion,
+      Value<String> controlSnapshotJson,
+      Value<String> candidateProtocolId,
+      Value<int> candidateProtocolVersion,
+      Value<String> candidateSnapshotJson,
+      Value<String> contextKey,
+      Value<int> minimumSessionsPerVariant,
+      Value<int> preferredSessionsPerVariant,
+      Value<int> maximumSessionsPerVariant,
+      Value<String> result,
+      Value<String> confidence,
+      Value<String?> winnerProtocolId,
+      Value<String?> invalidReason,
+      Value<int?> startedAtMs,
+      Value<int?> completedAtMs,
+      Value<int> createdAtMs,
+      Value<int> updatedAtMs,
+      Value<int> rowid,
+    });
+
+final class $$WakeExperimentsTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $WakeExperimentsTable,
+          WakeExperimentRow
+        > {
+  $$WakeExperimentsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static MultiTypedResultKey<
+    $ExperimentSessionsTable,
+    List<ExperimentSessionRow>
+  >
+  _experimentSessionsRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.experimentSessions,
+        aliasName: 'wake_experiments__id__experiment_sessions__experiment_id',
+      );
+
+  $$ExperimentSessionsTableProcessedTableManager get experimentSessionsRefs {
+    final manager = $$ExperimentSessionsTableTableManager(
+      $_db,
+      $_db.experimentSessions,
+    ).filter((f) => f.experimentId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _experimentSessionsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<
+    $ExperimentAuditEventsTable,
+    List<ExperimentAuditEventRow>
+  >
+  _experimentAuditEventsRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.experimentAuditEvents,
+        aliasName:
+            'wake_experiments__id__experiment_audit_events__experiment_id',
+      );
+
+  $$ExperimentAuditEventsTableProcessedTableManager
+  get experimentAuditEventsRefs {
+    final manager = $$ExperimentAuditEventsTableTableManager(
+      $_db,
+      $_db.experimentAuditEvents,
+    ).filter((f) => f.experimentId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _experimentAuditEventsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$WakeExperimentsTableFilterComposer
+    extends Composer<_$AppDatabase, $WakeExperimentsTable> {
+  $$WakeExperimentsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get alarmId => $composableBuilder(
+    column: $table.alarmId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get hypothesis => $composableBuilder(
+    column: $table.hypothesis,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get dimension => $composableBuilder(
+    column: $table.dimension,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get controlProtocolId => $composableBuilder(
+    column: $table.controlProtocolId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get controlProtocolVersion => $composableBuilder(
+    column: $table.controlProtocolVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get controlSnapshotJson => $composableBuilder(
+    column: $table.controlSnapshotJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get candidateProtocolId => $composableBuilder(
+    column: $table.candidateProtocolId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get candidateProtocolVersion => $composableBuilder(
+    column: $table.candidateProtocolVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get candidateSnapshotJson => $composableBuilder(
+    column: $table.candidateSnapshotJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get contextKey => $composableBuilder(
+    column: $table.contextKey,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get minimumSessionsPerVariant => $composableBuilder(
+    column: $table.minimumSessionsPerVariant,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get preferredSessionsPerVariant => $composableBuilder(
+    column: $table.preferredSessionsPerVariant,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get maximumSessionsPerVariant => $composableBuilder(
+    column: $table.maximumSessionsPerVariant,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get result => $composableBuilder(
+    column: $table.result,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get confidence => $composableBuilder(
+    column: $table.confidence,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get winnerProtocolId => $composableBuilder(
+    column: $table.winnerProtocolId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get invalidReason => $composableBuilder(
+    column: $table.invalidReason,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get startedAtMs => $composableBuilder(
+    column: $table.startedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get completedAtMs => $composableBuilder(
+    column: $table.completedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  Expression<bool> experimentSessionsRefs(
+    Expression<bool> Function($$ExperimentSessionsTableFilterComposer f) f,
+  ) {
+    final $$ExperimentSessionsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.experimentSessions,
+      getReferencedColumn: (t) => t.experimentId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExperimentSessionsTableFilterComposer(
+            $db: $db,
+            $table: $db.experimentSessions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> experimentAuditEventsRefs(
+    Expression<bool> Function($$ExperimentAuditEventsTableFilterComposer f) f,
+  ) {
+    final $$ExperimentAuditEventsTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.experimentAuditEvents,
+          getReferencedColumn: (t) => t.experimentId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$ExperimentAuditEventsTableFilterComposer(
+                $db: $db,
+                $table: $db.experimentAuditEvents,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+}
+
+class $$WakeExperimentsTableOrderingComposer
+    extends Composer<_$AppDatabase, $WakeExperimentsTable> {
+  $$WakeExperimentsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get alarmId => $composableBuilder(
+    column: $table.alarmId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get hypothesis => $composableBuilder(
+    column: $table.hypothesis,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get dimension => $composableBuilder(
+    column: $table.dimension,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get controlProtocolId => $composableBuilder(
+    column: $table.controlProtocolId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get controlProtocolVersion => $composableBuilder(
+    column: $table.controlProtocolVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get controlSnapshotJson => $composableBuilder(
+    column: $table.controlSnapshotJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get candidateProtocolId => $composableBuilder(
+    column: $table.candidateProtocolId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get candidateProtocolVersion => $composableBuilder(
+    column: $table.candidateProtocolVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get candidateSnapshotJson => $composableBuilder(
+    column: $table.candidateSnapshotJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get contextKey => $composableBuilder(
+    column: $table.contextKey,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get minimumSessionsPerVariant => $composableBuilder(
+    column: $table.minimumSessionsPerVariant,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get preferredSessionsPerVariant => $composableBuilder(
+    column: $table.preferredSessionsPerVariant,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get maximumSessionsPerVariant => $composableBuilder(
+    column: $table.maximumSessionsPerVariant,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get result => $composableBuilder(
+    column: $table.result,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get confidence => $composableBuilder(
+    column: $table.confidence,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get winnerProtocolId => $composableBuilder(
+    column: $table.winnerProtocolId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get invalidReason => $composableBuilder(
+    column: $table.invalidReason,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get startedAtMs => $composableBuilder(
+    column: $table.startedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get completedAtMs => $composableBuilder(
+    column: $table.completedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$WakeExperimentsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $WakeExperimentsTable> {
+  $$WakeExperimentsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get alarmId =>
+      $composableBuilder(column: $table.alarmId, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get hypothesis => $composableBuilder(
+    column: $table.hypothesis,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<String> get dimension =>
+      $composableBuilder(column: $table.dimension, builder: (column) => column);
+
+  GeneratedColumn<String> get controlProtocolId => $composableBuilder(
+    column: $table.controlProtocolId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get controlProtocolVersion => $composableBuilder(
+    column: $table.controlProtocolVersion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get controlSnapshotJson => $composableBuilder(
+    column: $table.controlSnapshotJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get candidateProtocolId => $composableBuilder(
+    column: $table.candidateProtocolId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get candidateProtocolVersion => $composableBuilder(
+    column: $table.candidateProtocolVersion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get candidateSnapshotJson => $composableBuilder(
+    column: $table.candidateSnapshotJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get contextKey => $composableBuilder(
+    column: $table.contextKey,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get minimumSessionsPerVariant => $composableBuilder(
+    column: $table.minimumSessionsPerVariant,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get preferredSessionsPerVariant => $composableBuilder(
+    column: $table.preferredSessionsPerVariant,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get maximumSessionsPerVariant => $composableBuilder(
+    column: $table.maximumSessionsPerVariant,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get result =>
+      $composableBuilder(column: $table.result, builder: (column) => column);
+
+  GeneratedColumn<String> get confidence => $composableBuilder(
+    column: $table.confidence,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get winnerProtocolId => $composableBuilder(
+    column: $table.winnerProtocolId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get invalidReason => $composableBuilder(
+    column: $table.invalidReason,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get startedAtMs => $composableBuilder(
+    column: $table.startedAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get completedAtMs => $composableBuilder(
+    column: $table.completedAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => column,
+  );
+
+  Expression<T> experimentSessionsRefs<T extends Object>(
+    Expression<T> Function($$ExperimentSessionsTableAnnotationComposer a) f,
+  ) {
+    final $$ExperimentSessionsTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.experimentSessions,
+          getReferencedColumn: (t) => t.experimentId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$ExperimentSessionsTableAnnotationComposer(
+                $db: $db,
+                $table: $db.experimentSessions,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+
+  Expression<T> experimentAuditEventsRefs<T extends Object>(
+    Expression<T> Function($$ExperimentAuditEventsTableAnnotationComposer a) f,
+  ) {
+    final $$ExperimentAuditEventsTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.experimentAuditEvents,
+          getReferencedColumn: (t) => t.experimentId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$ExperimentAuditEventsTableAnnotationComposer(
+                $db: $db,
+                $table: $db.experimentAuditEvents,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+}
+
+class $$WakeExperimentsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $WakeExperimentsTable,
+          WakeExperimentRow,
+          $$WakeExperimentsTableFilterComposer,
+          $$WakeExperimentsTableOrderingComposer,
+          $$WakeExperimentsTableAnnotationComposer,
+          $$WakeExperimentsTableCreateCompanionBuilder,
+          $$WakeExperimentsTableUpdateCompanionBuilder,
+          (WakeExperimentRow, $$WakeExperimentsTableReferences),
+          WakeExperimentRow,
+          PrefetchHooks Function({
+            bool experimentSessionsRefs,
+            bool experimentAuditEventsRefs,
+          })
+        > {
+  $$WakeExperimentsTableTableManager(
+    _$AppDatabase db,
+    $WakeExperimentsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$WakeExperimentsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$WakeExperimentsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$WakeExperimentsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> alarmId = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<String> hypothesis = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<String> dimension = const Value.absent(),
+                Value<String> controlProtocolId = const Value.absent(),
+                Value<int> controlProtocolVersion = const Value.absent(),
+                Value<String> controlSnapshotJson = const Value.absent(),
+                Value<String> candidateProtocolId = const Value.absent(),
+                Value<int> candidateProtocolVersion = const Value.absent(),
+                Value<String> candidateSnapshotJson = const Value.absent(),
+                Value<String> contextKey = const Value.absent(),
+                Value<int> minimumSessionsPerVariant = const Value.absent(),
+                Value<int> preferredSessionsPerVariant = const Value.absent(),
+                Value<int> maximumSessionsPerVariant = const Value.absent(),
+                Value<String> result = const Value.absent(),
+                Value<String> confidence = const Value.absent(),
+                Value<String?> winnerProtocolId = const Value.absent(),
+                Value<String?> invalidReason = const Value.absent(),
+                Value<int?> startedAtMs = const Value.absent(),
+                Value<int?> completedAtMs = const Value.absent(),
+                Value<int> createdAtMs = const Value.absent(),
+                Value<int> updatedAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => WakeExperimentsCompanion(
+                id: id,
+                alarmId: alarmId,
+                name: name,
+                hypothesis: hypothesis,
+                status: status,
+                dimension: dimension,
+                controlProtocolId: controlProtocolId,
+                controlProtocolVersion: controlProtocolVersion,
+                controlSnapshotJson: controlSnapshotJson,
+                candidateProtocolId: candidateProtocolId,
+                candidateProtocolVersion: candidateProtocolVersion,
+                candidateSnapshotJson: candidateSnapshotJson,
+                contextKey: contextKey,
+                minimumSessionsPerVariant: minimumSessionsPerVariant,
+                preferredSessionsPerVariant: preferredSessionsPerVariant,
+                maximumSessionsPerVariant: maximumSessionsPerVariant,
+                result: result,
+                confidence: confidence,
+                winnerProtocolId: winnerProtocolId,
+                invalidReason: invalidReason,
+                startedAtMs: startedAtMs,
+                completedAtMs: completedAtMs,
+                createdAtMs: createdAtMs,
+                updatedAtMs: updatedAtMs,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String alarmId,
+                required String name,
+                required String hypothesis,
+                required String status,
+                required String dimension,
+                required String controlProtocolId,
+                required int controlProtocolVersion,
+                required String controlSnapshotJson,
+                required String candidateProtocolId,
+                required int candidateProtocolVersion,
+                required String candidateSnapshotJson,
+                required String contextKey,
+                required int minimumSessionsPerVariant,
+                required int preferredSessionsPerVariant,
+                required int maximumSessionsPerVariant,
+                Value<String> result = const Value.absent(),
+                Value<String> confidence = const Value.absent(),
+                Value<String?> winnerProtocolId = const Value.absent(),
+                Value<String?> invalidReason = const Value.absent(),
+                Value<int?> startedAtMs = const Value.absent(),
+                Value<int?> completedAtMs = const Value.absent(),
+                required int createdAtMs,
+                required int updatedAtMs,
+                Value<int> rowid = const Value.absent(),
+              }) => WakeExperimentsCompanion.insert(
+                id: id,
+                alarmId: alarmId,
+                name: name,
+                hypothesis: hypothesis,
+                status: status,
+                dimension: dimension,
+                controlProtocolId: controlProtocolId,
+                controlProtocolVersion: controlProtocolVersion,
+                controlSnapshotJson: controlSnapshotJson,
+                candidateProtocolId: candidateProtocolId,
+                candidateProtocolVersion: candidateProtocolVersion,
+                candidateSnapshotJson: candidateSnapshotJson,
+                contextKey: contextKey,
+                minimumSessionsPerVariant: minimumSessionsPerVariant,
+                preferredSessionsPerVariant: preferredSessionsPerVariant,
+                maximumSessionsPerVariant: maximumSessionsPerVariant,
+                result: result,
+                confidence: confidence,
+                winnerProtocolId: winnerProtocolId,
+                invalidReason: invalidReason,
+                startedAtMs: startedAtMs,
+                completedAtMs: completedAtMs,
+                createdAtMs: createdAtMs,
+                updatedAtMs: updatedAtMs,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$WakeExperimentsTable, WakeExperimentRow>(table),
+                  $$WakeExperimentsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({
+                experimentSessionsRefs = false,
+                experimentAuditEventsRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (experimentSessionsRefs) db.experimentSessions,
+                    if (experimentAuditEventsRefs) db.experimentAuditEvents,
+                  ],
+                  addJoins: null,
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (experimentSessionsRefs)
+                        await $_getPrefetchedData<
+                          WakeExperimentRow,
+                          $WakeExperimentsTable,
+                          ExperimentSessionRow
+                        >(
+                          currentTable: table,
+                          referencedTable: $$WakeExperimentsTableReferences
+                              ._experimentSessionsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$WakeExperimentsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).experimentSessionsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.experimentId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (experimentAuditEventsRefs)
+                        await $_getPrefetchedData<
+                          WakeExperimentRow,
+                          $WakeExperimentsTable,
+                          ExperimentAuditEventRow
+                        >(
+                          currentTable: table,
+                          referencedTable: $$WakeExperimentsTableReferences
+                              ._experimentAuditEventsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$WakeExperimentsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).experimentAuditEventsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.experimentId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$WakeExperimentsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $WakeExperimentsTable,
+      WakeExperimentRow,
+      $$WakeExperimentsTableFilterComposer,
+      $$WakeExperimentsTableOrderingComposer,
+      $$WakeExperimentsTableAnnotationComposer,
+      $$WakeExperimentsTableCreateCompanionBuilder,
+      $$WakeExperimentsTableUpdateCompanionBuilder,
+      (WakeExperimentRow, $$WakeExperimentsTableReferences),
+      WakeExperimentRow,
+      PrefetchHooks Function({
+        bool experimentSessionsRefs,
+        bool experimentAuditEventsRefs,
+      })
+    >;
+typedef $$ExperimentSessionsTableCreateCompanionBuilder =
+    ExperimentSessionsCompanion Function({
+      required String id,
+      required String experimentId,
+      required String alarmId,
+      required int scheduledTimeMs,
+      required int assignmentIndex,
+      required String variant,
+      required String protocolId,
+      required int protocolVersion,
+      required String contextKey,
+      required int assignedAtMs,
+      Value<String?> wakeSessionId,
+      Value<int?> completedAtMs,
+      Value<String> validity,
+      Value<String?> invalidReason,
+      Value<int> rowid,
+    });
+typedef $$ExperimentSessionsTableUpdateCompanionBuilder =
+    ExperimentSessionsCompanion Function({
+      Value<String> id,
+      Value<String> experimentId,
+      Value<String> alarmId,
+      Value<int> scheduledTimeMs,
+      Value<int> assignmentIndex,
+      Value<String> variant,
+      Value<String> protocolId,
+      Value<int> protocolVersion,
+      Value<String> contextKey,
+      Value<int> assignedAtMs,
+      Value<String?> wakeSessionId,
+      Value<int?> completedAtMs,
+      Value<String> validity,
+      Value<String?> invalidReason,
+      Value<int> rowid,
+    });
+
+final class $$ExperimentSessionsTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $ExperimentSessionsTable,
+          ExperimentSessionRow
+        > {
+  $$ExperimentSessionsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $WakeExperimentsTable _experimentIdTable(_$AppDatabase db) => db
+      .wakeExperiments
+      .createAlias('experiment_sessions__experiment_id__wake_experiments__id');
+
+  $$WakeExperimentsTableProcessedTableManager get experimentId {
+    final $_column = $_itemColumn<String>('experiment_id')!;
+
+    final manager = $$WakeExperimentsTableTableManager(
+      $_db,
+      $_db.wakeExperiments,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_experimentIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$ExperimentSessionsTableFilterComposer
+    extends Composer<_$AppDatabase, $ExperimentSessionsTable> {
+  $$ExperimentSessionsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get alarmId => $composableBuilder(
+    column: $table.alarmId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get scheduledTimeMs => $composableBuilder(
+    column: $table.scheduledTimeMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get assignmentIndex => $composableBuilder(
+    column: $table.assignmentIndex,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get variant => $composableBuilder(
+    column: $table.variant,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get protocolId => $composableBuilder(
+    column: $table.protocolId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get protocolVersion => $composableBuilder(
+    column: $table.protocolVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get contextKey => $composableBuilder(
+    column: $table.contextKey,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get assignedAtMs => $composableBuilder(
+    column: $table.assignedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get wakeSessionId => $composableBuilder(
+    column: $table.wakeSessionId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get completedAtMs => $composableBuilder(
+    column: $table.completedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get validity => $composableBuilder(
+    column: $table.validity,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get invalidReason => $composableBuilder(
+    column: $table.invalidReason,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$WakeExperimentsTableFilterComposer get experimentId {
+    final $$WakeExperimentsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.experimentId,
+      referencedTable: $db.wakeExperiments,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$WakeExperimentsTableFilterComposer(
+            $db: $db,
+            $table: $db.wakeExperiments,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ExperimentSessionsTableOrderingComposer
+    extends Composer<_$AppDatabase, $ExperimentSessionsTable> {
+  $$ExperimentSessionsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get alarmId => $composableBuilder(
+    column: $table.alarmId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get scheduledTimeMs => $composableBuilder(
+    column: $table.scheduledTimeMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get assignmentIndex => $composableBuilder(
+    column: $table.assignmentIndex,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get variant => $composableBuilder(
+    column: $table.variant,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get protocolId => $composableBuilder(
+    column: $table.protocolId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get protocolVersion => $composableBuilder(
+    column: $table.protocolVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get contextKey => $composableBuilder(
+    column: $table.contextKey,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get assignedAtMs => $composableBuilder(
+    column: $table.assignedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get wakeSessionId => $composableBuilder(
+    column: $table.wakeSessionId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get completedAtMs => $composableBuilder(
+    column: $table.completedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get validity => $composableBuilder(
+    column: $table.validity,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get invalidReason => $composableBuilder(
+    column: $table.invalidReason,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$WakeExperimentsTableOrderingComposer get experimentId {
+    final $$WakeExperimentsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.experimentId,
+      referencedTable: $db.wakeExperiments,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$WakeExperimentsTableOrderingComposer(
+            $db: $db,
+            $table: $db.wakeExperiments,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ExperimentSessionsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ExperimentSessionsTable> {
+  $$ExperimentSessionsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get alarmId =>
+      $composableBuilder(column: $table.alarmId, builder: (column) => column);
+
+  GeneratedColumn<int> get scheduledTimeMs => $composableBuilder(
+    column: $table.scheduledTimeMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get assignmentIndex => $composableBuilder(
+    column: $table.assignmentIndex,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get variant =>
+      $composableBuilder(column: $table.variant, builder: (column) => column);
+
+  GeneratedColumn<String> get protocolId => $composableBuilder(
+    column: $table.protocolId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get protocolVersion => $composableBuilder(
+    column: $table.protocolVersion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get contextKey => $composableBuilder(
+    column: $table.contextKey,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get assignedAtMs => $composableBuilder(
+    column: $table.assignedAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get wakeSessionId => $composableBuilder(
+    column: $table.wakeSessionId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get completedAtMs => $composableBuilder(
+    column: $table.completedAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get validity =>
+      $composableBuilder(column: $table.validity, builder: (column) => column);
+
+  GeneratedColumn<String> get invalidReason => $composableBuilder(
+    column: $table.invalidReason,
+    builder: (column) => column,
+  );
+
+  $$WakeExperimentsTableAnnotationComposer get experimentId {
+    final $$WakeExperimentsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.experimentId,
+      referencedTable: $db.wakeExperiments,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$WakeExperimentsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.wakeExperiments,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ExperimentSessionsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ExperimentSessionsTable,
+          ExperimentSessionRow,
+          $$ExperimentSessionsTableFilterComposer,
+          $$ExperimentSessionsTableOrderingComposer,
+          $$ExperimentSessionsTableAnnotationComposer,
+          $$ExperimentSessionsTableCreateCompanionBuilder,
+          $$ExperimentSessionsTableUpdateCompanionBuilder,
+          (ExperimentSessionRow, $$ExperimentSessionsTableReferences),
+          ExperimentSessionRow,
+          PrefetchHooks Function({bool experimentId})
+        > {
+  $$ExperimentSessionsTableTableManager(
+    _$AppDatabase db,
+    $ExperimentSessionsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ExperimentSessionsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ExperimentSessionsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ExperimentSessionsTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> experimentId = const Value.absent(),
+                Value<String> alarmId = const Value.absent(),
+                Value<int> scheduledTimeMs = const Value.absent(),
+                Value<int> assignmentIndex = const Value.absent(),
+                Value<String> variant = const Value.absent(),
+                Value<String> protocolId = const Value.absent(),
+                Value<int> protocolVersion = const Value.absent(),
+                Value<String> contextKey = const Value.absent(),
+                Value<int> assignedAtMs = const Value.absent(),
+                Value<String?> wakeSessionId = const Value.absent(),
+                Value<int?> completedAtMs = const Value.absent(),
+                Value<String> validity = const Value.absent(),
+                Value<String?> invalidReason = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ExperimentSessionsCompanion(
+                id: id,
+                experimentId: experimentId,
+                alarmId: alarmId,
+                scheduledTimeMs: scheduledTimeMs,
+                assignmentIndex: assignmentIndex,
+                variant: variant,
+                protocolId: protocolId,
+                protocolVersion: protocolVersion,
+                contextKey: contextKey,
+                assignedAtMs: assignedAtMs,
+                wakeSessionId: wakeSessionId,
+                completedAtMs: completedAtMs,
+                validity: validity,
+                invalidReason: invalidReason,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String experimentId,
+                required String alarmId,
+                required int scheduledTimeMs,
+                required int assignmentIndex,
+                required String variant,
+                required String protocolId,
+                required int protocolVersion,
+                required String contextKey,
+                required int assignedAtMs,
+                Value<String?> wakeSessionId = const Value.absent(),
+                Value<int?> completedAtMs = const Value.absent(),
+                Value<String> validity = const Value.absent(),
+                Value<String?> invalidReason = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ExperimentSessionsCompanion.insert(
+                id: id,
+                experimentId: experimentId,
+                alarmId: alarmId,
+                scheduledTimeMs: scheduledTimeMs,
+                assignmentIndex: assignmentIndex,
+                variant: variant,
+                protocolId: protocolId,
+                protocolVersion: protocolVersion,
+                contextKey: contextKey,
+                assignedAtMs: assignedAtMs,
+                wakeSessionId: wakeSessionId,
+                completedAtMs: completedAtMs,
+                validity: validity,
+                invalidReason: invalidReason,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$ExperimentSessionsTable, ExperimentSessionRow>(
+                    table,
+                  ),
+                  $$ExperimentSessionsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({experimentId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (experimentId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.experimentId,
+                        referencedTable: $$ExperimentSessionsTableReferences
+                            ._experimentIdTable(db),
+                        referencedColumn: $$ExperimentSessionsTableReferences
+                            ._experimentIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$ExperimentSessionsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ExperimentSessionsTable,
+      ExperimentSessionRow,
+      $$ExperimentSessionsTableFilterComposer,
+      $$ExperimentSessionsTableOrderingComposer,
+      $$ExperimentSessionsTableAnnotationComposer,
+      $$ExperimentSessionsTableCreateCompanionBuilder,
+      $$ExperimentSessionsTableUpdateCompanionBuilder,
+      (ExperimentSessionRow, $$ExperimentSessionsTableReferences),
+      ExperimentSessionRow,
+      PrefetchHooks Function({bool experimentId})
+    >;
+typedef $$ExperimentAuditEventsTableCreateCompanionBuilder =
+    ExperimentAuditEventsCompanion Function({
+      required String id,
+      required String experimentId,
+      required int sequence,
+      required String eventType,
+      required int occurredAtMs,
+      required String detailsJson,
+      Value<int> policyVersion,
+      Value<int> rowid,
+    });
+typedef $$ExperimentAuditEventsTableUpdateCompanionBuilder =
+    ExperimentAuditEventsCompanion Function({
+      Value<String> id,
+      Value<String> experimentId,
+      Value<int> sequence,
+      Value<String> eventType,
+      Value<int> occurredAtMs,
+      Value<String> detailsJson,
+      Value<int> policyVersion,
+      Value<int> rowid,
+    });
+
+final class $$ExperimentAuditEventsTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $ExperimentAuditEventsTable,
+          ExperimentAuditEventRow
+        > {
+  $$ExperimentAuditEventsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $WakeExperimentsTable _experimentIdTable(_$AppDatabase db) =>
+      db.wakeExperiments.createAlias(
+        'experiment_audit_events__experiment_id__wake_experiments__id',
+      );
+
+  $$WakeExperimentsTableProcessedTableManager get experimentId {
+    final $_column = $_itemColumn<String>('experiment_id')!;
+
+    final manager = $$WakeExperimentsTableTableManager(
+      $_db,
+      $_db.wakeExperiments,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_experimentIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$ExperimentAuditEventsTableFilterComposer
+    extends Composer<_$AppDatabase, $ExperimentAuditEventsTable> {
+  $$ExperimentAuditEventsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get sequence => $composableBuilder(
+    column: $table.sequence,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get eventType => $composableBuilder(
+    column: $table.eventType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get occurredAtMs => $composableBuilder(
+    column: $table.occurredAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get detailsJson => $composableBuilder(
+    column: $table.detailsJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get policyVersion => $composableBuilder(
+    column: $table.policyVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$WakeExperimentsTableFilterComposer get experimentId {
+    final $$WakeExperimentsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.experimentId,
+      referencedTable: $db.wakeExperiments,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$WakeExperimentsTableFilterComposer(
+            $db: $db,
+            $table: $db.wakeExperiments,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ExperimentAuditEventsTableOrderingComposer
+    extends Composer<_$AppDatabase, $ExperimentAuditEventsTable> {
+  $$ExperimentAuditEventsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get sequence => $composableBuilder(
+    column: $table.sequence,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get eventType => $composableBuilder(
+    column: $table.eventType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get occurredAtMs => $composableBuilder(
+    column: $table.occurredAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get detailsJson => $composableBuilder(
+    column: $table.detailsJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get policyVersion => $composableBuilder(
+    column: $table.policyVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$WakeExperimentsTableOrderingComposer get experimentId {
+    final $$WakeExperimentsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.experimentId,
+      referencedTable: $db.wakeExperiments,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$WakeExperimentsTableOrderingComposer(
+            $db: $db,
+            $table: $db.wakeExperiments,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ExperimentAuditEventsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ExperimentAuditEventsTable> {
+  $$ExperimentAuditEventsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get sequence =>
+      $composableBuilder(column: $table.sequence, builder: (column) => column);
+
+  GeneratedColumn<String> get eventType =>
+      $composableBuilder(column: $table.eventType, builder: (column) => column);
+
+  GeneratedColumn<int> get occurredAtMs => $composableBuilder(
+    column: $table.occurredAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get detailsJson => $composableBuilder(
+    column: $table.detailsJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get policyVersion => $composableBuilder(
+    column: $table.policyVersion,
+    builder: (column) => column,
+  );
+
+  $$WakeExperimentsTableAnnotationComposer get experimentId {
+    final $$WakeExperimentsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.experimentId,
+      referencedTable: $db.wakeExperiments,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$WakeExperimentsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.wakeExperiments,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ExperimentAuditEventsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ExperimentAuditEventsTable,
+          ExperimentAuditEventRow,
+          $$ExperimentAuditEventsTableFilterComposer,
+          $$ExperimentAuditEventsTableOrderingComposer,
+          $$ExperimentAuditEventsTableAnnotationComposer,
+          $$ExperimentAuditEventsTableCreateCompanionBuilder,
+          $$ExperimentAuditEventsTableUpdateCompanionBuilder,
+          (ExperimentAuditEventRow, $$ExperimentAuditEventsTableReferences),
+          ExperimentAuditEventRow,
+          PrefetchHooks Function({bool experimentId})
+        > {
+  $$ExperimentAuditEventsTableTableManager(
+    _$AppDatabase db,
+    $ExperimentAuditEventsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ExperimentAuditEventsTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer: () =>
+              $$ExperimentAuditEventsTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$ExperimentAuditEventsTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> experimentId = const Value.absent(),
+                Value<int> sequence = const Value.absent(),
+                Value<String> eventType = const Value.absent(),
+                Value<int> occurredAtMs = const Value.absent(),
+                Value<String> detailsJson = const Value.absent(),
+                Value<int> policyVersion = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ExperimentAuditEventsCompanion(
+                id: id,
+                experimentId: experimentId,
+                sequence: sequence,
+                eventType: eventType,
+                occurredAtMs: occurredAtMs,
+                detailsJson: detailsJson,
+                policyVersion: policyVersion,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String experimentId,
+                required int sequence,
+                required String eventType,
+                required int occurredAtMs,
+                required String detailsJson,
+                Value<int> policyVersion = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ExperimentAuditEventsCompanion.insert(
+                id: id,
+                experimentId: experimentId,
+                sequence: sequence,
+                eventType: eventType,
+                occurredAtMs: occurredAtMs,
+                detailsJson: detailsJson,
+                policyVersion: policyVersion,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<
+                    $ExperimentAuditEventsTable,
+                    ExperimentAuditEventRow
+                  >(table),
+                  $$ExperimentAuditEventsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({experimentId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (experimentId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.experimentId,
+                        referencedTable: $$ExperimentAuditEventsTableReferences
+                            ._experimentIdTable(db),
+                        referencedColumn: $$ExperimentAuditEventsTableReferences
+                            ._experimentIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$ExperimentAuditEventsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ExperimentAuditEventsTable,
+      ExperimentAuditEventRow,
+      $$ExperimentAuditEventsTableFilterComposer,
+      $$ExperimentAuditEventsTableOrderingComposer,
+      $$ExperimentAuditEventsTableAnnotationComposer,
+      $$ExperimentAuditEventsTableCreateCompanionBuilder,
+      $$ExperimentAuditEventsTableUpdateCompanionBuilder,
+      (ExperimentAuditEventRow, $$ExperimentAuditEventsTableReferences),
+      ExperimentAuditEventRow,
+      PrefetchHooks Function({bool experimentId})
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -15311,4 +19864,10 @@ class $AppDatabaseManager {
         _db,
         _db.alarmAdaptationSettings,
       );
+  $$WakeExperimentsTableTableManager get wakeExperiments =>
+      $$WakeExperimentsTableTableManager(_db, _db.wakeExperiments);
+  $$ExperimentSessionsTableTableManager get experimentSessions =>
+      $$ExperimentSessionsTableTableManager(_db, _db.experimentSessions);
+  $$ExperimentAuditEventsTableTableManager get experimentAuditEvents =>
+      $$ExperimentAuditEventsTableTableManager(_db, _db.experimentAuditEvents);
 }

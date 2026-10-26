@@ -97,6 +97,82 @@ int _deepHash(Object? value) {
   return value.hashCode;
 }
 
+class ExperimentAssignmentDto {
+  ExperimentAssignmentDto({
+    required this.experimentId,
+    required this.assignmentId,
+    required this.variant,
+    required this.contextKey,
+    required this.occurrenceAtMs,
+    required this.assignedAtMs,
+  });
+
+  String experimentId;
+
+  String assignmentId;
+
+  String variant;
+
+  String contextKey;
+
+  int occurrenceAtMs;
+
+  int assignedAtMs;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      experimentId,
+      assignmentId,
+      variant,
+      contextKey,
+      occurrenceAtMs,
+      assignedAtMs,
+    ];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static ExperimentAssignmentDto decode(Object result) {
+    result as List<Object?>;
+    return ExperimentAssignmentDto(
+      experimentId: result[0]! as String,
+      assignmentId: result[1]! as String,
+      variant: result[2]! as String,
+      contextKey: result[3]! as String,
+      occurrenceAtMs: result[4]! as int,
+      assignedAtMs: result[5]! as int,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! ExperimentAssignmentDto || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(experimentId, other.experimentId) &&
+        _deepEquals(assignmentId, other.assignmentId) &&
+        _deepEquals(variant, other.variant) &&
+        _deepEquals(contextKey, other.contextKey) &&
+        _deepEquals(occurrenceAtMs, other.occurrenceAtMs) &&
+        _deepEquals(assignedAtMs, other.assignedAtMs);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+
+  @override
+  String toString() {
+    return 'ExperimentAssignmentDto(experimentId: $experimentId, assignmentId: $assignmentId, variant: $variant, contextKey: $contextKey, occurrenceAtMs: $occurrenceAtMs, assignedAtMs: $assignedAtMs)';
+  }
+}
+
 class AlarmScheduleDto {
   AlarmScheduleDto({
     required this.alarmId,
@@ -122,6 +198,8 @@ class AlarmScheduleDto {
     required this.localMinute,
     required this.recurrenceType,
     required this.repeatDaysMask,
+    this.experiment,
+    this.stableProtocolSnapshotJson,
   });
 
   String alarmId;
@@ -170,6 +248,10 @@ class AlarmScheduleDto {
 
   int repeatDaysMask;
 
+  ExperimentAssignmentDto? experiment;
+
+  String? stableProtocolSnapshotJson;
+
   List<Object?> _toList() {
     return <Object?>[
       alarmId,
@@ -195,6 +277,8 @@ class AlarmScheduleDto {
       localMinute,
       recurrenceType,
       repeatDaysMask,
+      experiment,
+      stableProtocolSnapshotJson,
     ];
   }
 
@@ -228,6 +312,8 @@ class AlarmScheduleDto {
       localMinute: result[20]! as int,
       recurrenceType: result[21]! as String,
       repeatDaysMask: result[22]! as int,
+      experiment: result[23] as ExperimentAssignmentDto?,
+      stableProtocolSnapshotJson: result[24] as String?,
     );
   }
 
@@ -268,7 +354,12 @@ class AlarmScheduleDto {
         _deepEquals(localHour, other.localHour) &&
         _deepEquals(localMinute, other.localMinute) &&
         _deepEquals(recurrenceType, other.recurrenceType) &&
-        _deepEquals(repeatDaysMask, other.repeatDaysMask);
+        _deepEquals(repeatDaysMask, other.repeatDaysMask) &&
+        _deepEquals(experiment, other.experiment) &&
+        _deepEquals(
+          stableProtocolSnapshotJson,
+          other.stableProtocolSnapshotJson,
+        );
   }
 
   @override
@@ -277,7 +368,7 @@ class AlarmScheduleDto {
 
   @override
   String toString() {
-    return 'AlarmScheduleDto(alarmId: $alarmId, triggerAtMs: $triggerAtMs, label: $label, ringtoneUri: $ringtoneUri, vibrationEnabled: $vibrationEnabled, snoozeEnabled: $snoozeEnabled, snoozeDurationMinutes: $snoozeDurationMinutes, adaptiveSoundRotation: $adaptiveSoundRotation, increasingVolume: $increasingVolume, protocolId: $protocolId, protocolVersion: $protocolVersion, protocolSnapshotJson: $protocolSnapshotJson, initialVolumePercent: $initialVolumePercent, maxVolumePercent: $maxVolumePercent, volumeEscalationStepPercent: $volumeEscalationStepPercent, volumeEscalationIntervalSeconds: $volumeEscalationIntervalSeconds, vibrationPattern: $vibrationPattern, sessionId: $sessionId, snoozeCount: $snoozeCount, localHour: $localHour, localMinute: $localMinute, recurrenceType: $recurrenceType, repeatDaysMask: $repeatDaysMask)';
+    return 'AlarmScheduleDto(alarmId: $alarmId, triggerAtMs: $triggerAtMs, label: $label, ringtoneUri: $ringtoneUri, vibrationEnabled: $vibrationEnabled, snoozeEnabled: $snoozeEnabled, snoozeDurationMinutes: $snoozeDurationMinutes, adaptiveSoundRotation: $adaptiveSoundRotation, increasingVolume: $increasingVolume, protocolId: $protocolId, protocolVersion: $protocolVersion, protocolSnapshotJson: $protocolSnapshotJson, initialVolumePercent: $initialVolumePercent, maxVolumePercent: $maxVolumePercent, volumeEscalationStepPercent: $volumeEscalationStepPercent, volumeEscalationIntervalSeconds: $volumeEscalationIntervalSeconds, vibrationPattern: $vibrationPattern, sessionId: $sessionId, snoozeCount: $snoozeCount, localHour: $localHour, localMinute: $localMinute, recurrenceType: $recurrenceType, repeatDaysMask: $repeatDaysMask, experiment: $experiment, stableProtocolSnapshotJson: $stableProtocolSnapshotJson)';
   }
 }
 
@@ -386,6 +477,7 @@ class RuntimeEventDto {
     required this.protocolId,
     required this.protocolVersion,
     required this.protocolSnapshotJson,
+    this.experiment,
   });
 
   String id;
@@ -410,6 +502,8 @@ class RuntimeEventDto {
 
   String protocolSnapshotJson;
 
+  ExperimentAssignmentDto? experiment;
+
   List<Object?> _toList() {
     return <Object?>[
       id,
@@ -423,6 +517,7 @@ class RuntimeEventDto {
       protocolId,
       protocolVersion,
       protocolSnapshotJson,
+      experiment,
     ];
   }
 
@@ -444,6 +539,7 @@ class RuntimeEventDto {
       protocolId: result[8]! as String,
       protocolVersion: result[9]! as int,
       protocolSnapshotJson: result[10]! as String,
+      experiment: result[11] as ExperimentAssignmentDto?,
     );
   }
 
@@ -466,7 +562,8 @@ class RuntimeEventDto {
         _deepEquals(metadataJson, other.metadataJson) &&
         _deepEquals(protocolId, other.protocolId) &&
         _deepEquals(protocolVersion, other.protocolVersion) &&
-        _deepEquals(protocolSnapshotJson, other.protocolSnapshotJson);
+        _deepEquals(protocolSnapshotJson, other.protocolSnapshotJson) &&
+        _deepEquals(experiment, other.experiment);
   }
 
   @override
@@ -475,7 +572,7 @@ class RuntimeEventDto {
 
   @override
   String toString() {
-    return 'RuntimeEventDto(id: $id, sessionId: $sessionId, alarmId: $alarmId, eventType: $eventType, occurredAtMs: $occurredAtMs, scheduledAtMs: $scheduledAtMs, ringtoneUri: $ringtoneUri, metadataJson: $metadataJson, protocolId: $protocolId, protocolVersion: $protocolVersion, protocolSnapshotJson: $protocolSnapshotJson)';
+    return 'RuntimeEventDto(id: $id, sessionId: $sessionId, alarmId: $alarmId, eventType: $eventType, occurredAtMs: $occurredAtMs, scheduledAtMs: $scheduledAtMs, ringtoneUri: $ringtoneUri, metadataJson: $metadataJson, protocolId: $protocolId, protocolVersion: $protocolVersion, protocolSnapshotJson: $protocolSnapshotJson, experiment: $experiment)';
   }
 }
 
@@ -562,20 +659,23 @@ class _PigeonCodec extends StandardMessageCodec {
     if (value is int) {
       buffer.putUint8(4);
       buffer.putInt64(value);
-    } else if (value is AlarmScheduleDto) {
+    } else if (value is ExperimentAssignmentDto) {
       buffer.putUint8(129);
       writeValue(buffer, value.encode());
-    } else if (value is AlarmApplyResult) {
+    } else if (value is AlarmScheduleDto) {
       buffer.putUint8(130);
       writeValue(buffer, value.encode());
-    } else if (value is RingtoneDto) {
+    } else if (value is AlarmApplyResult) {
       buffer.putUint8(131);
       writeValue(buffer, value.encode());
-    } else if (value is RuntimeEventDto) {
+    } else if (value is RingtoneDto) {
       buffer.putUint8(132);
       writeValue(buffer, value.encode());
-    } else if (value is AlarmHealthDto) {
+    } else if (value is RuntimeEventDto) {
       buffer.putUint8(133);
+      writeValue(buffer, value.encode());
+    } else if (value is AlarmHealthDto) {
+      buffer.putUint8(134);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -586,14 +686,16 @@ class _PigeonCodec extends StandardMessageCodec {
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
       case 129:
-        return AlarmScheduleDto.decode(readValue(buffer)!);
+        return ExperimentAssignmentDto.decode(readValue(buffer)!);
       case 130:
-        return AlarmApplyResult.decode(readValue(buffer)!);
+        return AlarmScheduleDto.decode(readValue(buffer)!);
       case 131:
-        return RingtoneDto.decode(readValue(buffer)!);
+        return AlarmApplyResult.decode(readValue(buffer)!);
       case 132:
-        return RuntimeEventDto.decode(readValue(buffer)!);
+        return RingtoneDto.decode(readValue(buffer)!);
       case 133:
+        return RuntimeEventDto.decode(readValue(buffer)!);
+      case 134:
         return AlarmHealthDto.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);

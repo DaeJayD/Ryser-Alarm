@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:ryser/database/app_database.dart';
 import 'package:ryser/features/adaptive_wake/domain/adaptive_thresholds.dart';
+import 'package:ryser/features/wake_experiments/data/experiment_evidence_filter.dart';
 
 class SoundPerformance {
   const SoundPerformance({
@@ -41,12 +42,19 @@ class SoundPerformanceRepository {
   final AppDatabase _database;
   final AdaptiveThresholds thresholds;
 
-  Future<List<SoundPerformance>> load({String? alarmId, int? throughMs}) async {
+  Future<List<SoundPerformance>> load({
+    String? alarmId,
+    int? throughMs,
+    bool excludeExperiments = false,
+  }) async {
     final rows =
         await (_database.select(_database.wakeSessions)
               ..where(
                 (row) =>
                     row.completedAtMs.isNotNull() &
+                    (excludeExperiments
+                        ? outsideExperimentOccurrences(_database, row)
+                        : const Constant(true)) &
                     (throughMs == null
                         ? const Constant(true)
                         : row.completedAtMs.isSmallerOrEqualValue(throughMs)) &

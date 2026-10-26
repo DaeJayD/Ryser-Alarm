@@ -5,12 +5,14 @@ import 'package:ryser/core/platform/alarm_runtime_gateway.dart';
 import 'package:ryser/core/platform/generated/alarm_runtime_api.g.dart';
 import 'package:ryser/database/app_database.dart';
 import 'package:ryser/features/wake_sessions/domain/response_latency.dart';
+import 'package:ryser/features/wake_experiments/data/wake_experiment_repository.dart';
 
 class RuntimeEventReconciler {
-  RuntimeEventReconciler(this._database, this._gateway);
+  RuntimeEventReconciler(this._database, this._gateway, {this.experiments});
 
   final AppDatabase _database;
   final AlarmRuntimeGateway _gateway;
+  final WakeExperimentRepository? experiments;
 
   Future<int> reconcile() async {
     final events = await _gateway.getRuntimeEvents();
@@ -60,6 +62,7 @@ class RuntimeEventReconciler {
             ),
             mode: InsertMode.insertOrIgnore,
           );
+      await experiments?.reconcileTriggered(event);
       final alarm = await (_database.select(
         _database.alarms,
       )..where((row) => row.id.equals(event.alarmId))).getSingleOrNull();
@@ -125,6 +128,9 @@ class RuntimeEventReconciler {
                 ? const Value.absent()
                 : const Value('dismissed'),
             completedAtMs: Value(event.occurredAtMs),
+            currentWakeFlowState: existing.wakeEnforcementEnabled
+                ? const Value.absent()
+                : const Value('completed'),
           ),
         );
       }
@@ -248,7 +254,9 @@ class RuntimeEventReconciler {
             sequenceNumber: sequence,
             eventType: event.eventType,
             occurredAtMs: event.occurredAtMs,
-            metadataJson: event.metadataJson == '{}'
+            metadataJson: event.experiment != null
+                ? _experimentMetadata(event)
+                : event.metadataJson == '{}'
                 ? jsonEncode({
                     'scheduledAtMs': event.scheduledAtMs,
                     'ringtoneUri': event.ringtoneUri,
@@ -266,5 +274,28 @@ class RuntimeEventReconciler {
           ..orderBy([(row) => OrderingTerm.desc(row.attemptNumber)])
           ..limit(1))
         .getSingleOrNull();
+  }
+
+  String _experimentMetadata(RuntimeEventDto event) {
+    final assignment = event.experiment!;
+    Map<String, dynamic> details;
+    try {
+      details = jsonDecode(event.metadataJson) as Map<String, dynamic>;
+    } catch (_) {
+      details = {'rawDetails': event.metadataJson};
+    }
+    return jsonEncode({
+      ...details,
+      'scheduledAtMs': event.scheduledAtMs,
+      'ringtoneUri': event.ringtoneUri,
+      'experiment': {
+        'experimentId': assignment.experimentId,
+        'assignmentId': assignment.assignmentId,
+        'variant': assignment.variant,
+        'contextKey': assignment.contextKey,
+        'occurrenceAtMs': assignment.occurrenceAtMs,
+        'assignedAtMs': assignment.assignedAtMs,
+      },
+    });
   }
 }

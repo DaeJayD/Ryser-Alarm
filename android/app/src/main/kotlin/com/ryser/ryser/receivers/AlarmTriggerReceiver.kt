@@ -9,6 +9,8 @@ import com.ryser.ryser.service.AlarmPlaybackService
 import com.ryser.ryser.runtime.RuntimeEventStore
 import com.ryser.ryser.runtime.ScheduleStore
 import com.ryser.ryser.scheduling.AlarmScheduler
+import com.ryser.ryser.runtime.ExperimentAssignmentCodec
+import android.util.Log
 
 class AlarmTriggerReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -18,9 +20,10 @@ class AlarmTriggerReceiver : BroadcastReceiver() {
         val snoozeCount = intent.getIntExtra(EXTRA_SNOOZE_COUNT, 0)
         val sessionId = intent.getStringExtra(EXTRA_SESSION_ID).orEmpty()
             .ifBlank { "$alarmId-$scheduledAtMs" }
-        ScheduleStore(context).recordSoundUse(alarmId, ringtoneUri, System.currentTimeMillis())
-        if (snoozeCount == 0) AlarmScheduler(context).onAlarmTriggered(alarmId)
-        RuntimeEventStore(context).append(
+        try { ScheduleStore(context).recordSoundUse(alarmId, ringtoneUri, System.currentTimeMillis()) }
+        catch (error: Exception) { Log.e("RyserAlarm", "Sound usage could not be recorded", error) }
+        try {
+          RuntimeEventStore(context).append(
             sessionId = sessionId,
             alarmId = alarmId,
             eventType = if (snoozeCount == 0) {
@@ -35,7 +38,15 @@ class AlarmTriggerReceiver : BroadcastReceiver() {
             protocolId = intent.getStringExtra(EXTRA_PROTOCOL_ID).orEmpty(),
             protocolVersion = intent.getLongExtra(EXTRA_PROTOCOL_VERSION, 0L),
             protocolSnapshotJson = intent.getStringExtra(EXTRA_PROTOCOL_SNAPSHOT).orEmpty().ifBlank { "{}" },
-        )
+            experiment = ExperimentAssignmentCodec.decode(intent.getStringExtra(EXTRA_EXPERIMENT)),
+          )
+        } catch (error: Exception) {
+            Log.e("RyserAlarm", "Alarm evidence could not be written", error)
+        }
+        if (snoozeCount == 0) {
+            try { AlarmScheduler(context).onAlarmTriggered(alarmId) }
+            catch (error: Exception) { Log.e("RyserAlarm", "Next occurrence could not be scheduled", error) }
+        }
         ContextCompat.startForegroundService(
             context,
             AlarmPlaybackService.createStartIntent(
@@ -83,6 +94,7 @@ class AlarmTriggerReceiver : BroadcastReceiver() {
         private const val EXTRA_VOLUME_STEP = "volume_step_percent"
         private const val EXTRA_VOLUME_INTERVAL = "volume_interval_seconds"
         private const val EXTRA_VIBRATION_PATTERN = "vibration_pattern"
+        private const val EXTRA_EXPERIMENT = "experiment_assignment"
 
         fun createIntent(context: Context, schedule: AlarmScheduleDto): Intent {
             return Intent(context, AlarmTriggerReceiver::class.java).apply {
@@ -105,6 +117,7 @@ class AlarmTriggerReceiver : BroadcastReceiver() {
                 putExtra(EXTRA_VOLUME_STEP, schedule.volumeEscalationStepPercent.toInt())
                 putExtra(EXTRA_VOLUME_INTERVAL, schedule.volumeEscalationIntervalSeconds.toInt())
                 putExtra(EXTRA_VIBRATION_PATTERN, schedule.vibrationPattern)
+                putExtra(EXTRA_EXPERIMENT, ExperimentAssignmentCodec.encode(schedule.experiment))
             }
         }
     }

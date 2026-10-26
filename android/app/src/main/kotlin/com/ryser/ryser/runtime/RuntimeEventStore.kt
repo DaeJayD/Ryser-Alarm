@@ -5,10 +5,11 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.ryser.ryser.bridge.RuntimeEventDto
+import com.ryser.ryser.bridge.ExperimentAssignmentDto
 import java.util.UUID
 
-class RuntimeEventStore(context: Context) :
-    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class RuntimeEventStore(context: Context, databaseName: String = DATABASE_NAME) :
+    SQLiteOpenHelper(context, databaseName, null, DATABASE_VERSION) {
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(
@@ -24,6 +25,7 @@ class RuntimeEventStore(context: Context) :
                 ,protocol_id TEXT NOT NULL DEFAULT ''
                 ,protocol_version INTEGER NOT NULL DEFAULT 0
                 ,protocol_snapshot_json TEXT NOT NULL DEFAULT '{}'
+                ,experiment_json TEXT NOT NULL DEFAULT ''
             )""".trimIndent(),
         )
     }
@@ -34,6 +36,9 @@ class RuntimeEventStore(context: Context) :
             db.execSQL("ALTER TABLE runtime_events ADD COLUMN protocol_id TEXT NOT NULL DEFAULT ''")
             db.execSQL("ALTER TABLE runtime_events ADD COLUMN protocol_version INTEGER NOT NULL DEFAULT 0")
             db.execSQL("ALTER TABLE runtime_events ADD COLUMN protocol_snapshot_json TEXT NOT NULL DEFAULT '{}'")
+        }
+        if (oldVersion < 3) {
+            db.execSQL("ALTER TABLE runtime_events ADD COLUMN experiment_json TEXT NOT NULL DEFAULT ''")
         }
     }
 
@@ -48,6 +53,7 @@ class RuntimeEventStore(context: Context) :
         protocolId: String = "",
         protocolVersion: Long = 0,
         protocolSnapshotJson: String = "{}",
+        experiment: ExperimentAssignmentDto? = null,
     ) {
         writableDatabase.insertOrThrow(
             "runtime_events",
@@ -64,6 +70,7 @@ class RuntimeEventStore(context: Context) :
                 put("protocol_id", protocolId)
                 put("protocol_version", protocolVersion)
                 put("protocol_snapshot_json", protocolSnapshotJson)
+                put("experiment_json", ExperimentAssignmentCodec.encode(experiment))
             },
         )
     }
@@ -92,6 +99,7 @@ class RuntimeEventStore(context: Context) :
                         protocolId = cursor.getString(cursor.getColumnIndexOrThrow("protocol_id")),
                         protocolVersion = cursor.getLong(cursor.getColumnIndexOrThrow("protocol_version")),
                         protocolSnapshotJson = cursor.getString(cursor.getColumnIndexOrThrow("protocol_snapshot_json")),
+                        experiment = ExperimentAssignmentCodec.decode(cursor.getString(cursor.getColumnIndexOrThrow("experiment_json"))),
                     )
                 }
             }
@@ -113,7 +121,7 @@ class RuntimeEventStore(context: Context) :
 
     companion object {
         private const val DATABASE_NAME = "alarm_runtime.db"
-        private const val DATABASE_VERSION = 2
+        private const val DATABASE_VERSION = 3
         const val EVENT_TRIGGERED = "ALARM_TRIGGERED"
         const val EVENT_DISMISSED = "ALARM_DISMISSED"
         const val EVENT_SNOOZED = "SNOOZED"

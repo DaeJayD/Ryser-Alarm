@@ -16,6 +16,7 @@ import 'package:ryser/features/alarms/domain/next_occurrence.dart';
 import 'package:ryser/features/sounds/data/sound_performance_repository.dart';
 import 'package:ryser/features/sounds/domain/bundled_sound_catalog.dart';
 import 'package:uuid/uuid.dart';
+import 'package:ryser/features/wake_experiments/data/experiment_evidence_filter.dart';
 
 class AdaptiveWakeCoordinator {
   AdaptiveWakeCoordinator(
@@ -58,6 +59,28 @@ class AdaptiveWakeCoordinator {
       await _markAnalyzed(session.id);
       return false;
     }
+    final experimentAssignment =
+        await (_database.select(_database.experimentSessions)..where(
+              (r) =>
+                  r.wakeSessionId.equals(session.id) |
+                  (r.alarmId.equals(session.alarmId) &
+                      r.scheduledTimeMs.equals(session.scheduledTimeMs)),
+            ))
+            .getSingleOrNull();
+    if (experimentAssignment != null) {
+      // Controlled variants belong to the comparison loop, not the V3 rule
+      // training set. Preserve raw evidence for the experiment evaluator.
+      await _markAnalyzed(session.id);
+      return true;
+    }
+    final openExperiment =
+        await (_database.select(_database.wakeExperiments)..where(
+              (r) =>
+                  r.alarmId.equals(session.alarmId) &
+                  r.status.isIn(['ready', 'running', 'paused']),
+            ))
+            .getSingleOrNull();
+    if (openExperiment != null) return false;
     // V2 sessions have no immutable protocol snapshot and are not eligible to
     // drive adaptive decisions. Preserve them without fabricating provenance.
     if (session.protocolId == null || session.protocolVersion == null) {
@@ -77,6 +100,7 @@ class AdaptiveWakeCoordinator {
                 (row) =>
                     row.alarmId.equals(session.alarmId) &
                     row.completedAtMs.isNotNull() &
+                    outsideExperimentOccurrences(_database, row) &
                     row.completedAtMs.isSmallerOrEqualValue(
                       session.completedAtMs!,
                     ) &
@@ -114,8 +138,11 @@ class AdaptiveWakeCoordinator {
       for (var index = 0; index < recentRows.length; index++)
         if (recentRows[index].protocolId == current.id) analyses[index],
     ];
-    final soundStats = await SoundPerformanceRepository(_database)
-        .load(alarmId: session.alarmId, throughMs: session.completedAtMs);
+    final soundStats = await SoundPerformanceRepository(_database).load(
+      alarmId: session.alarmId,
+      throughMs: session.completedAtMs,
+      excludeExperiments: true,
+    );
     final alternatives = BundledSoundCatalog.sounds
         .where((s) => s.family != current.initialSoundFamily)
         .toList();
@@ -591,6 +618,7 @@ class AdaptiveWakeCoordinator {
         await (_database.select(_database.wakeSessions)..where(
               (row) =>
                   row.protocolId.equals(current.id) &
+                  outsideExperimentOccurrences(_database, row) &
                   row.completedAtMs.isNotNull() &
                   row.completedAtMs.isSmallerOrEqualValue(throughMs) &
                   row.outcome.isNotIn(const [
@@ -605,6 +633,7 @@ class AdaptiveWakeCoordinator {
         await (_database.select(_database.wakeSessions)..where(
               (row) =>
                   row.protocolId.equals(previous.id) &
+                  outsideExperimentOccurrences(_database, row) &
                   row.completedAtMs.isNotNull() &
                   row.completedAtMs.isSmallerOrEqualValue(throughMs) &
                   row.outcome.isNotIn(const [

@@ -9,13 +9,17 @@ import com.ryser.ryser.bridge.AlarmScheduleDto
 import com.ryser.ryser.receivers.AlarmTriggerReceiver
 import com.ryser.ryser.runtime.ScheduleStore
 import com.ryser.ryser.runtime.SoundRotationSelector
+import com.ryser.ryser.runtime.ExperimentAssignmentCodec
 import com.ryser.ryser.notifications.ArmedAlarmNotification
 import java.util.Calendar
 
 class AlarmScheduler(private val context: Context) {
     private val alarmManager = context.getSystemService(AlarmManager::class.java)
 
-    fun schedule(schedule: AlarmScheduleDto, persist: Boolean = true) {
+    fun schedule(requested: AlarmScheduleDto, persist: Boolean = true) {
+        val schedule = ExperimentOccurrencePolicy.forOccurrence(
+            requested, requested.triggerAtMs, ExperimentAssignmentCodec::restoreStable,
+        )
         require(schedule.triggerAtMs > System.currentTimeMillis()) {
             "Alarm trigger must be in the future."
         }
@@ -77,20 +81,22 @@ class AlarmScheduler(private val context: Context) {
             ArmedAlarmNotification(context).refresh()
             return
         }
-        val next = current.copy(
-            triggerAtMs = nextOccurrence(current, System.currentTimeMillis()),
+        val nextAt = nextOccurrence(current, System.currentTimeMillis())
+        val stable = ExperimentOccurrencePolicy.forOccurrence(current, nextAt, ExperimentAssignmentCodec::restoreStable)
+        val next = stable.copy(
+            triggerAtMs = nextAt,
             // A versioned protocol owns the next occurrence's initial sound.
             // V2 rotation remains available after snoozing that occurrence.
-            ringtoneUri = if (current.adaptiveSoundRotation && current.protocolId.isBlank()) {
-                SoundRotationSelector(context).select(current.alarmId, current.ringtoneUri)
-            } else current.ringtoneUri,
+            ringtoneUri = if (stable.adaptiveSoundRotation && stable.protocolId.isBlank()) {
+                SoundRotationSelector(context).select(stable.alarmId, stable.ringtoneUri)
+            } else stable.ringtoneUri,
             sessionId = "",
             snoozeCount = 0,
         )
         schedule(next, persist = true)
     }
 
-    fun recoverAll() {
+    fun recoverAll(preserveExperiment: Boolean = true) {
         val now = System.currentTimeMillis()
         val store = ScheduleStore(context)
         store.all().forEach { saved ->
@@ -100,7 +106,10 @@ class AlarmScheduler(private val context: Context) {
                     return@forEach
                 }
                 else nextOccurrence(saved, now)
-            schedule(saved.copy(triggerAtMs = triggerAt, sessionId = "", snoozeCount = 0), persist = true)
+            val recovered = ExperimentOccurrencePolicy.forOccurrence(
+                saved, triggerAt, ExperimentAssignmentCodec::restoreStable, forceStable = !preserveExperiment,
+            )
+            schedule(recovered.copy(sessionId = "", snoozeCount = 0), persist = true)
         }
         ArmedAlarmNotification(context).refresh()
     }

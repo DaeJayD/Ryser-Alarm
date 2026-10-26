@@ -7,19 +7,19 @@ import 'migration_generated/schema.dart';
 void main() {
   final verifier = SchemaVerifier(GeneratedHelper());
 
-  for (final oldVersion in [1, 3, 4]) {
-    test('migrates schema v$oldVersion to v5', () async {
+  for (final oldVersion in [1, 3, 4, 5]) {
+    test('migrates schema v$oldVersion to latest', () async {
       final connection = await verifier.startAt(oldVersion);
       final database = AppDatabase.forTesting(connection);
       try {
-        await verifier.migrateAndValidate(database, 5);
+        await verifier.migrateAndValidate(database, database.schemaVersion);
       } finally {
         await database.close();
       }
     });
   }
 
-  test('v4 alarm, mission and wake evidence survive v5 upgrade', () async {
+  test('v4 alarm, mission and wake evidence survive latest upgrade', () async {
     final old = await verifier.schemaAt(4);
     final raw = old.rawDatabase;
     raw.execute('''
@@ -61,7 +61,7 @@ void main() {
     );
     final database = AppDatabase.forTesting(old.newConnection());
     try {
-      await verifier.migrateAndValidate(database, 5);
+      await verifier.migrateAndValidate(database, database.schemaVersion);
       final alarm = await (database.select(
         database.alarms,
       )..where((row) => row.id.equals('legacy-alarm'))).getSingle();

@@ -199,6 +199,63 @@ class FlutterError (
 ) : RuntimeException()
 
 /** Generated class from Pigeon that represents data sent in messages. */
+data class ExperimentAssignmentDto (
+  val experimentId: String,
+  val assignmentId: String,
+  val variant: String,
+  val contextKey: String,
+  val occurrenceAtMs: Long,
+  val assignedAtMs: Long
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): ExperimentAssignmentDto {
+      val experimentId = pigeonVar_list[0] as String
+      val assignmentId = pigeonVar_list[1] as String
+      val variant = pigeonVar_list[2] as String
+      val contextKey = pigeonVar_list[3] as String
+      val occurrenceAtMs = pigeonVar_list[4] as Long
+      val assignedAtMs = pigeonVar_list[5] as Long
+      return ExperimentAssignmentDto(experimentId, assignmentId, variant, contextKey, occurrenceAtMs, assignedAtMs)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      experimentId,
+      assignmentId,
+      variant,
+      contextKey,
+      occurrenceAtMs,
+      assignedAtMs,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as ExperimentAssignmentDto
+    return AlarmRuntimeApiPigeonUtils.deepEquals(this.experimentId, other.experimentId) && AlarmRuntimeApiPigeonUtils.deepEquals(this.assignmentId, other.assignmentId) && AlarmRuntimeApiPigeonUtils.deepEquals(this.variant, other.variant) && AlarmRuntimeApiPigeonUtils.deepEquals(this.contextKey, other.contextKey) && AlarmRuntimeApiPigeonUtils.deepEquals(this.occurrenceAtMs, other.occurrenceAtMs) && AlarmRuntimeApiPigeonUtils.deepEquals(this.assignedAtMs, other.assignedAtMs)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + AlarmRuntimeApiPigeonUtils.deepHash(this.experimentId)
+    result = 31 * result + AlarmRuntimeApiPigeonUtils.deepHash(this.assignmentId)
+    result = 31 * result + AlarmRuntimeApiPigeonUtils.deepHash(this.variant)
+    result = 31 * result + AlarmRuntimeApiPigeonUtils.deepHash(this.contextKey)
+    result = 31 * result + AlarmRuntimeApiPigeonUtils.deepHash(this.occurrenceAtMs)
+    result = 31 * result + AlarmRuntimeApiPigeonUtils.deepHash(this.assignedAtMs)
+    return result
+  }
+  override fun toString(): String {
+    return "ExperimentAssignmentDto(experimentId=$experimentId, assignmentId=$assignmentId, variant=$variant, contextKey=$contextKey, occurrenceAtMs=$occurrenceAtMs, assignedAtMs=$assignedAtMs)"
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
 data class AlarmScheduleDto (
   val alarmId: String,
   val triggerAtMs: Long,
@@ -222,7 +279,9 @@ data class AlarmScheduleDto (
   val localHour: Long,
   val localMinute: Long,
   val recurrenceType: String,
-  val repeatDaysMask: Long
+  val repeatDaysMask: Long,
+  val experiment: ExperimentAssignmentDto? = null,
+  val stableProtocolSnapshotJson: String? = null
 )
  {
   companion object {
@@ -250,7 +309,9 @@ data class AlarmScheduleDto (
       val localMinute = pigeonVar_list[20] as Long
       val recurrenceType = pigeonVar_list[21] as String
       val repeatDaysMask = pigeonVar_list[22] as Long
-      return AlarmScheduleDto(alarmId, triggerAtMs, label, ringtoneUri, vibrationEnabled, snoozeEnabled, snoozeDurationMinutes, adaptiveSoundRotation, increasingVolume, protocolId, protocolVersion, protocolSnapshotJson, initialVolumePercent, maxVolumePercent, volumeEscalationStepPercent, volumeEscalationIntervalSeconds, vibrationPattern, sessionId, snoozeCount, localHour, localMinute, recurrenceType, repeatDaysMask)
+      val experiment = pigeonVar_list[23] as ExperimentAssignmentDto?
+      val stableProtocolSnapshotJson = pigeonVar_list[24] as String?
+      return AlarmScheduleDto(alarmId, triggerAtMs, label, ringtoneUri, vibrationEnabled, snoozeEnabled, snoozeDurationMinutes, adaptiveSoundRotation, increasingVolume, protocolId, protocolVersion, protocolSnapshotJson, initialVolumePercent, maxVolumePercent, volumeEscalationStepPercent, volumeEscalationIntervalSeconds, vibrationPattern, sessionId, snoozeCount, localHour, localMinute, recurrenceType, repeatDaysMask, experiment, stableProtocolSnapshotJson)
     }
   }
   fun toList(): List<Any?> {
@@ -278,6 +339,8 @@ data class AlarmScheduleDto (
       localMinute,
       recurrenceType,
       repeatDaysMask,
+      experiment,
+      stableProtocolSnapshotJson,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -288,7 +351,7 @@ data class AlarmScheduleDto (
       return true
     }
     val other = other as AlarmScheduleDto
-    return AlarmRuntimeApiPigeonUtils.deepEquals(this.alarmId, other.alarmId) && AlarmRuntimeApiPigeonUtils.deepEquals(this.triggerAtMs, other.triggerAtMs) && AlarmRuntimeApiPigeonUtils.deepEquals(this.label, other.label) && AlarmRuntimeApiPigeonUtils.deepEquals(this.ringtoneUri, other.ringtoneUri) && AlarmRuntimeApiPigeonUtils.deepEquals(this.vibrationEnabled, other.vibrationEnabled) && AlarmRuntimeApiPigeonUtils.deepEquals(this.snoozeEnabled, other.snoozeEnabled) && AlarmRuntimeApiPigeonUtils.deepEquals(this.snoozeDurationMinutes, other.snoozeDurationMinutes) && AlarmRuntimeApiPigeonUtils.deepEquals(this.adaptiveSoundRotation, other.adaptiveSoundRotation) && AlarmRuntimeApiPigeonUtils.deepEquals(this.increasingVolume, other.increasingVolume) && AlarmRuntimeApiPigeonUtils.deepEquals(this.protocolId, other.protocolId) && AlarmRuntimeApiPigeonUtils.deepEquals(this.protocolVersion, other.protocolVersion) && AlarmRuntimeApiPigeonUtils.deepEquals(this.protocolSnapshotJson, other.protocolSnapshotJson) && AlarmRuntimeApiPigeonUtils.deepEquals(this.initialVolumePercent, other.initialVolumePercent) && AlarmRuntimeApiPigeonUtils.deepEquals(this.maxVolumePercent, other.maxVolumePercent) && AlarmRuntimeApiPigeonUtils.deepEquals(this.volumeEscalationStepPercent, other.volumeEscalationStepPercent) && AlarmRuntimeApiPigeonUtils.deepEquals(this.volumeEscalationIntervalSeconds, other.volumeEscalationIntervalSeconds) && AlarmRuntimeApiPigeonUtils.deepEquals(this.vibrationPattern, other.vibrationPattern) && AlarmRuntimeApiPigeonUtils.deepEquals(this.sessionId, other.sessionId) && AlarmRuntimeApiPigeonUtils.deepEquals(this.snoozeCount, other.snoozeCount) && AlarmRuntimeApiPigeonUtils.deepEquals(this.localHour, other.localHour) && AlarmRuntimeApiPigeonUtils.deepEquals(this.localMinute, other.localMinute) && AlarmRuntimeApiPigeonUtils.deepEquals(this.recurrenceType, other.recurrenceType) && AlarmRuntimeApiPigeonUtils.deepEquals(this.repeatDaysMask, other.repeatDaysMask)
+    return AlarmRuntimeApiPigeonUtils.deepEquals(this.alarmId, other.alarmId) && AlarmRuntimeApiPigeonUtils.deepEquals(this.triggerAtMs, other.triggerAtMs) && AlarmRuntimeApiPigeonUtils.deepEquals(this.label, other.label) && AlarmRuntimeApiPigeonUtils.deepEquals(this.ringtoneUri, other.ringtoneUri) && AlarmRuntimeApiPigeonUtils.deepEquals(this.vibrationEnabled, other.vibrationEnabled) && AlarmRuntimeApiPigeonUtils.deepEquals(this.snoozeEnabled, other.snoozeEnabled) && AlarmRuntimeApiPigeonUtils.deepEquals(this.snoozeDurationMinutes, other.snoozeDurationMinutes) && AlarmRuntimeApiPigeonUtils.deepEquals(this.adaptiveSoundRotation, other.adaptiveSoundRotation) && AlarmRuntimeApiPigeonUtils.deepEquals(this.increasingVolume, other.increasingVolume) && AlarmRuntimeApiPigeonUtils.deepEquals(this.protocolId, other.protocolId) && AlarmRuntimeApiPigeonUtils.deepEquals(this.protocolVersion, other.protocolVersion) && AlarmRuntimeApiPigeonUtils.deepEquals(this.protocolSnapshotJson, other.protocolSnapshotJson) && AlarmRuntimeApiPigeonUtils.deepEquals(this.initialVolumePercent, other.initialVolumePercent) && AlarmRuntimeApiPigeonUtils.deepEquals(this.maxVolumePercent, other.maxVolumePercent) && AlarmRuntimeApiPigeonUtils.deepEquals(this.volumeEscalationStepPercent, other.volumeEscalationStepPercent) && AlarmRuntimeApiPigeonUtils.deepEquals(this.volumeEscalationIntervalSeconds, other.volumeEscalationIntervalSeconds) && AlarmRuntimeApiPigeonUtils.deepEquals(this.vibrationPattern, other.vibrationPattern) && AlarmRuntimeApiPigeonUtils.deepEquals(this.sessionId, other.sessionId) && AlarmRuntimeApiPigeonUtils.deepEquals(this.snoozeCount, other.snoozeCount) && AlarmRuntimeApiPigeonUtils.deepEquals(this.localHour, other.localHour) && AlarmRuntimeApiPigeonUtils.deepEquals(this.localMinute, other.localMinute) && AlarmRuntimeApiPigeonUtils.deepEquals(this.recurrenceType, other.recurrenceType) && AlarmRuntimeApiPigeonUtils.deepEquals(this.repeatDaysMask, other.repeatDaysMask) && AlarmRuntimeApiPigeonUtils.deepEquals(this.experiment, other.experiment) && AlarmRuntimeApiPigeonUtils.deepEquals(this.stableProtocolSnapshotJson, other.stableProtocolSnapshotJson)
   }
 
   override fun hashCode(): Int {
@@ -316,10 +379,12 @@ data class AlarmScheduleDto (
     result = 31 * result + AlarmRuntimeApiPigeonUtils.deepHash(this.localMinute)
     result = 31 * result + AlarmRuntimeApiPigeonUtils.deepHash(this.recurrenceType)
     result = 31 * result + AlarmRuntimeApiPigeonUtils.deepHash(this.repeatDaysMask)
+    result = 31 * result + AlarmRuntimeApiPigeonUtils.deepHash(this.experiment)
+    result = 31 * result + AlarmRuntimeApiPigeonUtils.deepHash(this.stableProtocolSnapshotJson)
     return result
   }
   override fun toString(): String {
-    return "AlarmScheduleDto(alarmId=$alarmId, triggerAtMs=$triggerAtMs, label=$label, ringtoneUri=$ringtoneUri, vibrationEnabled=$vibrationEnabled, snoozeEnabled=$snoozeEnabled, snoozeDurationMinutes=$snoozeDurationMinutes, adaptiveSoundRotation=$adaptiveSoundRotation, increasingVolume=$increasingVolume, protocolId=$protocolId, protocolVersion=$protocolVersion, protocolSnapshotJson=$protocolSnapshotJson, initialVolumePercent=$initialVolumePercent, maxVolumePercent=$maxVolumePercent, volumeEscalationStepPercent=$volumeEscalationStepPercent, volumeEscalationIntervalSeconds=$volumeEscalationIntervalSeconds, vibrationPattern=$vibrationPattern, sessionId=$sessionId, snoozeCount=$snoozeCount, localHour=$localHour, localMinute=$localMinute, recurrenceType=$recurrenceType, repeatDaysMask=$repeatDaysMask)"
+    return "AlarmScheduleDto(alarmId=$alarmId, triggerAtMs=$triggerAtMs, label=$label, ringtoneUri=$ringtoneUri, vibrationEnabled=$vibrationEnabled, snoozeEnabled=$snoozeEnabled, snoozeDurationMinutes=$snoozeDurationMinutes, adaptiveSoundRotation=$adaptiveSoundRotation, increasingVolume=$increasingVolume, protocolId=$protocolId, protocolVersion=$protocolVersion, protocolSnapshotJson=$protocolSnapshotJson, initialVolumePercent=$initialVolumePercent, maxVolumePercent=$maxVolumePercent, volumeEscalationStepPercent=$volumeEscalationStepPercent, volumeEscalationIntervalSeconds=$volumeEscalationIntervalSeconds, vibrationPattern=$vibrationPattern, sessionId=$sessionId, snoozeCount=$snoozeCount, localHour=$localHour, localMinute=$localMinute, recurrenceType=$recurrenceType, repeatDaysMask=$repeatDaysMask, experiment=$experiment, stableProtocolSnapshotJson=$stableProtocolSnapshotJson)"
   }
 }
 
@@ -421,7 +486,8 @@ data class RuntimeEventDto (
   val metadataJson: String,
   val protocolId: String,
   val protocolVersion: Long,
-  val protocolSnapshotJson: String
+  val protocolSnapshotJson: String,
+  val experiment: ExperimentAssignmentDto? = null
 )
  {
   companion object {
@@ -437,7 +503,8 @@ data class RuntimeEventDto (
       val protocolId = pigeonVar_list[8] as String
       val protocolVersion = pigeonVar_list[9] as Long
       val protocolSnapshotJson = pigeonVar_list[10] as String
-      return RuntimeEventDto(id, sessionId, alarmId, eventType, occurredAtMs, scheduledAtMs, ringtoneUri, metadataJson, protocolId, protocolVersion, protocolSnapshotJson)
+      val experiment = pigeonVar_list[11] as ExperimentAssignmentDto?
+      return RuntimeEventDto(id, sessionId, alarmId, eventType, occurredAtMs, scheduledAtMs, ringtoneUri, metadataJson, protocolId, protocolVersion, protocolSnapshotJson, experiment)
     }
   }
   fun toList(): List<Any?> {
@@ -453,6 +520,7 @@ data class RuntimeEventDto (
       protocolId,
       protocolVersion,
       protocolSnapshotJson,
+      experiment,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -463,7 +531,7 @@ data class RuntimeEventDto (
       return true
     }
     val other = other as RuntimeEventDto
-    return AlarmRuntimeApiPigeonUtils.deepEquals(this.id, other.id) && AlarmRuntimeApiPigeonUtils.deepEquals(this.sessionId, other.sessionId) && AlarmRuntimeApiPigeonUtils.deepEquals(this.alarmId, other.alarmId) && AlarmRuntimeApiPigeonUtils.deepEquals(this.eventType, other.eventType) && AlarmRuntimeApiPigeonUtils.deepEquals(this.occurredAtMs, other.occurredAtMs) && AlarmRuntimeApiPigeonUtils.deepEquals(this.scheduledAtMs, other.scheduledAtMs) && AlarmRuntimeApiPigeonUtils.deepEquals(this.ringtoneUri, other.ringtoneUri) && AlarmRuntimeApiPigeonUtils.deepEquals(this.metadataJson, other.metadataJson) && AlarmRuntimeApiPigeonUtils.deepEquals(this.protocolId, other.protocolId) && AlarmRuntimeApiPigeonUtils.deepEquals(this.protocolVersion, other.protocolVersion) && AlarmRuntimeApiPigeonUtils.deepEquals(this.protocolSnapshotJson, other.protocolSnapshotJson)
+    return AlarmRuntimeApiPigeonUtils.deepEquals(this.id, other.id) && AlarmRuntimeApiPigeonUtils.deepEquals(this.sessionId, other.sessionId) && AlarmRuntimeApiPigeonUtils.deepEquals(this.alarmId, other.alarmId) && AlarmRuntimeApiPigeonUtils.deepEquals(this.eventType, other.eventType) && AlarmRuntimeApiPigeonUtils.deepEquals(this.occurredAtMs, other.occurredAtMs) && AlarmRuntimeApiPigeonUtils.deepEquals(this.scheduledAtMs, other.scheduledAtMs) && AlarmRuntimeApiPigeonUtils.deepEquals(this.ringtoneUri, other.ringtoneUri) && AlarmRuntimeApiPigeonUtils.deepEquals(this.metadataJson, other.metadataJson) && AlarmRuntimeApiPigeonUtils.deepEquals(this.protocolId, other.protocolId) && AlarmRuntimeApiPigeonUtils.deepEquals(this.protocolVersion, other.protocolVersion) && AlarmRuntimeApiPigeonUtils.deepEquals(this.protocolSnapshotJson, other.protocolSnapshotJson) && AlarmRuntimeApiPigeonUtils.deepEquals(this.experiment, other.experiment)
   }
 
   override fun hashCode(): Int {
@@ -479,10 +547,11 @@ data class RuntimeEventDto (
     result = 31 * result + AlarmRuntimeApiPigeonUtils.deepHash(this.protocolId)
     result = 31 * result + AlarmRuntimeApiPigeonUtils.deepHash(this.protocolVersion)
     result = 31 * result + AlarmRuntimeApiPigeonUtils.deepHash(this.protocolSnapshotJson)
+    result = 31 * result + AlarmRuntimeApiPigeonUtils.deepHash(this.experiment)
     return result
   }
   override fun toString(): String {
-    return "RuntimeEventDto(id=$id, sessionId=$sessionId, alarmId=$alarmId, eventType=$eventType, occurredAtMs=$occurredAtMs, scheduledAtMs=$scheduledAtMs, ringtoneUri=$ringtoneUri, metadataJson=$metadataJson, protocolId=$protocolId, protocolVersion=$protocolVersion, protocolSnapshotJson=$protocolSnapshotJson)"
+    return "RuntimeEventDto(id=$id, sessionId=$sessionId, alarmId=$alarmId, eventType=$eventType, occurredAtMs=$occurredAtMs, scheduledAtMs=$scheduledAtMs, ringtoneUri=$ringtoneUri, metadataJson=$metadataJson, protocolId=$protocolId, protocolVersion=$protocolVersion, protocolSnapshotJson=$protocolSnapshotJson, experiment=$experiment)"
   }
 }
 
@@ -547,25 +616,30 @@ private open class AlarmRuntimeApiPigeonCodec : StandardMessageCodec() {
     return when (type) {
       129.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          AlarmScheduleDto.fromList(it)
+          ExperimentAssignmentDto.fromList(it)
         }
       }
       130.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          AlarmApplyResult.fromList(it)
+          AlarmScheduleDto.fromList(it)
         }
       }
       131.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          RingtoneDto.fromList(it)
+          AlarmApplyResult.fromList(it)
         }
       }
       132.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          RuntimeEventDto.fromList(it)
+          RingtoneDto.fromList(it)
         }
       }
       133.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          RuntimeEventDto.fromList(it)
+        }
+      }
+      134.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
           AlarmHealthDto.fromList(it)
         }
@@ -575,24 +649,28 @@ private open class AlarmRuntimeApiPigeonCodec : StandardMessageCodec() {
   }
   override fun writeValue(stream: ByteArrayOutputStream, value: Any?)   {
     when (value) {
-      is AlarmScheduleDto -> {
+      is ExperimentAssignmentDto -> {
         stream.write(129)
         writeValue(stream, value.toList())
       }
-      is AlarmApplyResult -> {
+      is AlarmScheduleDto -> {
         stream.write(130)
         writeValue(stream, value.toList())
       }
-      is RingtoneDto -> {
+      is AlarmApplyResult -> {
         stream.write(131)
         writeValue(stream, value.toList())
       }
-      is RuntimeEventDto -> {
+      is RingtoneDto -> {
         stream.write(132)
         writeValue(stream, value.toList())
       }
-      is AlarmHealthDto -> {
+      is RuntimeEventDto -> {
         stream.write(133)
+        writeValue(stream, value.toList())
+      }
+      is AlarmHealthDto -> {
+        stream.write(134)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)

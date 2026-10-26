@@ -6,8 +6,8 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.ryser.ryser.bridge.AlarmScheduleDto
 
-class ScheduleStore(context: Context) :
-    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class ScheduleStore(context: Context, databaseName: String = DATABASE_NAME) :
+    SQLiteOpenHelper(context, databaseName, null, DATABASE_VERSION) {
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("""CREATE TABLE schedules (
@@ -32,6 +32,8 @@ class ScheduleStore(context: Context) :
             local_minute INTEGER NOT NULL,
             recurrence_type TEXT NOT NULL,
             repeat_days_mask INTEGER NOT NULL
+            ,experiment_json TEXT NOT NULL DEFAULT ''
+            ,stable_protocol_snapshot_json TEXT
         )""".trimIndent())
         createSoundUsageTable(db)
     }
@@ -48,6 +50,10 @@ class ScheduleStore(context: Context) :
             db.execSQL("ALTER TABLE schedules ADD COLUMN volume_escalation_step_percent INTEGER NOT NULL DEFAULT 10")
             db.execSQL("ALTER TABLE schedules ADD COLUMN volume_escalation_interval_seconds INTEGER NOT NULL DEFAULT 5")
             db.execSQL("ALTER TABLE schedules ADD COLUMN vibration_pattern TEXT NOT NULL DEFAULT 'standard'")
+        }
+        if (oldVersion < 5) {
+            db.execSQL("ALTER TABLE schedules ADD COLUMN experiment_json TEXT NOT NULL DEFAULT ''")
+            db.execSQL("ALTER TABLE schedules ADD COLUMN stable_protocol_snapshot_json TEXT")
         }
     }
 
@@ -127,6 +133,8 @@ class ScheduleStore(context: Context) :
         put("local_minute", schedule.localMinute)
         put("recurrence_type", schedule.recurrenceType)
         put("repeat_days_mask", schedule.repeatDaysMask)
+        put("experiment_json", ExperimentAssignmentCodec.encode(schedule.experiment))
+        put("stable_protocol_snapshot_json", schedule.stableProtocolSnapshotJson)
     }
 
     private fun fromCursor(cursor: android.database.Cursor) = AlarmScheduleDto(
@@ -153,10 +161,12 @@ class ScheduleStore(context: Context) :
         localMinute = cursor.getLong(cursor.getColumnIndexOrThrow("local_minute")),
         recurrenceType = cursor.getString(cursor.getColumnIndexOrThrow("recurrence_type")),
         repeatDaysMask = cursor.getLong(cursor.getColumnIndexOrThrow("repeat_days_mask")),
+        experiment = ExperimentAssignmentCodec.decode(cursor.getString(cursor.getColumnIndexOrThrow("experiment_json"))),
+        stableProtocolSnapshotJson = cursor.getString(cursor.getColumnIndexOrThrow("stable_protocol_snapshot_json")),
     )
 
     companion object {
         private const val DATABASE_NAME = "alarm_schedules.db"
-        private const val DATABASE_VERSION = 4
+        private const val DATABASE_VERSION = 5
     }
 }

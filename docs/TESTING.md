@@ -30,6 +30,12 @@ Wake Check events. See [3.0.4 validation notes](V3_0_4_FIXES.md).
 
 ## Device acceptance
 
+V4 development adds [experiment execution checks](V4A_NATIVE_INTEGRATION.md).
+The isolated storage instrumentation class is
+`com.ryser.ryser.NativeExperimentStorageTest`; it uses fixture database names.
+Run it separately from UI screenshot tests when diagnosing emulator rendering.
+Its success does not establish audible alarm or physical-device acceptance.
+
 Record the model, Android version, app version/artifact hash, permission and
 battery settings, expected behavior and actual evidence for every case. Use
 another reliable alarm during testing. Keep movement/jump tests safe and optional.

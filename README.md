@@ -31,6 +31,12 @@ See [Testing](docs/TESTING.md), the [3.0.4 changes](docs/V3_0_4_FIXES.md), and
 See the [version timeline](docs/VERSION_TIMELINE.md) for V1–V3 changes, reported
 bugs, fixes, and the proposed V4 direction.
 
+V4 development starts with the [implementation plan](docs/V4_IMPLEMENTATION_PLAN.md).
+The experiment foundation uses additive schema 6. [Native preparation and
+reconciliation](docs/V4A_NATIVE_INTEGRATION.md) support one sound-family test;
+comparison, visible learning controls and optional personalization are pending.
+The distributed V3.0.4 APK remains the existing candidate.
+
 ## Toolchain
 
 - Flutter 3.47.4

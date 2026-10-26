@@ -9,6 +9,23 @@ import 'package:pigeon/pigeon.dart';
     dartPackageName: 'ryser',
   ),
 )
+class ExperimentAssignmentDto {
+  ExperimentAssignmentDto({
+    required this.experimentId,
+    required this.assignmentId,
+    required this.variant,
+    required this.contextKey,
+    required this.occurrenceAtMs,
+    required this.assignedAtMs,
+  });
+  String experimentId;
+  String assignmentId;
+  String variant;
+  String contextKey;
+  int occurrenceAtMs;
+  int assignedAtMs;
+}
+
 class AlarmScheduleDto {
   AlarmScheduleDto({
     required this.alarmId,
@@ -34,6 +51,8 @@ class AlarmScheduleDto {
     required this.localMinute,
     required this.recurrenceType,
     required this.repeatDaysMask,
+    this.experiment,
+    this.stableProtocolSnapshotJson,
   });
 
   String alarmId;
@@ -59,6 +78,8 @@ class AlarmScheduleDto {
   int localMinute;
   String recurrenceType;
   int repeatDaysMask;
+  ExperimentAssignmentDto? experiment;
+  String? stableProtocolSnapshotJson;
 }
 
 class AlarmApplyResult {
@@ -89,6 +110,7 @@ class RuntimeEventDto {
     required this.protocolId,
     required this.protocolVersion,
     required this.protocolSnapshotJson,
+    this.experiment,
   });
 
   String id;
@@ -102,6 +124,7 @@ class RuntimeEventDto {
   String protocolId;
   int protocolVersion;
   String protocolSnapshotJson;
+  ExperimentAssignmentDto? experiment;
 }
 
 class AlarmHealthDto {

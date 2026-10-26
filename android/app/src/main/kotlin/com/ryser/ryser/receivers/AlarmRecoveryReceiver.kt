@@ -12,6 +12,7 @@ class AlarmRecoveryReceiver : BroadcastReceiver() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
             !context.getSystemService(android.app.AlarmManager::class.java).canScheduleExactAlarms()
         ) return
-        AlarmScheduler(context).recoverAll()
+        AlarmScheduler(context).recoverAll(preserveExperiment =
+            intent.action != Intent.ACTION_TIME_CHANGED && intent.action != Intent.ACTION_TIMEZONE_CHANGED)
     }
 }
