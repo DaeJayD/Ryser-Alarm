@@ -36,6 +36,12 @@ The isolated storage instrumentation class is
 Run it separately from UI screenshot tests when diagnosing emulator rendering.
 Its success does not establish audible alarm or physical-device acceptance.
 
+The [4B.1 comparison foundation](V4B_COMPARISON.md) is covered by unit/database
+tests in `test/features/wake_experiments`. Run that folder with `flutter test
+--no-pub test/features/wake_experiments` for a focused check. These are read-only
+comparison tests, not proof that safety-stop recommendations are applied or a
+candidate is promoted. Those integrations remain pending.
+
 Record the model, Android version, app version/artifact hash, permission and
 battery settings, expected behavior and actual evidence for every case. Use
 another reliable alarm during testing. Keep movement/jump tests safe and optional.

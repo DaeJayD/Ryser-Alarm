@@ -100,3 +100,11 @@ The complete field gate still requires actual control/candidate alarm execution,
 reboot during a trial, audible locked-screen playback, retry enforcement and
 representative-phone acceptance. Publishing source does not close that gate or
 establish that the remaining V4 phases are complete.
+
+On 30 October 2026, an isolated retry disabled GL DMA/direct-memory and Vulkan
+features and used software rendering. Android reported boot complete, then
+SurfaceFlinger again crashed in `GoldfishMapper::readFromHost`; package service
+disappeared during installation. Instrumentation never started. The owned
+emulator was stopped. This is still an environment blocker, not an app-test
+pass or failure. Offline work continued with the read-only
+[4B.1 comparison foundation](V4B_COMPARISON.md), without enabling experiments.

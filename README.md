@@ -23,7 +23,7 @@ Google Play release. Physical-device acceptance remains required, especially for
 locked-screen alarms, OEM battery restrictions, motion detection, and repeated
 adaptive cycles. Do not rely on a test build as your only alarm.
 
-The latest local checks passed 117 Flutter tests and 3 Kotlin helper tests.
+The V3.0.4 baseline passed 117 Flutter tests and 3 Kotlin helper tests.
 These do not replace device testing.
 See [Testing](docs/TESTING.md), the [3.0.4 changes](docs/V3_0_4_FIXES.md), and
 [Release status](docs/RELEASE_STATUS.md).
@@ -33,8 +33,10 @@ bugs, fixes, and the proposed V4 direction.
 
 V4 development starts with the [implementation plan](docs/V4_IMPLEMENTATION_PLAN.md).
 The experiment foundation uses additive schema 6. [Native preparation and
-reconciliation](docs/V4A_NATIVE_INTEGRATION.md) support one sound-family test;
-comparison, visible learning controls and optional personalization are pending.
+reconciliation](docs/V4A_NATIVE_INTEGRATION.md) support one sound-family test.
+The [read-only comparison foundation](docs/V4B_COMPARISON.md) reports metrics and
+safety recommendations; applying results, visible controls and optional
+personalization remain pending.
 The distributed V3.0.4 APK remains the existing candidate.
 
 ## Toolchain

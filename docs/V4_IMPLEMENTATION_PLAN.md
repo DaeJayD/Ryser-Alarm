@@ -1,7 +1,8 @@
 # V4 implementation plan
 
-Status: 4A.1 storage and 4A.2 native execution integration implemented locally;
-field acceptance remains open. See [native integration](V4A_NATIVE_INTEGRATION.md).
+Status: 4A.1 storage, 4A.2 native execution integration and 4B.1 read-only
+comparison implemented locally; field acceptance remains open. See
+[native integration](V4A_NATIVE_INTEGRATION.md) and [comparison](V4B_COMPARISON.md).
 Baseline: V3.0.4 (7), commit 4c0d58a. This document supersedes the earlier V4
 proposal in the version timeline. Product scope follows the Phase 4 requirements
 provided on 24 October 2026. Phase names below follow that document's A–J loops.
@@ -304,6 +305,15 @@ failure cases, tests and definition of done. ML logic for 4A–E is “not activ
 - Full 4A field acceptance remains open. Record actual native execution and
   device results before claiming the gate closed or activating broader learning.
 - No ML training, candidate promotion, public release or device pass is claimed.
+- 4B.1 adds a pure versioned evaluator and read-only evidence adapter. Sample
+  counts, missing values, meaningful-difference thresholds and advisory safety
+  stops are explicit. Nothing automatically ends a test, rearms an alarm or
+  promotes a choice. Transactional lifecycle/result audit and enforcement remain
+  pending; this does not close 4B or the native gate.
+- 4B.1 local verification on 30 October: 186 Flutter tests pass, including 36 new
+  comparison tests; static analysis is clean. No new APK or physical-device pass.
+- A 30 October API 36.1 retry again lost package service after the same graphics
+  crash, before instrumentation. The emulator was stopped; no native test passed.
 - 4A.1 verification: 135 Flutter tests passed; no native runtime changes in that slice.
 - 4A.2 verification: all 150 Flutter tests and 8 Kotlin helper tests pass, static
   analysis is clean, and debug app/instrumentation APKs build. Native storage
