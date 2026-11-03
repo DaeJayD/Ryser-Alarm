@@ -29,6 +29,9 @@ class ExperimentExecutionCoordinator {
       }
       final current = await _protocols.ensureDefault(stable.alarmId);
       fallback = _withProtocol(stable, current);
+      if (await _experiments.hasPendingRestoration(stable.alarmId)) {
+        return fallback;
+      }
       final settings = await _settings.load(stable.alarmId);
       if (!settings.enabled || settings.critical) {
         await _experiments.invalidateForAlarm(

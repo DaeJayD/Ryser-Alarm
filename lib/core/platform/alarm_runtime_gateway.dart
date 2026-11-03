@@ -39,6 +39,7 @@ class AlarmRuntimeGateway {
     required String recurrenceType,
     required int repeatDaysMask,
     WakeProtocol? protocol,
+    bool allowExperiment = true,
   }) async {
     final stable = AlarmScheduleDto(
       alarmId: alarmId,
@@ -72,7 +73,9 @@ class AlarmRuntimeGateway {
     );
     var selected = stable;
     try {
-      selected = await prepareSchedule?.call(stable) ?? stable;
+      if (allowExperiment) {
+        selected = await prepareSchedule?.call(stable) ?? stable;
+      }
     } catch (_) {
       // Optional learning/storage faults must not block native scheduling.
     }

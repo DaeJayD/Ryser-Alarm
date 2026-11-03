@@ -546,6 +546,15 @@ void main() {
     native.events = [event(firstRun, 'resume-trigger', 'ALARM_TRIGGERED', 1)];
     await importEvents();
     now = first.add(const Duration(minutes: 1));
+    expect(
+      await service.rearmNextOccurrences(),
+      0,
+      reason: 'Do not replace schedules belonging to an active wake.',
+    );
+    native.events = [
+      event(firstRun, 'resume-dismiss', 'ALARM_DISMISSED', 20000),
+    ];
+    await importEvents();
     expect(await service.rearmNextOccurrences(), 1);
     expect(
       native.schedules.last.triggerAtMs,

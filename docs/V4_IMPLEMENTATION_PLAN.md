@@ -1,7 +1,8 @@
 # V4 implementation plan
 
-Status: 4A.1 storage, 4A.2 native execution integration and 4B.1 read-only
-comparison implemented locally; field acceptance remains open. See
+Status: 4A.1 storage, 4A.2 native integration, 4B.1 read-only comparison and 4B.2
+app-resume decision/recovery orchestration implemented locally; field acceptance
+remains open. See [lifecycle recovery](V4B_LIFECYCLE.md),
 [native integration](V4A_NATIVE_INTEGRATION.md) and [comparison](V4B_COMPARISON.md).
 Baseline: V3.0.4 (7), commit 4c0d58a. This document supersedes the earlier V4
 proposal in the version timeline. Product scope follows the Phase 4 requirements
@@ -291,6 +292,12 @@ failure cases, tests and definition of done. ML logic for 4A–E is “not activ
   close. Physical acceptance is still required; no V4 release claim or APK yet.
 
 ## 13. Progress
+
+- 4B.2 adds atomic comparison/lifecycle audit and durable stable restoration.
+  Failed recovery remains retryable and blocks further candidate reservations.
+  Active wakes are deferred, disabled/deleted alarms are not enabled, and user
+  volume caps are rechecked. No candidate promotion or native/device pass.
+  The 4B.1 notes below describe the earlier read-only slice, not current wiring.
 
 - Full A–J plan and initial architecture/design assessment recorded.
 - 4A.1 implemented: versioned variant snapshots, one-variable checks, lifecycle,

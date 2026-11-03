@@ -8,6 +8,7 @@ import 'package:ryser/features/adaptive_wake/domain/wake_protocol_codec.dart';
 import 'package:ryser/features/wake_experiments/domain/experiment_safety_policy.dart';
 import 'package:ryser/features/wake_experiments/domain/wake_experiment.dart';
 import 'package:uuid/uuid.dart';
+import 'package:ryser/features/wake_experiments/data/experiment_restoration_ledger.dart';
 import 'package:ryser/core/platform/generated/alarm_runtime_api.g.dart'
     show RuntimeEventDto;
 
@@ -26,6 +27,9 @@ class WakeExperimentRepository {
   final WakeProtocolRepository _protocols;
   final DateTime Function() _clock;
   final String Function() _idFactory;
+
+  Future<bool> hasPendingRestoration(String alarmId) =>
+      ExperimentRestorationLedger(_database).blocks(alarmId);
 
   Future<WakeExperiment> create({
     required String name,
@@ -489,6 +493,11 @@ class WakeExperimentRepository {
   int get _now => _clock().millisecondsSinceEpoch;
 
   Future<void> _validateCurrentBounds(WakeExperiment experiment) async {
+    if (await hasPendingRestoration(experiment.alarmId)) {
+      throw StateError(
+        'The usual alarm must be restored before another trial.',
+      );
+    }
     final alarm = await (_database.select(
       _database.alarms,
     )..where((r) => r.id.equals(experiment.alarmId))).getSingleOrNull();

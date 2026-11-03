@@ -17,6 +17,7 @@ import 'package:ryser/features/sounds/data/sound_performance_repository.dart';
 import 'package:ryser/features/sounds/domain/bundled_sound_catalog.dart';
 import 'package:uuid/uuid.dart';
 import 'package:ryser/features/wake_experiments/data/experiment_evidence_filter.dart';
+import 'package:ryser/features/wake_experiments/data/experiment_restoration_ledger.dart';
 
 class AdaptiveWakeCoordinator {
   AdaptiveWakeCoordinator(
@@ -52,6 +53,9 @@ class AdaptiveWakeCoordinator {
   }
 
   Future<bool> _process(WakeSession session) async {
+    if (await ExperimentRestorationLedger(_database).blocks(session.alarmId)) {
+      return false;
+    }
     final duplicate = await (_database.select(
       _database.protocolEvaluations,
     )..where((row) => row.wakeSessionId.equals(session.id))).getSingleOrNull();

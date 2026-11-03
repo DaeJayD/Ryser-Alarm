@@ -171,5 +171,6 @@ class _RejectingGateway extends _AvailableGateway {
     required String recurrenceType,
     required int repeatDaysMask,
     WakeProtocol? protocol,
+    bool allowExperiment = true,
   }) async => AlarmApplyResult(scheduled: false, message: 'Permission denied');
 }

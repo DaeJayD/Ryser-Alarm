@@ -51,23 +51,46 @@ class _RyserAppState extends ConsumerState<RyserApp>
     if (_reconciling) return;
     _reconciling = true;
     try {
+      var mayPrepare = true;
       try {
         await ref.read(runtimeEventReconcilerProvider).reconcile();
       } catch (_) {
+        mayPrepare = false;
         // Continue to the wake mission even if an outbox item is malformed.
       }
       try {
         await ref.read(experimentSessionReconcilerProvider).processPending();
       } catch (_) {
+        mayPrepare = false;
         // A learning evidence fault cannot block the current wake interaction.
       }
       try {
-        await ref.read(adaptiveWakeCoordinatorProvider).processPending();
+        if (mayPrepare) {
+          await ref.read(experimentLifecycleServiceProvider).processPending();
+        }
+      } catch (_) {
+        mayPrepare = false;
+      }
+      try {
+        if (mayPrepare) {
+          await ref.read(experimentRestorationServiceProvider).retryPending();
+        }
+      } catch (_) {
+        mayPrepare = false;
+      }
+      try {
+        if (mayPrepare) {
+          await ref.read(adaptiveWakeCoordinatorProvider).processPending();
+        }
       } catch (_) {
         // Adaptation is optional; a failed evaluation must not block dismissal.
       }
       try {
-        await ref.read(experimentSchedulingServiceProvider).rearmNextOccurrences();
+        if (mayPrepare) {
+          await ref
+              .read(experimentSchedulingServiceProvider)
+              .rearmNextOccurrences();
+        }
       } catch (_) {
         // Native stable recurrence remains armed if learning preparation fails.
       }

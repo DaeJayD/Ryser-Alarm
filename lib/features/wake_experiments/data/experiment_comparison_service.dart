@@ -9,7 +9,7 @@ import 'package:ryser/features/wake_experiments/domain/experiment_safety_policy.
 import 'package:ryser/features/wake_experiments/domain/wake_experiment.dart';
 
 /// A consistent read of experiment evidence. No status changes or scheduling.
-/// Safety recommendations remain advisory until the lifecycle controller lands.
+/// The separate lifecycle service applies decisions inside its own transaction.
 class ExperimentComparisonService {
   ExperimentComparisonService(
     this._database,

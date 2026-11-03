@@ -35,9 +35,12 @@ V4 development starts with the [implementation plan](docs/V4_IMPLEMENTATION_PLAN
 The experiment foundation uses additive schema 6. [Native preparation and
 reconciliation](docs/V4A_NATIVE_INTEGRATION.md) support one sound-family test.
 The [read-only comparison foundation](docs/V4B_COMPARISON.md) reports metrics and
-safety recommendations; applying results, visible controls and optional
-personalization remain pending.
+safety recommendations. [Saved decisions and recovery](docs/V4B_LIFECYCLE.md)
+apply safety stops on app resumption; candidate promotion, visible controls and
+optional personalization remain pending.
 The distributed V3.0.4 APK remains the existing candidate.
+Current development source is **3.0.5-dev.1 (8)** with V4B.2 recovery changes;
+it is not a completed V4 or Play release.
 
 ## Toolchain
 

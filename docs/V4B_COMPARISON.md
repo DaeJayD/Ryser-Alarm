@@ -1,7 +1,8 @@
 # V4B.1: read-only wake comparison
 
-Status: comparison foundation implemented; lifecycle integration, result audit,
-automatic safety-stop execution, promotion and visible controls remain pending.
+Status: comparison foundation implemented. The separate
+[lifecycle and recovery service](V4B_LIFECYCLE.md) now applies decisions on app
+resumption; promotion and visible controls remain pending.
 Experiments still default OFF. This is not a new release or device acceptance.
 
 ## What it does
@@ -81,7 +82,7 @@ and lost Android's package service before instrumentation could start. Disabling
 the GL DMA/Vulkan paths did not resolve it. The owned emulator was stopped; no
 application-test assertion ran and no phone was changed.
 
-Next: transactional result/lifecycle audit, actual enforcement of safety-stop
-recommendations with stable native rearming, then opt-in controls and the
+The later lifecycle slice adds transactional decisions and stable native
+rearming on app resumption. Next: opt-in controls, broader acceptance and the
 remaining non-ML flow. Keep representative-device, audible locked-screen,
 reboot/recovery and control/candidate execution acceptance open.

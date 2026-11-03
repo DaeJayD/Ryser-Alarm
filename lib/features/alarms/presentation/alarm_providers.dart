@@ -21,6 +21,32 @@ import 'package:ryser/features/wake_experiments/data/experiment_execution_coordi
 import 'package:ryser/features/wake_experiments/data/experiment_execution_settings.dart';
 import 'package:ryser/features/wake_experiments/data/experiment_session_reconciler.dart';
 import 'package:ryser/features/wake_experiments/data/experiment_scheduling_service.dart';
+import 'package:ryser/features/wake_experiments/data/experiment_comparison_service.dart';
+import 'package:ryser/features/wake_experiments/data/experiment_lifecycle_service.dart';
+import 'package:ryser/features/wake_experiments/data/experiment_restoration_ledger.dart';
+import 'package:ryser/features/wake_experiments/data/experiment_restoration_service.dart';
+
+final experimentRestorationLedgerProvider =
+    Provider<ExperimentRestorationLedger>(
+      (ref) => ExperimentRestorationLedger(ref.watch(appDatabaseProvider)),
+    );
+final experimentLifecycleServiceProvider = Provider<ExperimentLifecycleService>(
+  (ref) => ExperimentLifecycleService(
+    ref.watch(appDatabaseProvider),
+    ExperimentComparisonService(
+      ref.watch(appDatabaseProvider),
+      ref.watch(wakeExperimentRepositoryProvider),
+    ),
+    ref.watch(experimentRestorationLedgerProvider),
+  ),
+);
+final experimentRestorationServiceProvider =
+    Provider<ExperimentRestorationService>(
+      (ref) => ExperimentRestorationService(
+        ref.watch(experimentRestorationLedgerProvider),
+        ref.watch(experimentSchedulingServiceProvider),
+      ),
+    );
 
 final appDatabaseProvider = Provider<AppDatabase>((ref) {
   final database = AppDatabase();
